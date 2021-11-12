@@ -1,0 +1,27 @@
+.wd-edit-profile-header {
+    color: black;
+}
+
+.wd-save-profile {
+    background-color: white;
+    border:1px solid rgb(126, 126, 126);
+    color:black;
+}
+
+.wd-save-profile:hover {
+    background-color: grey;
+    border:1px solid rgb(126, 126, 126);
+}
+
+.wd-banner-edit {
+    width:99.5%;
+}
+
+.wd-ProfilePic-edit {
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:2px solid black;
+    margin-left:70px;
+    margin-top: -60px;
+}

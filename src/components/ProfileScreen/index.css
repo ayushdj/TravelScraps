@@ -1,0 +1,99 @@
+/*positioning*/
+.wd-zindex-bring-to-front {
+    z-index: 10;
+}
+
+.border.wd-white-ex {
+    border: 4px solid white !important;
+}
+
+
+/*XS*/
+@media (min-width: 0px) and (max-width: 575px) {
+    .pos-profile {
+        position: absolute;
+        top: 50px;
+        left: 30px;
+    }
+
+    /*image size*/
+    .rounded-circle.wd-profile {
+        width:120px;
+        height:120px;
+    }
+}
+
+/*S */
+@media (min-width: 576px) and (max-width: 767px) {
+    .pos-profile {
+        position: absolute;
+        top: 50px;
+        left: 40px;
+    }
+
+    /*image size*/
+    .rounded-circle.wd-profile {
+        width: 120px;
+        height:120px;
+    }
+}
+
+/*M*/
+@media (min-width: 768px) and (max-width: 991px) {
+    .pos-profile {
+        position: absolute;
+        top: 90px;
+        left: 50px;
+    }
+
+    /*image size*/
+    .rounded-circle.wd-profile {
+        width:150px;
+        height:150px;
+    }
+}
+
+/*L*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    .pos-profile {
+        position: absolute;
+        top: 150px;
+        left: 40px;
+    }
+
+    /*image size*/
+    .rounded-circle.wd-profile {
+        width:200px;
+        height:200px;
+    }
+}
+
+/*XL*/
+@media (min-width: 1200px) and (max-width: 1399px) {
+
+    .pos-profile {
+        position: absolute;
+        top: 150px;
+        left: 45px;
+    }
+
+    /*image size*/
+    .rounded-circle.wd-profile {
+        width:230px;
+        height:230px;
+    }
+}
+@media (min-width: 1400px) {
+
+    .pos-profile {
+        position: absolute;
+        top: 200px;
+        left: 30px;
+    }
+
+    /*image size*/
+    .rounded-circle.wd-profile {
+        width:230px;
+        height:230px;
+    }
+}
