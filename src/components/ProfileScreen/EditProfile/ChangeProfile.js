@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import './index.css'
 import {Col, Form} from "react-bootstrap";
-import {validateEmail, validateUsername, validateBio} from "../../utils/validations";
+import {validateEmail, validateUsername, validateBio} from "../../../utils/validations";
 
 const ChangeProfile = ({profileData}) => {
 

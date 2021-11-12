@@ -1,5 +1,5 @@
 import React from "react";
-import NavigationSidebar from "../NavigationSidebar/NavigationSidebar";
+import NavigationSidebar from "../../NavigationSidebar/NavigationSidebar";
 import {useSelector} from "react-redux";
 import ChangeProfile from "./ChangeProfile";
 

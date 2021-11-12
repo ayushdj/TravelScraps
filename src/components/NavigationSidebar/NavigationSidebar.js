@@ -11,7 +11,7 @@ const NavigationSidebar = (
                 <ul className="list-group">
                     <Link to="/profile">
                         <li className={`list-group-item
-                              ${active === 'Profile' ? 'active' :""}`}>
+                              ${active === 'profile' ? 'active' :""}`}>
                             <div className="row">
                                 <div className="col-2">
                                     <i className=" fas fa-map"/>
