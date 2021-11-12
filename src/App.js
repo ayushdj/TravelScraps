@@ -4,12 +4,34 @@ import './vendors/bootstrap/bootstrap.min.css';
 import './vendors/fontawesome/css/all.min.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
+import {combineReducers, createStore} from "redux";
+import profile from './reducers/profile'
+import {Provider} from "react-redux";
+import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
+import EditProfile from "./components/ProfileScreen/EditProfile";
+const reducer = combineReducers({profile: profile});
+const store = createStore(reducer);
 
 function App() {
+
   return (
-        <div className="container">
-            <HomeScreen/>
-        </div>
+      <>
+          <Provider store={store}>
+              <BrowserRouter>
+                  <div className="container">
+                      <Route path={["/", "/home"]} exact={true}>
+                          <HomeScreen/>
+                      </Route>
+                      <Route path={["/profile"]} exact={true}>
+                          <ProfileScreen />
+                      </Route>
+                      <Route path={["/edit-profile"]} exact={true}>
+                          <EditProfile/>
+                      </Route>
+                  </div>
+              </BrowserRouter>
+          </Provider>
+      </>
 
   );
 

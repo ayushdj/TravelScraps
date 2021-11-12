@@ -9,28 +9,32 @@ const NavigationSidebar = (
         <div>
             <div className="nav-bar">
                 <ul className="list-group">
-                    <li className={`list-group-item
-                          ${active === 'Profile' ? 'active' :""}`}>
-                        <div className="row">
-                            <div className="col-2">
-                                <i className=" fas fa-map"/>
-                            </div>
-                            <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                <label>Profile</label>
-                            </div>
-                        </div>
-                    </li>
-                    <li className={`list-group-item
-                          ${active === 'home' ? 'active' :""}`}>
+                    <Link to="/profile">
+                        <li className={`list-group-item
+                              ${active === 'profile' ? 'active' :""}`}>
                             <div className="row">
                                 <div className="col-2">
-                                    <i className="fas fa-home"/>
+                                    <i className=" fas fa-map"/>
                                 </div>
                                 <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Home</label>
+                                    <a style={{"textDecoration": "none"}}>Profile</a>
                                 </div>
                             </div>
-                    </li>
+                        </li>
+                    </Link>
+                    <Link to="/home">
+                        <li className={`list-group-item
+                              ${active === 'home' ? 'active' :""}`}>
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-home"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a style={{"textDecoration": "none"}}>Home</a>
+                                    </div>
+                                </div>
+                        </li>
+                    </Link>
 
                     <li className={`list-group-item
                           ${active === 'calendar' ? 'active' :""}`}>
