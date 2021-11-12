@@ -8,10 +8,12 @@ import {combineReducers, createStore} from "redux";
 import profile from './reducers/profile'
 import {Provider} from "react-redux";
 import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
+import EditProfile from "./components/ProfileScreen/EditProfile";
 const reducer = combineReducers({profile: profile});
 const store = createStore(reducer);
 
 function App() {
+
   return (
       <>
           <Provider store={store}>
@@ -21,7 +23,10 @@ function App() {
                           <HomeScreen/>
                       </Route>
                       <Route path={["/profile"]} exact={true}>
-                          <ProfileScreen/>
+                          <ProfileScreen />
+                      </Route>
+                      <Route path={["/edit-profile"]} exact={true}>
+                          <EditProfile/>
                       </Route>
                   </div>
               </BrowserRouter>

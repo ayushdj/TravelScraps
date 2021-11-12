@@ -1,8 +1,8 @@
-
 import React from "react";
 import {useDispatch} from "react-redux";
-import "./index.css"
-
+import "../index.css"
+import EditProfile from "../EditProfile";
+import {Link} from "react-router-dom";
 
 const ProfilePage = ({profile}) => {
 
@@ -45,9 +45,9 @@ const ProfilePage = ({profile}) => {
                              src="../../../images/profile-default.png" alt="profile"/>
                     </div>
                 </div>
-
-                <div className="mt-2 float-end"><a className="btn btn-outline-dark wd-round" href="#section">Edit Profile</a></div>
-
+                <Link to="/edit-profile">
+                    <div className="mt-2 float-end"><a className="btn btn-outline-dark wd-round">Edit Profile</a></div>
+                </Link>
                 <br/>
                 <div className="mt-5">
                     <div>

@@ -5,24 +5,24 @@
 
 .wd-emphasis {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 20px;
     color: white;
 }
 
 .wd-normal {
-    font-size: 10px;
+    font-size: 15px;
     color: gray;
 }
 
 .wd-paragraph {
-    font-size: 12px;
+    font-size: 17px;
     color: white;
 }
 
 .wd-date-form {
     color: white;
     background-color: black;
-    border: 0px solid black;
+    border: 0 solid black;
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -49,7 +49,7 @@
 }
 
 .wd-form-label {
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .form-group.wd-style {

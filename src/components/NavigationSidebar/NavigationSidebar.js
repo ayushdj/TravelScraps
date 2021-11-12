@@ -17,22 +17,24 @@ const NavigationSidebar = (
                                     <i className=" fas fa-map"/>
                                 </div>
                                 <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Profile</label>
+                                    <a>Profile</a>
                                 </div>
                             </div>
                         </li>
                     </Link>
-                    <li className={`list-group-item
-                          ${active === 'home' ? 'active' :""}`}>
-                            <div className="row">
-                                <div className="col-2">
-                                    <i className="fas fa-home"/>
+                    <Link to="/home">
+                        <li className={`list-group-item
+                              ${active === 'home' ? 'active' :""}`}>
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-home"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a>Home</a>
+                                    </div>
                                 </div>
-                                <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Home</label>
-                                </div>
-                            </div>
-                    </li>
+                        </li>
+                    </Link>
 
                     <li className={`list-group-item
                           ${active === 'calendar' ? 'active' :""}`}>

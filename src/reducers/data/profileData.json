@@ -1,7 +1,7 @@
 {
   "firstName": "Ayush",	"lastName": "Dhananjai",	"handle": "ayushdj",
   "emailAddress": "dhananjai.a@northeastern.edu",
-  "profilePicture": "../../../images/profilePic.png", "bannerPicture": "../../../images/coverPhoto.png",
+  "profilePicture": "../../../images/profile-default.png", "bannerPicture": "../../../images/banner-default.jpg",
   "bio": "Software Engineer, Web Developer, Graduate Student. +65 | +971 | +1",
   "location": "Boston, MA",	"dateOfBirth": "02/13/1997", "dateJoined": "06/2013",
   "followingCount": 69,	"followersCount": 420

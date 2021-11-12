@@ -9,7 +9,7 @@ import EditProfile from "./EditProfile";
 
 const ProfileScreen = () => {
     const profile = useSelector(state => state.profile);
-    const profileComponent = profile.edit ? <EditProfile profile={profile}/> : <ProfilePage profile={profile}/>
+    //const profileComponent = profile.edit ? <EditProfile profile={profile}/> : <ProfilePage profile={profile}/>
 
 
     return(
@@ -19,7 +19,7 @@ const ProfileScreen = () => {
             </div>
             <div className="col-10 col-md-10 col-lg-9 col-xl-10 col-xxl-10"
                  style={{"position": "relative"}}>
-                {profileComponent}
+                <ProfilePage profile={profile}/>
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom"
 import {useDispatch} from "react-redux";
-import './index.css'
+import '../index.css'
 import {Col, Form} from "react-bootstrap";
 import {validateEmail, validateUsername, validateBio} from "../../../utils/validations";
 
@@ -105,8 +105,8 @@ const ChangeProfile = ({profileData}) => {
         <>
             <div className="row">
                 <div className="col-1">
-                    <Link to="/ts/build/profile">
-                        <i className="fas fa-times fa-pull-right" style={{color:"black",marginTop:"5px"}}/>
+                    <Link to="/profile">
+                        <i className="fas fa-times fa-pull-right" style={{color:"white",marginTop:"5px"}}/>
                     </Link>
                 </div>
 
@@ -115,7 +115,7 @@ const ChangeProfile = ({profileData}) => {
                 </div>
 
                 <div className="col-2">
-                    <Link to="/ts/build/profile">
+                    <Link to="/profile">
                         <button type="submit" onClick={clickSaveChanges}
                                 className="wd-save-profile btn btn-primary float-end rounded-pill col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <strong>Save</strong>
