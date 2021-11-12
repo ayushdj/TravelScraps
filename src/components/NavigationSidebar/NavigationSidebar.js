@@ -10,13 +10,13 @@ const NavigationSidebar = (
             <div className="nav-bar">
                 <ul className="list-group">
                     <li className={`list-group-item
-                          ${active === 'none' ? 'active' :""}`}>
+                          ${active === 'Profile' ? 'active' :""}`}>
                         <div className="row">
                             <div className="col-2">
                                 <i className=" fas fa-map"/>
                             </div>
                             <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                <label>TravelScraps</label>
+                                <label>Profile</label>
                             </div>
                         </div>
                     </li>
