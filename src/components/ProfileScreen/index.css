@@ -103,7 +103,7 @@
 @media (min-width: 576px) and (max-width: 767px) {
     .pos-profile {
         position: absolute;
-        top: 70px;
+        top: 90px;
         left: 40px;
     }
 
@@ -133,7 +133,7 @@
 @media (min-width: 992px) and (max-width: 1199px) {
     .pos-profile {
         position: absolute;
-        top: 170px;
+        top: 140px;
         left: 40px;
     }
 
@@ -163,7 +163,7 @@
 
     .pos-profile {
         position: absolute;
-        top: 230px;
+        top: 240px;
         left: 30px;
     }
 

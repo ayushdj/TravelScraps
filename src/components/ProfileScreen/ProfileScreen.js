@@ -21,6 +21,8 @@ const ProfileScreen = () => {
                  style={{"position": "relative"}}>
                 <ProfilePage profile={profile}/>
             </div>
+
+
         </div>
 
     );
