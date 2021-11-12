@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom"
 import {useDispatch} from "react-redux";
-import '../index.css'
+import "../index.css";
 import {Col, Form} from "react-bootstrap";
 import {validateEmail, validateUsername, validateBio} from "../../../utils/validations";
 
@@ -124,19 +124,21 @@ const ChangeProfile = ({profileData}) => {
                 </div>
             </div>
 
-            <div className="row" style={{marginLeft:"20px", marginTop:"10px"}}>
-                <div className="col-12">
-                    <img src={profileData.bannerPicture} className="wd-banner-edit" alt={"banner"}/>
+            <div style={{marginLeft:"20px", marginTop:"10px"}}>
+                <div className="position-relative">
+                    <img src={profileData.bannerPicture} className="pos-absolute w-100" alt={"banner"}/>
+
+                    <div className="pos-profile wd-zindex-bring-to-front">
+                        <img src={profileData.profilePicture} className="rounded-circle wd-profile border wd-white-ex" alt={"profilePic"}/>
+                    </div>
+
                 </div>
             </div>
 
-            <div className="row">
-                <div className="col-10">
-                    <img src={profileData.profilePicture} className="img-fluid wd-ProfilePic-edit" alt={"profilePic"}/>
-                </div>
-                <div className="col-2">
-                </div>
-            </div>
+
+            <br/>
+            <br/>
+
 
 
             <div className="row" style={{marginLeft:"30px", marginTop:"20px"}}>

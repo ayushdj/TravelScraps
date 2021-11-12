@@ -17,7 +17,7 @@ const NavigationSidebar = (
                                     <i className=" fas fa-map"/>
                                 </div>
                                 <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <a>Profile</a>
+                                    <a style={{"textDecoration": "none"}}>Profile</a>
                                 </div>
                             </div>
                         </li>
@@ -30,7 +30,7 @@ const NavigationSidebar = (
                                         <i className="fas fa-home"/>
                                     </div>
                                     <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                        <a>Home</a>
+                                        <a style={{"textDecoration": "none"}}>Home</a>
                                     </div>
                                 </div>
                         </li>
