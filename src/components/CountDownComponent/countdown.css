@@ -1,0 +1,18 @@
+.wd-countdown {
+    background-image: url('./countdown.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid white;
+}
+
+.wd-count-component {
+    color: white;
+    height: 300px;
+}
+
+h4 {
+    font-size: 50px;
+    padding: 20px 0;
+    text-align: center;
+}
