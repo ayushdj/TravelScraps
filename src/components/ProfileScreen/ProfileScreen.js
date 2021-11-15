@@ -1,6 +1,5 @@
 import React from "react";
 //import "./Profile.css"
-import NavigationSidebar from "../NavigationSidebar/NavigationSidebar.js";
 
 import ProfilePage from "./ProfilePage";
 import {useSelector} from "react-redux";
