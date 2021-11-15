@@ -7,9 +7,6 @@ import {Link} from "react-router-dom";
 const ProfilePage = ({profileData}) => {
 
     const dispatch = useDispatch();
-    // const editProfileClickHandler = () => {
-    //     dispatch({type: 'edit-profile', profile});
-    // }
 
     const formatDate = (dateString) => {
         switch (dateString.split("/").length) {
@@ -27,7 +24,7 @@ const ProfilePage = ({profileData}) => {
         <div>
             <div className="row">
                 <div className="col-1">
-                    <i className="fas fa-arrow-left fa-1x"/>
+                    <i className="fas fa-arrow-left fa-1x" />
 
                 </div>
                 <div className="col-11">
