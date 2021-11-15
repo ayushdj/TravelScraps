@@ -6,10 +6,10 @@ const profile = (state = data, action) => {
             const newState = {
                 "firstName": action.firstName,
                 "lastName" :action.lastName,
-                "handle":action.username,
+                "handle":action.handle,
                 "emailAddress":action.emailAddress,
-                "profilePicture":"../../../images/profilePic.png",
-                "bannerPicture": "../../../images/editProfileBackground.jpg",
+                "profilePicture":"../../../images/profile-default.png",
+                "bannerPicture": "../../../images/banner-default.jpg",
                 "bio":action.bio,
                 "location":action.location,
                 "dateOfBirth":action.birthday,

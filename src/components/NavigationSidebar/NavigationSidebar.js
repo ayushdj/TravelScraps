@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import './index.css';
 
 const NavigationSidebar = (
     {
@@ -17,7 +18,7 @@ const NavigationSidebar = (
                                     <i className=" fas fa-map"/>
                                 </div>
                                 <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <a style={{"textDecoration": "none"}}>Profile</a>
+                                    <a>Profile</a>
                                 </div>
                             </div>
                         </li>
@@ -30,93 +31,101 @@ const NavigationSidebar = (
                                         <i className="fas fa-home"/>
                                     </div>
                                     <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                        <a style={{"textDecoration": "none"}}>Home</a>
+                                        <a>Home</a>
                                     </div>
                                 </div>
                         </li>
                     </Link>
 
-                    <li className={`list-group-item
-                          ${active === 'calendar' ? 'active' :""}`}>
-                            <div className="row">
-                                <div className="col-2">
-                                    <i className="fas fa-calendar"/>
+                    <Link to="/calendar">
+                        <li className={`list-group-item
+                              ${active === 'calendar' ? 'active' :""}`}>
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-calendar"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a>Calender</a>
+                                    </div>
                                 </div>
-                                <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Calender</label>
-                                </div>
-                            </div>
-                    </li>
+                        </li>
+                    </Link>
 
-                    <li className={`list-group-item
-                          ${active === 'friends' ? 'active' :""}`}>
-                        <a href="/" className="text-white">
-                            <div className="row">
-                                <div className="col-2">
-                                    <i className="fas fa-user-friends"/>
-                                </div>
-                                <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Friends</label>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                    <Link to="/friends">
+                        <li className={`list-group-item
+                              ${active === 'friends' ? 'active' :""}`}>
 
-                    <li className={`list-group-item
-                          ${active === 'likes' ? 'active' :""}`}>
-                        <a href="/" className="text-white">
-                            <div className="row">
-                                <div className="col-2">
-                                    <i className="fas fa-thumbs-up"/>
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-user-friends"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a>Friends</a>
+                                    </div>
                                 </div>
-                                <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Likes</label>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
 
-                    <li className={`list-group-item
-                          ${active === 'messages' ? 'active' :""}`}>
-                        <a href="/" className="text-white">
-                            <div className="row">
-                                <div className="col-2">
-                                    <i className="fas fa-envelope"/>
-                                </div>
-                                <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Messages</label>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                        </li>
+                    </Link>
 
-                    <li className={`list-group-item
-                          ${active === 'settings' ? 'active' :""}`}>
-                        <a href="/" className="text-white">
-                            <div className="row">
-                                <div className="col-2">
-                                    <i className="fas fa-cog"/>
-                                </div>
-                                <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Settings</label>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                    <Link to="/likes">
+                        <li className={`list-group-item
+                              ${active === 'likes' ? 'active' :""}`}>
 
-                    <li className={`list-group-item
-                          ${active === 'bookmarks' ? 'active' :""}`}>
-                        <a href="/" className="text-white">
-                            <div className="row">
-                                <div className="col-2">
-                                    <i className="fas fa-bookmark"/>
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-thumbs-up"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a>Likes</a>
+                                    </div>
                                 </div>
-                                <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
-                                    <label>Bookmarks</label>
+
+                        </li>
+                    </Link>
+
+                    <Link to="/messages">
+                        <li className={`list-group-item
+                              ${active === 'messages' ? 'active' :""}`}>
+
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-envelope"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a>Messages</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
+
+                        </li>
+                    </Link>
+
+                    <Link to="/settings">
+                        <li className={`list-group-item
+                              ${active === 'settings' ? 'active' :""}`}>
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-cog"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a>Settings</a>
+                                    </div>
+                                </div>
+                        </li>
+                    </Link>
+
+                    <Link to="/bookmarks">
+                        <li className={`list-group-item
+                              ${active === 'bookmarks' ? 'active' :""}`}>
+                                <div className="row">
+                                    <div className="col-2">
+                                        <i className="fas fa-bookmark"/>
+                                    </div>
+                                    <div className="col-xxl-4 col-xl-4 d-none d-xl-block">
+                                        <a>Bookmarks</a>
+                                    </div>
+                                </div>
+                        </li>
+                    </Link>
                 </ul>
             </div>
         </div>
