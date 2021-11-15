@@ -4,7 +4,7 @@ import "../index.css"
 import EditProfile from "../EditProfile";
 import {Link} from "react-router-dom";
 
-const ProfilePage = ({profile}) => {
+const ProfilePage = ({profileData}) => {
 
     const dispatch = useDispatch();
     // const editProfileClickHandler = () => {
@@ -31,7 +31,7 @@ const ProfilePage = ({profile}) => {
 
                 </div>
                 <div className="col-11">
-                    <div className="wd-emphasis">Hearna Won </div>
+                    <div className="wd-emphasis">{profileData.firstName} {profileData.lastName}</div>
                     <div className="wd-normal">5196 Tweets</div>
                 </div>
 
@@ -45,39 +45,41 @@ const ProfilePage = ({profile}) => {
                              src="../../../images/profile-default.png" alt="profile"/>
                     </div>
                 </div>
+
                 <Link to="/edit-profile">
                     <div className="mt-2 float-end"><a className="btn btn-outline-dark wd-round">Edit Profile</a></div>
                 </Link>
-                <br/>
+
+                <br/><br/>
                 <div className="mt-5">
                     <div>
-                        <div className="wd-emphasis">Name</div>
-                        <div className="wd-normal">@handle</div>
+                        <div className="wd-emphasis">{profileData.firstName} {profileData.lastName}</div>
+                        <div className="wd-normal">@{profileData.handle}</div>
                         <p className="wd-paragraph pt-2">
-                            bio
+                            {profileData.bio}
                         </p>
 
                         <div className="wd-normal pb-2">
                                     <span className="me-4">
                                         <i className="fas fa-map-marker-alt pe-1"/>
-                                        location
+                                        {profileData.location}
                                     </span>
 
                             <span className="me-4">
-                                        <i className="fas fa-birthday-cake pe-1"></i>
-                                         Born date
+                                        <i className="fas fa-birthday-cake pe-1"/>
+                                        {profileData.dateOfBirth}
                                     </span>
 
                             <span className="me-4">
-                                        <i className="far fa-calendar pe-1"></i>
-                                         Joined date
+                                        <i className="far fa-calendar pe-1"/>
+                                        {profileData.dateJoined}
                                     </span>
 
                         </div>
 
                         <div className="wd-normal">
-                            <span className="pe-2"><b className="text-white">12</b>  Following</span>
-                            <b className="text-white">123</b>  Followers</div>
+                            <span className="pe-2"><b className="text-white">{profileData.followingCount}</b> Following</span>
+                            <b className="text-white">{profileData.followersCount}</b> Followers</div>
                     </div>
                 </div>
                 <br/>
@@ -85,7 +87,7 @@ const ProfilePage = ({profile}) => {
             </div>
 
 
-            <h2>Screensize</h2>
+            <h2>Screen size</h2>
             <div className="d-block d-sm-none fa-2x">XS</div>
             <div className="d-none d-sm-block d-md-none fa-2x">S</div>
             <div className="d-none d-md-block d-lg-none fa-2x">M</div>
