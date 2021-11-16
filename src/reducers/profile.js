@@ -2,22 +2,41 @@ import data from './data/profileData.json'
 
 const profile = (state = data, action) => {
     switch (action.type) {
-        case "save-changes":
-            const newState = {
+        case "save-profile-changes":
+            const profileState = {
                 "firstName": action.firstName,
                 "lastName" :action.lastName,
                 "handle":action.handle,
                 "emailAddress":action.emailAddress,
-                "profilePicture":"../../../images/profile-default.png",
-                "bannerPicture": "../../../images/banner-default.jpg",
+                "profilePicture":action.profilePicture,
+                "bannerPicture":action.bannerPicture,
                 "bio":action.bio,
                 "location":action.location,
                 "dateOfBirth":action.birthday,
-                "dateJoined": "June 2013",
+                "password":action.password,
+                "dateJoined": action.dateJoined,
                 "followingCount": 69,
-                "followersCount": 420
+                "followersCount": 420,
+                "website":action.website
             }
-            return(newState);
+            return(profileState);
+        case "save-new-settings":
+            return {
+                "firstName": action.firstName,
+                "lastName": action.lastName,
+                "handle": action.handle,
+                "emailAddress": action.emailAddress,
+                "profilePicture": action.profilePicture,
+                "bannerPicture": action.bannerPicture,
+                "bio": action.bio,
+                "password": action.password,
+                "location": action.location,
+                "dateOfBirth": action.dateOfBirth,
+                "dateJoined": action.dateJoined,
+                "followingCount": action.followingCount,
+                "followersCount": action.followersCount,
+                "website":action.website
+            };
         default:
             return(state);
     }
