@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "61943088601daea7ccd0d7c4"
+  },
+  "location": "Boston",
+  "date": "12/21/21",
+  "title": "beantown",
+  "cost": "25.52",
+  "details": {
+    "mfa": "https://images.unsplash.com/photo-1584587278548-5c862fe26ef2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+    "jonquils": "https://www.google.com/maps/place/Jonquils+Cafe+and+Bakery/@42.35122,-71.0764993,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipPQ0mHU6edjIAxX7tZLt9-ShcK6J_GmwYkcVhDX!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipPQ0mHU6edjIAxX7tZLt9-ShcK6J_GmwYkcVhDX%3Dw203-h112-k-no!7i4752!8i2640!4m7!3m6!1s0x0:0xc7b8425546bf45e4!8m2!3d42.3514359!4d-71.0766349!14m1!1BCgIgAQ#"
+  }
+}]
