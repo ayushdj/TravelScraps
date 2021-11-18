@@ -7,11 +7,8 @@ const selectProfile = (state) => state.profile;
 const EditProfile = () => {
     const profile = useSelector(selectProfile);
     return (
-        <div className="row py-5">
-            <div className="col-2 col-md-2 col-lg-1 col-xl-2 col-xxl-2">
-
-            </div>
-            <div className="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+        <div className="row mt-2">
+            <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                 <ChangeProfile profileData={profile}/>
             </div>
         </div>

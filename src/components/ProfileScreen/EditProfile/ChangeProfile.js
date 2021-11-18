@@ -5,10 +5,8 @@ import "../index.css";
 import {validateEmail, validateUsername, validateBio} from "../../../utils/validations";
 import FirstName from "./components/Name/FirstName";
 import LastName from "./components/Name/LastName";
-import Email from "./components/Email/Email";
 import Location from "./components/Location/Location";
 import Bio from "./components/Bio/Bio";
-import Username from "./components/Username/Username";
 import Website from "./components/Website/Website";
 import Birthday from "./components/Birthday/Birthday";
 import {Form} from "react-bootstrap";
@@ -62,26 +60,6 @@ const ChangeProfile = ({profileData}) => {
         // setting the character count
         setCharacterCounts({...characterCounts, bioCharacterCount:event.target.value.length});
     }
-    // event handler function for email
-    const handleEmailChange = (event) => {
-        // set the email to be the value typed by the user
-        setValues({...values, emailAddress:event.target.value});
-        // find out if the email is valid or not
-        let isValidEmail = validateEmail(values.emailAddress);
-        // set the violation for the email field
-        setViolations({...violations, emailViolation:isValidEmail});
-    }
-    // event handler function for username
-    const handleUserNameChange = (event) => {
-        // set the username to be the value typed by the user
-        setValues({...values, userName:event.target.value})
-        // find out if the username the user entered is valid or not
-        let isValidUserName = validateUsername(values.userName);
-        // set the violation for the username field
-        setViolations({...violations, userNameViolation:isValidUserName});
-        // setting the character count
-        setCharacterCounts({...characterCounts, usernameCharacterCount:event.target.value.length});
-    }
     // event handler function for location component
     const handleLocation = (event) => {
         // setting the users location
@@ -98,23 +76,26 @@ const ChangeProfile = ({profileData}) => {
     }
 
     const handleSaveChanges = (event) => {
-
-        if (violations.emailViolation === false && violations.userNameViolation === false && violations.bioViolation === false
-        && values.userName.length !== 0) {
+        if (values.firstName.length !== 0 && values.lastName.length !== 0 && violations.bioViolation === false) {
             const json = {
-                type:'save-changes',
+                type:'save-profile-changes',
                 firstName:values.firstName,
                 lastName:values.lastName,
                 bio:values.bio,
                 location:values.location,
                 website:values.website,
                 birthday:values.birthday,
-                handle:values.userName,
-                emailAddress:values.emailAddress
+                dateJoined:profileData.dateJoined,
+                handle:profileData.handle,
+                emailAddress:profileData.emailAddress,
+                password:profileData.password,
+                followersCount:profileData.followersCount,
+                followingCount:profileData.followingCount,
+                profilePicture:profileData.profilePicture,
+                bannerPicture:profileData.bannerPicture
             }
             dispatch(json)
         }
-
     }
 
     return (
@@ -166,16 +147,7 @@ const ChangeProfile = ({profileData}) => {
                         <LastName handleLastName={handleLastName} lastName={values.lastName}/>
                     </div>
                 </div>
-                {/* Username component */}
-                <Username handleUserNameChange={handleUserNameChange} userName={values.userName}
-                          userNameViolation={violations.userNameViolation}
-                          usernameCharacterCount={characterCounts.usernameCharacterCount}/>
 
-                <div className="row">
-                    {/* Email component */}
-                    <Email handleEmailChange={handleEmailChange} emailAddress={values.emailAddress}
-                           emailViolation={violations.emailViolation} />
-                </div>
                 <div className="row">
                     {/* Location component */}
                     <Location handleLocationChange={handleLocation} location={values.location}/>
@@ -191,4 +163,16 @@ const ChangeProfile = ({profileData}) => {
         </>
     )
 }
+
+/**
+
+ <Username handleUserNameChange={handleUserNameChange} userName={values.userName}
+ userNameViolation={violations.userNameViolation}
+ usernameCharacterCount={characterCounts.usernameCharacterCount}/>
+
+ <div className="row">
+ <Email handleEmailChange={handleEmailChange} emailAddress={values.emailAddress}
+ emailViolation={violations.emailViolation} />
+ </div>
+ */
 export default ChangeProfile;

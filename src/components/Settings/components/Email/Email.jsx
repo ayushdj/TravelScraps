@@ -21,7 +21,7 @@ function Email(props) {
                 </Row>    
                 
                 <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                    <Col xs={6} sm={6} md={6} lg={6} xl={6} xxl={6}>
                         <Form.Control type="email" placeholder="name@example.com" className="wd-inputs" required={true}
                                       name="email" onChange={props.handleEmailChange} value={props.emailAddress}/>
                         <Form.Text style={{color:"rgb(125, 125, 125)"}}>

@@ -11,6 +11,7 @@ import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
 import EditProfile from "./components/ProfileScreen/EditProfile";
 import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth";
+import SettingsScreen  from "./components/Settings/SettingsScreen"
 
 const reducer = combineReducers({profile: profile});
 const store = createStore(reducer);
@@ -35,6 +36,9 @@ function App() {
                             </Route>
                             <Route path={["/edit-profile"]} exact={true}>
                                 <EditProfile/>
+                            </Route>
+                            <Route path={["/settings"]} exact={true}>
+                                <SettingsScreen/>
                             </Route>
                         </Switch>
                     </div>
