@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "619433dc601daea7ccd0d7c7"
+  },
+  "title": "Boston trip review",
+  "location": "Boston",
+  "tags": [
+    "boston",
+    "cool"
+  ],
+  "text": "This was such an amazing trip!",
+  "travelPlan": "61943088601daea7ccd0d7c4",
+  "images": [],
+  "comments": []
+}]

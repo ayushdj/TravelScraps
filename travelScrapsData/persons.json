@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "61942b0d601daea7ccd0d7c0"
+  },
+  "firstName": "Hearan",
+  "lastName": "won",
+  "userName": "hwon",
+  "password": "morewon",
+  "email": "screwyou@gmail.com",
+  "dateOfBirth": "03/18/1996",
+  "type": "ADMIN"
+},{
+  "_id": {
+    "$oid": "61942b8b601daea7ccd0d7c1"
+  },
+  "firstName": "Prie",
+  "lastName": "Patel",
+  "userName": "ppatel",
+  "password": "popop",
+  "email": "priepoops@gmail.com",
+  "dateOfBirth": "7/28/94",
+  "type": "ADMIN"
+},{
+  "_id": {
+    "$oid": "61942bdb601daea7ccd0d7c2"
+  },
+  "firstName": "Ayush",
+  "lastName": "toolong",
+  "userName": "ayushy",
+  "password": "catcat",
+  "email": "ayushcat@gmail.com",
+  "dateOfBirth": "2/13/97",
+  "type": "USER",
+  "calendar": "61943171601daea7ccd0d7c6",
+  "bookmarks": [],
+  "comments": [],
+  "scrapbooks": [
+    "619433dc601daea7ccd0d7c7"
+  ]
+},{
+  "_id": {
+    "$oid": "61942c53601daea7ccd0d7c3"
+  },
+  "firstName": "kennedy",
+  "lastName": "musembi",
+  "userName": "kenm",
+  "password": "kenken",
+  "email": "kennedyy@gmail.com",
+  "dateOfBirth": "10/8/92",
+  "type": "PREMIUM",
+  "bookmarks": [],
+  "comments": [
+    "61943448601daea7ccd0d7c8"
+  ],
+  "scrapbooks": []
+}]
