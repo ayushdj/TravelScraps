@@ -53,6 +53,7 @@ const CarouselComponent = () => {
             {carousels.map((card, key) => {
                 return (
                     <div className="row wd-slide-show" key={key}>
+
                         <div className="col">
                             {key === slide && (
                                 <div className={"card overflow-hidden rounded-3 wd-slide"}>

@@ -1,0 +1,10 @@
+search by:
+Person:
+-handle(username)
+-First name
+-Last name
+ScrapPost:
+-title
+-location
+-tags
+
