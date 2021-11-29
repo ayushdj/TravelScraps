@@ -10,7 +10,7 @@ import Bio from "./components/Bio/Bio";
 import Website from "./components/Website/Website";
 import Birthday from "./components/Birthday/Birthday";
 import {Form} from "react-bootstrap";
-
+import service from '../service';
 const ChangeProfile = ({profileData}) => {
 
     let dispatch = useDispatch();
@@ -76,9 +76,9 @@ const ChangeProfile = ({profileData}) => {
     }
 
     const handleSaveChanges = (event) => {
-        if (values.firstName.length !== 0 && values.lastName.length !== 0 && violations.bioViolation === false) {
+        //if (values.firstName.length !== 0 && values.lastName.length !== 0 && violations.bioViolation === false) {
             const json = {
-                type:'save-profile-changes',
+                _id: profileData._id,
                 firstName:values.firstName,
                 lastName:values.lastName,
                 bio:values.bio,
@@ -94,9 +94,10 @@ const ChangeProfile = ({profileData}) => {
                 profilePicture:profileData.profilePicture,
                 bannerPicture:profileData.bannerPicture
             }
-            dispatch(json)
+            console.log('things are being sent to server');
+            service.updateProfile(json, dispatch);
         }
-    }
+
 
     return (
         <>
