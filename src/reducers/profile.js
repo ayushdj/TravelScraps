@@ -37,6 +37,10 @@ const profile = (state = data, action) => {
                 "followersCount": action.followersCount,
                 "website":action.website
             };
+        case 'get-profile':
+            return (action.profile);
+        case 'update-profile':
+            return (action.profile);
         default:
             return(state);
     }
