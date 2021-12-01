@@ -1,5 +1,4 @@
-const URL = 'http://localhost:4000/rest/who';
-//const URL = 'https://web-dev-node-pripat.herokuapp.com/rest/who';
+const URL = 'http://localhost:5000/db/who/service';
 
 export const findAllWho = (dispatch) =>
     fetch(URL)
@@ -9,8 +8,6 @@ export const findAllWho = (dispatch) =>
                 type: 'fetch-all-who',
                 who
             }));
-
-
 
 export default {
     findAllWho

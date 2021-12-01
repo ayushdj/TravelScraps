@@ -16,3 +16,14 @@ h4 {
     padding: 20px 0;
     text-align: center;
 }
+
+.wd-set {
+    margin-right: 10px;
+    margin-top: 5px;
+    border-radius: 15px;
+    padding: 5px;
+    width: 50px;
+    color: #3f7f7f;
+    font-weight: bold;
+    border: 0;
+}

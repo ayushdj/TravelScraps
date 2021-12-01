@@ -1,25 +1,41 @@
 import React, {useEffect, useRef, useState} from "react";
 import './countdown.css';
+import service from "./service";
+import {useDispatch} from "react-redux";
+
+let counter;
+let newCount;
 
 const CountDown = () => {
-    const [timeDays, setDays] = useState('00');
-    const [timeHours, setHours] = useState('00');
-    const [timeMinutes, setMinutes] = useState('00');
-    const [timeSeconds, setSeconds] = useState('00');
+    const dispatch = useDispatch();
+    const [timeDays, setDays] = useState(0);
+    const [timeHours, setHours] = useState(0);
+    const [timeMinutes, setMinutes] = useState(0);
+    const [timeSeconds, setSeconds] = useState(0);
+    let [count, setCount] = useState({time: '00:00:00'});
 
     let interval = useRef();
+    useEffect(async () => {
+        counter = await service.findCountDownById(dispatch, '61a5653205c09e2bae5454d1');
+        setCount(counter.time.date);
+        startTimer();
+        return () => {
+            clearInterval(interval.current);
+        }
+    }, []);
 
     const startTimer = () => {
-        const countdown = new Date('January 10, 2022 00:00:00:00');
+        setCount(counter.time.date)
+        const countdown = new Date(counter.time.date);
 
         interval = setInterval(() => {
             const now = new Date().getTime();
-            const distance = countdown - now;
+            let distance = countdown - now;
 
-            const days = Math.ceil(distance / (1000 * 60 * 60 * 24)) - 1;
-            const hours = Math.ceil(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)) - 1;
-            const minutes = Math.ceil(distance % (1000 * 60 * 60) / (1000 * 60)) - 1;
-            const seconds = Math.ceil(distance % (1000 * 60) / (1000)) - 1;
+            let days = Math.ceil(distance / (1000 * 60 * 60 * 24)) - 1;
+            let hours = Math.ceil(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)) - 1;
+            let minutes = Math.ceil(distance % (1000 * 60 * 60) / (1000 * 60)) - 1;
+            let seconds = Math.ceil(distance % (1000 * 60) / (1000)) - 1;
 
             if (distance >= 0) {
                 setDays(days);
@@ -33,20 +49,43 @@ const CountDown = () => {
         });
     };
 
-    useEffect(() => {
-        startTimer();
-        return () => {
-            clearInterval(interval.current);
+    const setCountOnClick = (event) => {
+        setCount(event.target.value);
+        newCount = event.target.value;
+    }
+
+    const setCountInDB = () => {
+        let newDate = {
+            _id: counter.time._id,
+            person: counter.time.person,
+            date: newCount
         }
-    });
+
+        service.updateCountDown(dispatch, newDate);
+        alert("Successful! Please refresh");
+    }
 
     return (
         <div className="wd-countdown">
+            <div className="wd-input">
+                <div className="row">
+                    <div className="col-10">
+                        <input type="date"
+                               className="p-2 wd-inputBar w-100 bg-black border-0 text-white"
+                               onChange={setCountOnClick}/>
+                    </div>
+                    <div className="col-2">
+                        <button className="wd-set" onClick={setCountInDB}>
+                            Set
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div className="wd-count-component">
                 <h4 className="text-white mt-4">Next ScrapVenture</h4>
                 <div className="row wd-last">
                     <div className="col">
-                        <div>{timeDays} days </div>
+                        <div>{timeDays} days</div>
                     </div>
                     <div className="col">:</div>
                     <div className="col">

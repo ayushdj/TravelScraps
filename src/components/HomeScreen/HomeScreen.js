@@ -1,16 +1,13 @@
 import React from "react";
 import HomeComponent from "./HomeComponent";
 import WhoToFollowList from "../WhoToFollow/WhoToFollowList";
-import who from "../WhoToFollow/who.json"
+import who from "../../reducers/data/who.json"
 import CountDown from "../CountDownComponent/CountDown";
 
 const HomeScreen = () => {
     return (
         <div className={"row mt-2"}>
-            <div className={"col-2 col-md-2 col-lg-1 col-xl-2"}>
-                <h5>Placeholder</h5>
-            </div>
-            <div className={"col-xxl-6 col-xl-6 col-lg-7 col-md-10 col-sm-10 mt-2 border-1 border-dark"}
+            <div className={"col-xxl-8 col-xl-8 col-lg-8 col-md-11 col-sm-11 mt-2 border-1 border-dark"}
                  style={{"position": "relative"}}>
                 <HomeComponent/>
             </div>

@@ -8,8 +8,9 @@ const selectAllWho = (state) => state.who;
 const WhoToFollowList = () => {
     const who = useSelector(selectAllWho);
     const dispatch = useDispatch();
-    useEffect(() => findAllWho(dispatch), []);
-    return (
+
+
+      return (
         <div>
             <ul className="list-group">
                 <li className="list-group-item">Who To Follow</li>
