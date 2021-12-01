@@ -1,10 +1,18 @@
 import WhoToFollowListItem from "./WhoToFollowListItem";
-import React from "react";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {findAllWho} from "./service";
 
-const WhoToFollowList = ({who}) => {
+const selectAllWho = (state) => state.who;
+
+const WhoToFollowList = () => {
+    const who = useSelector(selectAllWho);
+    const dispatch = useDispatch();
+    useEffect(() => findAllWho(dispatch), []);
     return (
+        <div>
             <ul className="list-group">
-                <li className="list-group-item">Who To Follow/ Ad Recommendations</li>
+                <li className="list-group-item">Who To Follow</li>
                 {
                     who.map((w, key) => {
                         return (
@@ -13,5 +21,7 @@ const WhoToFollowList = ({who}) => {
                     })
                 }
             </ul>
-); }
+        </div>
+    );
+}
 export default WhoToFollowList;
