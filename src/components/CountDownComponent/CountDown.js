@@ -17,6 +17,7 @@ const CountDown = () => {
     let interval = useRef();
     useEffect(async () => {
         counter = await service.findCountDownById(dispatch, '61a5653205c09e2bae5454d1');
+        console.log(counter);
         setCount(counter.time.date);
         startTimer();
         return () => {

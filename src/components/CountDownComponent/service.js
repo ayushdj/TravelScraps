@@ -1,4 +1,4 @@
-const URL = 'http://localhost:5000/db/countdown/service';
+const URL = 'http://localhost:4000/db/countdown/service';
 
 export const updateCountDown = (dispatch, date) => {
     // console.log(dispatch);

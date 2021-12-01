@@ -1,4 +1,4 @@
-const URL = 'http://localhost:5000/db/carousel/service';
+const URL = 'http://localhost:4000/db/carousel/service';
 
 export const findAllCarousels = () =>
     fetch(URL)

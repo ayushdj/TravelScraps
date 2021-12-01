@@ -1,4 +1,4 @@
-const URL = 'http://localhost:5000/db/who/service';
+const URL = 'http://localhost:4000/db/who/service';
 
 export const findAllWho = (dispatch) =>
     fetch(URL)
