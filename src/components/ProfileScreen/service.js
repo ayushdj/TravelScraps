@@ -1,4 +1,4 @@
-const URL = 'http://localhost:5000/db/person';
+const URL = 'http://localhost:4000/db/person';
 
 const findProfileById = (dispatch, id) =>
     fetch(`${URL}/${id}`)
