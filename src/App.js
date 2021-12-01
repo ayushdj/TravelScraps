@@ -12,8 +12,11 @@ import EditProfile from "./components/ProfileScreen/EditProfile";
 import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth";
 import SettingsScreen  from "./components/Settings/SettingsScreen"
+import counter from './reducers/countDown';
+import who from './reducers/whoReducer';
 
-const reducer = combineReducers({profile: profile});
+
+const reducer = combineReducers({profile: profile, counter: counter, who: who});
 const store = createStore(reducer);
 
 function App() {

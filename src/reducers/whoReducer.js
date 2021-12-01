@@ -1,4 +1,4 @@
-import whoJson from '../data/who.json';
+import whoJson from '../reducers/data/who.json';
 
 const whoReducer = (state = whoJson, action) => {
     switch (action.type) {

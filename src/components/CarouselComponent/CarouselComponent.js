@@ -13,9 +13,10 @@ const CarouselComponent = () => {
     // individual carousel, if want to update
     const length = carousels.length;
 
-    useEffect(() =>
+    useEffect(() => {
         service.findAllCarousels()
-            .then(carousels => setCarousels(carousels)));
+            .then(carousels => setCarousels(carousels))
+    },[]);
 
     // reference for creating/deleting data
     const deleteCarousel = (carousel) =>
