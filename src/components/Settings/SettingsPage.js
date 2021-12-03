@@ -55,6 +55,7 @@ const SettingsPage = ({profileData}) => {
     }
 
     const handleSaveChanges = (event) => {
+
         const json = {
             _id: profileData._id,
             firstName: profileData.firstName,
@@ -73,6 +74,7 @@ const SettingsPage = ({profileData}) => {
             bannerPicture: profileData.bannerPicture,
         }
         service.updateProfile(json, dispatch);
+        console.log(json);
     }
 
     /*

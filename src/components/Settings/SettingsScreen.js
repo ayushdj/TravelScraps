@@ -5,12 +5,12 @@ import service from "../ProfileScreen/service";
 
 const selectProfile = (state) => state.profile;
 
-
 const SettingsScreen = () => {
     const profile = useSelector(selectProfile);
     let dispatch = useDispatch();
     useEffect(() =>
-        service.findProfileById(dispatch, "61a2a6006d05d5143f2e0acc"),[dispatch]);
+        service.findProfileById(dispatch, "61a2a6006d05d5143f2e0acc"),[]);
+    console.log("This is the initial settings data: ");
     console.log(profile);
 
     return (
