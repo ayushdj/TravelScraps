@@ -1,21 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Username from "./components/Username/Username";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {validateEmail, validateUsername} from "../../utils/validations";
 import Email from './components/Email/Email'
 import {Button} from "@material-ui/core";
 import {Col, Row} from 'react-bootstrap';
 import Password from "./components/Password/Password";
+import service from "../ProfileScreen/service";
+const selectProfile = (state) => state.profile;
 
 const SettingsPage = ({profileData}) => {
+
     let dispatch = useDispatch();
-
-    // creating a state variable to save the changes made by the user
-    const [savedChanges, setSavedChanges] = useState(false);
-
-    // defining a state variable that allows users to dismiss the alert
-    // about submitting the form
-    const [dismiss, setDismiss] = useState(true);
 
     // Creating state variables
     let [values, setValues] = useState({
@@ -59,26 +55,30 @@ const SettingsPage = ({profileData}) => {
     }
 
     const handleSaveChanges = (event) => {
-        const action = {
-            type: "save-new-settings",
-            handle: values.userName,
-            password:values.password,
-            emailAddress:values.emailAddress,
-            profilePicture:profileData.profilePicture,
-            bannerPicture: profileData.bannerPicture,
-            bio: profileData.bio,
-            location:profileData.location,
-            dateOfBirth: profileData.dateOfBirth,
-            dateJoined: profileData.dateJoined,
-            followingCount: profileData.followingCount,
-            followersCount: profileData.followersCount,
+        const json = {
+            _id: profileData._id,
             firstName: profileData.firstName,
             lastName: profileData.lastName,
-            website: profileData.website
+            bio: profileData.bio,
+            location:profileData.location,
+            website: profileData.website,
+            dateOfBirth: profileData.dateOfBirth,
+            dateJoined: profileData.dateJoined,
+            handle:values.userName,
+            emailAddress:values.emailAddress,
+            password:values.password,
+            followingCount: profileData.followingCount,
+            followersCount: profileData.followersCount,
+            profilePicture:profileData.profilePicture,
+            bannerPicture: profileData.bannerPicture,
         }
-        dispatch(action);
-
+        service.updateProfile(json, dispatch);
     }
+
+    /*
+    const handleDeleteAccount = (event) => {
+        service.deleteProfile(profile);
+    }*/
 
     return (
         <>

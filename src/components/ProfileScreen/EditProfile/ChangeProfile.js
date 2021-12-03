@@ -84,7 +84,7 @@ const ChangeProfile = ({profileData}) => {
                 bio:values.bio,
                 location:values.location,
                 website:values.website,
-                birthday:values.birthday,
+                dateOfBirth:values.birthday,
                 dateJoined:profileData.dateJoined,
                 handle:profileData.handle,
                 emailAddress:profileData.emailAddress,
@@ -94,7 +94,7 @@ const ChangeProfile = ({profileData}) => {
                 profilePicture:profileData.profilePicture,
                 bannerPicture:profileData.bannerPicture
             }
-            console.log('things are being sent to server');
+            //console.log('things are being sent to server');
             service.updateProfile(json, dispatch);
         }
 

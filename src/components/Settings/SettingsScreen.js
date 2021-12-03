@@ -1,12 +1,18 @@
-import React from 'react';
-import {useSelector} from "react-redux";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import SettingsPage from "./SettingsPage";
+import service from "../ProfileScreen/service";
 
 const selectProfile = (state) => state.profile;
 
 
 const SettingsScreen = () => {
     const profile = useSelector(selectProfile);
+    let dispatch = useDispatch();
+    useEffect(() =>
+        service.findProfileById(dispatch, "61a2a6006d05d5143f2e0acc"),[dispatch]);
+    console.log(profile);
+
     return (
         <>
             <div className="row mt-2">
