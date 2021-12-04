@@ -7,12 +7,7 @@ const selectProfile = (state) => state.profile;
 const ProfileScreen = () => {
 
     const profile = useSelector(selectProfile);
-    const dispatch = useDispatch();
-
     useEffect(() => profile);
-        //service.findProfileById(dispatch, "61a2a6006d05d5143f2e0acc"));
-    
-    console.log(profile)
 
     return(
         <div className="row mt-2">

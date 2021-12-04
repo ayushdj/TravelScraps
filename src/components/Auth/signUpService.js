@@ -8,7 +8,6 @@ export const createPerson = (person) =>
             'content-type': 'application/json'
         }
     }).then(response => response.json())
-        .then(response => console.log(response));
 
 export default {
     createPerson
