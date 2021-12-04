@@ -14,10 +14,12 @@ import Auth from "./components/Auth/Auth";
 import SettingsScreen  from "./components/Settings/SettingsScreen"
 import counter from './reducers/countDown';
 import who from './reducers/whoReducer';
+import CalendarScreen from "./components/CalendarComponent/CalendarScreen";
+import calendar from "./reducers/calendar";
 import scrapPost from './reducers/scrapPosts'
 
 
-const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost});
+const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar});
 const store = createStore(reducer);
 
 function App() {
@@ -43,6 +45,9 @@ function App() {
                             </Route>
                             <Route path={["/settings"]} exact={true}>
                                 <SettingsScreen/>
+                            </Route>
+                            <Route path={["/calendar"]} exact={true}>
+                                <CalendarScreen/>
                             </Route>
                         </Switch>
                     </div>
