@@ -1,9 +1,6 @@
 const URL = 'http://localhost:4000/db/countdown/service';
 
 export const updateCountDown = (dispatch, date) => {
-    // console.log(dispatch);
-    // console.log(date);
-    // console.log(URL+`/`+date._id);
     fetch(URL+`/`+date._id, {
         method: 'PUT',
         body: JSON.stringify(date),
