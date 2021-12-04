@@ -14,9 +14,10 @@ import Auth from "./components/Auth/Auth";
 import SettingsScreen  from "./components/Settings/SettingsScreen"
 import counter from './reducers/countDown';
 import who from './reducers/whoReducer';
+import scrapPost from './reducers/scrapPosts'
 
 
-const reducer = combineReducers({profile: profile, counter: counter, who: who});
+const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost});
 const store = createStore(reducer);
 
 function App() {
