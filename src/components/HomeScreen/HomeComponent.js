@@ -1,6 +1,7 @@
 import React from "react"
 import "./home.css"
 import CarouselComponent from "../CarouselComponent/CarouselComponent";
+import ScrapPosts from "../ScrapPosts";
 
 const HomeComponent = () => {
     return(
@@ -25,8 +26,9 @@ const HomeComponent = () => {
                 </div>
                 <div className={"col-6 mt-2 mb-1"}>
                     <div>Next Scrapventure</div>
-
+                    {/* posts go here*/}
                 </div>
+                <ScrapPosts/>
             </div>
         </div>
     );

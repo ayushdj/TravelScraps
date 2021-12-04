@@ -1,0 +1,9 @@
+{
+  "title": "Boston trip review",
+  "location": "Boston",
+  "tags": ["boston", "cool"],
+  "text": "This was such an amazing trip!",
+  "travelPlan": "61943088601daea7ccd0d7c4",
+  "images": ["https://cdn.citywonders.com/media/17764/rome-city.jpg?anchor=center&mode=crop&width=1200&height=600", "https://www.commonwealthfund.org/sites/default/files/styles/countries_hero_desktop/public/country_image_Sweden.jpg?h=7115b1d8&itok=Cr7aTYFE"],
+  "comments": ["Lorem Ipsum dolor sit amet", "Nice! Glad you had fun!"]
+}
