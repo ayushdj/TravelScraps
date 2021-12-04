@@ -16,9 +16,10 @@ import counter from './reducers/countDown';
 import who from './reducers/whoReducer';
 import CalendarScreen from "./components/CalendarComponent/CalendarScreen";
 import calendar from "./reducers/calendar";
+import scrapPost from './reducers/scrapPosts'
 
 
-const reducer = combineReducers({profile: profile, counter: counter, who: who, calendar: calendar});
+const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar});
 const store = createStore(reducer);
 
 function App() {
