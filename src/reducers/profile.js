@@ -38,6 +38,7 @@ const profile = (state = data, action) => {
                 "website":action.website
             };
         case 'get-profile':
+            console.log("reducer print statement: ", action.profile);
             return (action.profile);
         case 'update-profile':
             return (action.profile);

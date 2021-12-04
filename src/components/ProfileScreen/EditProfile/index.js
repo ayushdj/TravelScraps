@@ -9,8 +9,8 @@ const EditProfile = () => {
     //const [editProfile, setEditProfile] = useState({});
     const dispatch = useDispatch();
     useEffect(() =>
-        service.findProfileById(dispatch, "61980994e90e9b8ebc1d30fd"), [dispatch]);
-
+        service.findProfileById(dispatch, "61a2a6006d05d5143f2e0acc"), [dispatch]);
+    console.log(profile);
     return (
         <div className="row mt-2">
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">

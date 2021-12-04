@@ -5,12 +5,14 @@ import service from './service';
 const selectProfile = (state) => state.profile;
 
 const ProfileScreen = () => {
+
     const profile = useSelector(selectProfile);
-    //const profileComponent = profile.edit ? <EditProfile profile={profile}/> : <ProfilePage profile={profile}/>
-    //const [profileData, setProfileData] = useState({});
     const dispatch = useDispatch();
-    useEffect(() =>
-        service.findProfileById(dispatch, "61980994e90e9b8ebc1d30fd"));
+
+    useEffect(() => profile);
+        //service.findProfileById(dispatch, "61a2a6006d05d5143f2e0acc"));
+    
+    console.log(profile)
 
     return(
         <div className="row mt-2">
