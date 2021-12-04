@@ -12,8 +12,6 @@ const findProfileById = (dispatch, id) =>
         .catch(err => console.error(err));
 
 export const updateProfile = (profile, dispatch) => {
-    console.log("we are in client side function");
-    console.log(profile._id);
     fetch(`${URL}/${profile._id}`, {
         method: 'PUT',
         body: JSON.stringify(profile),
@@ -25,6 +23,13 @@ export const updateProfile = (profile, dispatch) => {
         profile
     }));
 }
+
+export const deleteProfile = (profile) => {
+    fetch(`${URL}/${profile._id}`, {
+        method: 'DELETE'
+    })
+}
+
 export default {
-    updateProfile, findProfileById
+    updateProfile, findProfileById, deleteProfile
 }

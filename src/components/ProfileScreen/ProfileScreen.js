@@ -5,9 +5,8 @@ import service from './service';
 const selectProfile = (state) => state.profile;
 
 const ProfileScreen = () => {
+
     const profile = useSelector(selectProfile);
-    //const profileComponent = profile.edit ? <EditProfile profile={profile}/> : <ProfilePage profile={profile}/>
-    //const [profileData, setProfileData] = useState({});
     const dispatch = useDispatch();
 
     useEffect(() => profile);

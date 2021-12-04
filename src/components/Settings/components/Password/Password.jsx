@@ -16,7 +16,7 @@ const Password = (props) => {
                     </Row>
                     <Row>
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                            <Form.Control type="password" className="wd-inputs" required={true}
+                            <Form.Control className="wd-inputs" required={true}
                                           name="email" onChange={props.handlePasswordChange} value={props.password}/>
                         </Col>
                     </Row>
