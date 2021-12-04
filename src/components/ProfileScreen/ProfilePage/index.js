@@ -51,7 +51,7 @@ const ProfilePage = ({profileData}) => {
                 <div className="mt-5">
                     <div>
                         <div className="wd-emphasis">{profileData.firstName} {profileData.lastName}</div>
-                        <div className="wd-normal">@{profileData.handle}</div>
+                        <div className="wd-normal">@{profileData.userName}</div>
                         <p className="wd-paragraph pt-2">
                             {profileData.bio}
                         </p>

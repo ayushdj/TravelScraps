@@ -104,12 +104,20 @@ const SignUp = () => {
                 userName:profile.userName,
                 dateOfBirth:profile.date,
                 email:profile.email,
-                password:profile.password}
+                password:profile.password,
+                bio: "",
+                website: "",
+                location: "",
+                dateJoined: Date.now(),
+                followingCount: 0,
+                followersCount: 0
+            }
             signUpService.createPerson(newProfile)
-                .then(history.push("/"));
+                .then(() => loginService.findProfileByUsername(dispatch, profile.userName, profile.password))
+                .then(() => history.push("/"));
         } else {
             loginService.findProfileByUsername(dispatch, profile.userName, profile.password)
-                .then(history.push("/"));
+                .then(() => history.push("/"));
         }
     };
 
