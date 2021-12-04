@@ -9,6 +9,7 @@ const findProfileById = (dispatch, id) =>
                 profile
             })
         )
+
         .catch(err => console.error(err));
 
 export const updateProfile = (profile, dispatch) => {
