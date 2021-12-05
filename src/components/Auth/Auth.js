@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Avatar, Button, Paper, Grid, Typography, Container, Link} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -9,6 +9,7 @@ import Input from './Input';
 import {signin, signup} from "../../actions/auth";
 import signUpService from "./signUpService";
 import loginService from "./loginService";
+import calendarService from "../CalendarComponent/service"
 
 
 const initialState = {
@@ -78,7 +79,7 @@ const SignUp = () => {
     }
 
 
-
+    // local profile
     const [profile, setProfile] = useState(initialState);
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
@@ -114,9 +115,13 @@ const SignUp = () => {
             }
             signUpService.createPerson(newProfile)
                 .then(() => loginService.findProfileByUsername(dispatch, profile.userName, profile.password))
+                .then((addedProfile) =>
+                    calendarService.createCalendar(dispatch, {events: [], person: addedProfile._id}))
                 .then(() => history.push("/"));
         } else {
             loginService.findProfileByUsername(dispatch, profile.userName, profile.password)
+                .then((addedProfile) =>
+                    calendarService.findCountCalendarByPersonId(dispatch, addedProfile._id))
                 .then(() => history.push("/"));
         }
     };

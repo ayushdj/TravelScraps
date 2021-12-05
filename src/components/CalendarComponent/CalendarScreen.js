@@ -1,9 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import {useDispatch, useSelector} from "react-redux";
+import service from "./service";
 
+const calendarState = (state) => state.calendar;
+const eventsState = (state) => state.events;
 const CalendarScreen = () => {
+    const calendarObject = useSelector(calendarState);
+    const eventArray = useSelector(eventsState);
+    const dispatch = useDispatch();
+    // const eventFetchFunction = calendarObject.events.map(id => service.getEventById(dispatch, id));
+
+    // use fetch call in use effect
+    useEffect(() => calendarObject, []);
+    // useEffect(() => eventFetchFunction, []);
+    // useEffect(() => eventArray, []);
+
+    // use a for loop maybe and find event by id for each object in array
+    console.log(calendarObject.events);
+    // console.log("event array", eventArray);
+
     function renderEventContent(eventInfo) {
         return (
             <div>
@@ -39,10 +57,7 @@ const CalendarScreen = () => {
                 initialView="dayGridMonth"
                 eventContent={renderEventContent}
                 dayCellContent={createEventContent}
-                events={[
-                    { title: 'event 1', date: '2021-12-13'},
-                { title: 'event 2', date: '2021-12-15'}
-                ]}
+                events={[]}
             />
         </div>
     );

@@ -3,11 +3,13 @@ const URL = 'http://localhost:4000/db/person';
 const findProfileByUsername = (dispatch, username, password) =>
     fetch(`${URL}/${username}/${password}`)
         .then(response => response.json())
-        .then(profile =>
-                   dispatch({
-                                type: 'update-profile',
-                                profile
-                            })
+        .then(profile => {
+                dispatch({
+                    type: 'update-profile',
+                    profile
+                });
+                return profile
+            }
         )
         .catch(err => console.error(err));
 
