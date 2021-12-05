@@ -11,15 +11,14 @@ const ScrapPosts = () => {
     const [posts, setPosts] = useState([]);
     const dispatch = useDispatch();
     useEffect(() => service.findAllPosts().then(posts => setPosts(posts)), []);
-    console.log(posts);
 
 
     return (
         <>
             <ul className="list-group">
                 {
-                    posts.map(post =>
-                        <PostItem postData={post} />
+                    posts.map((post, key) =>
+                        <PostItem postData={post} key={key}/>
                     )
                 }
             </ul>
