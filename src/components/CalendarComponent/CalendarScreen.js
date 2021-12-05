@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -13,14 +13,31 @@ const CalendarScreen = () => {
     const dispatch = useDispatch();
     // const eventFetchFunction = calendarObject.events.map(id => service.getEventById(dispatch, id));
 
+    const populateData = async () => {
+        for (let i = 0; i < calendarObject.events.length; i++) {
+            let id = calendarObject.events[i];
+            await service.getEventById(dispatch, id);
+        }
+        console.log("Calling backend");
+    }
+
+    useEffect(() => populateData(), []);
+
+    // useEffect(async () => {
+    //     for (let i = 0; i < calendarObject.events.length; i++) {
+    //         let event = await service.getEventById(dispatch, calendarObject[i]);
+    //         eventData.push(event);
+    //
+    //         return {
+    //
+    //         }
+    //     }
+    // }, []);
     // use fetch call in use effect
-    useEffect(() => calendarObject, []);
     // useEffect(() => eventFetchFunction, []);
     // useEffect(() => eventArray, []);
 
     // use a for loop maybe and find event by id for each object in array
-    console.log(calendarObject.events);
-    // console.log("event array", eventArray);
 
     function renderEventContent(eventInfo) {
         return (
@@ -57,7 +74,7 @@ const CalendarScreen = () => {
                 initialView="dayGridMonth"
                 eventContent={renderEventContent}
                 dayCellContent={createEventContent}
-                events={[]}
+                events={eventArray}
             />
         </div>
     );

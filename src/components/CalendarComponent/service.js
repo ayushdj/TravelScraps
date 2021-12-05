@@ -1,7 +1,6 @@
 const CALENDAR_URL = 'http://localhost:4000/db/calendar';
 const EVENT_URL = 'http://localhost:4000/db/event/service';
 
-
 const findCountCalendarByPersonId = (dispatch, id) =>
     fetch(`${CALENDAR_URL}/${id}`)
         .then(response => response.json())
@@ -27,15 +26,18 @@ const createCalendar = (dispatch, calendar) =>
             }));
 
 
-const getEventById = (dispatch, eventId) =>
+const getEventById = (dispatch, eventId) => {
     fetch(`${EVENT_URL}/${eventId}`)
-        .then(response => response.json())
+        .then(response => {
+            return response.json()
+        })
         .then(event => {
             dispatch({
                 type: 'add-event',
                 event
             })
         });
+}
 
 // const createEvent = (dispatch, event) =>
 //     fetch(EVENT_URL, {
