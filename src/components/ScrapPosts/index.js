@@ -5,6 +5,7 @@ import PostItem from "./PostItem";
 
 const selectAllPosts = (state) => state.scrapPost;
 
+
 const ScrapPosts = () => {
 
     const selectorPosts = useSelector(selectAllPosts);
