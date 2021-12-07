@@ -42,6 +42,8 @@ const profile = (state = data, action) => {
             return (action.profile);
         case 'update-profile':
             return (action.profile);
+        case 'update-user':
+            return (action.user);
         default:
             return(state);
     }
