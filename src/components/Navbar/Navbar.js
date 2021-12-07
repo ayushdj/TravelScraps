@@ -8,7 +8,6 @@ import useStyles from './styles';
 import * as actionType from "../../constants/actionTypes";
 const _ = require("lodash");
 const Navbar = () => {
-
     // const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     //const dispatch = useDispatch();
     const location = useLocation();

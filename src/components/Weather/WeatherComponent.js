@@ -29,7 +29,7 @@ const WeatherComponent = () => {
                                     onChange = {(event) => setInputValue(event.target.value)}/>
 
                         <button className={"weather-button"} onClick={handleCitySearch}>
-                            <i className={"fas fa-search"} />
+                            <i className={"fas fa-search pe-2 pt-1"} />
                         </button>
 
                 <div className="weather loading">
