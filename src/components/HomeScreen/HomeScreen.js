@@ -3,6 +3,7 @@ import HomeComponent from "./HomeComponent";
 import WhoToFollowList from "../WhoToFollow/WhoToFollowList";
 import who from "../../reducers/data/who.json"
 import CountDown from "../CountDownComponent/CountDown";
+import WeatherComponent from "../Weather/WeatherComponent";
 
 const HomeScreen = () => {
     return (
@@ -17,6 +18,9 @@ const HomeScreen = () => {
                 </div>
                 <div className="row mt-4">
                     <CountDown/>
+                </div>
+                <div className="row mt-4">
+                    <WeatherComponent/>
                 </div>
             </div>
         </div>
