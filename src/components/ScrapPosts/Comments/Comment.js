@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './index.css'
-const Comment = ({comments}) => {
+const Comment = ({post}) => {
 
-    const [currentComments, setComments] = useState(comments);
+    //const [currentComments, setComments] = useState(comments);
 
     //console.log(comments);
     return (
@@ -10,14 +10,14 @@ const Comment = ({comments}) => {
 
             <ul className={"list-group"}>
                 {
-                    comments.map((comment) =>
-                        <li className={"list-group-item"}>
+                    post.comments.map((comment) =>
+                        <li className={"list-group-item"} style={{backgroundColor:"white"}}>
                             <div className="row">
                                 <div className="col-1">
                                     <img src="../../../images/cat.jpg" className="rounded-circle float-start wd-avatar"/>
                                 </div>
                                 <div className="col-11">
-                                    <span style={{marginLeft:"-30px"}}>
+                                    <span style={{marginLeft:"-30px", fontSize:"15px", color:"black"}}>
                                          {comment}
                                     </span>
 

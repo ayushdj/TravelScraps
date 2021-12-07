@@ -5,7 +5,8 @@ import './vendors/fontawesome/css/all.min.css';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import {combineReducers, createStore} from "redux";
-import profile from './reducers/profile'
+import profile from './reducers/profile';
+import scrapPost from './reducers/scrapPosts';
 import {Provider} from "react-redux";
 import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
 import EditProfile from "./components/ProfileScreen/EditProfile";
@@ -16,7 +17,6 @@ import counter from './reducers/countDown';
 import who from './reducers/whoReducer';
 import CalendarScreen from "./components/CalendarComponent/CalendarScreen";
 import calendar from "./reducers/calendar";
-import scrapPost from './reducers/scrapPosts'
 import events from "./reducers/event";
 
 

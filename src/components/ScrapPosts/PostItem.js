@@ -13,9 +13,6 @@ const PostItem = ({postData}) => {
     const dispatch = useDispatch();
     useEffect(() => profileService.findProfileById(dispatch, postData.person), []);
 
-
-
-
     const [currentPost, setCurrentPost] = useState({
         userName: selectorProfile.handle,
         title: postData.title,
@@ -25,7 +22,28 @@ const PostItem = ({postData}) => {
         travelPlan: postData.travelPlan,
         images:postData.images,
         comments:postData.comments,
+        person:postData.person
     })
+
+    const [newComment, setNewComment] = useState("");
+
+
+    const handleCommentAddition = (event) => {
+        currentPost.comments.push(newComment);
+        const newPost = {
+            _id:postData._id,
+            userName: currentPost.userName,
+            title: currentPost.title,
+            location: currentPost.location,
+            tags: currentPost.tags,
+            text: currentPost.text,
+            travelPlan: currentPost.travelPlan,
+            images: currentPost.images,
+            comments: currentPost.comments,
+            person: currentPost.person,
+        }
+        service.updatePost(dispatch, newPost);
+    }
 
     //console.log(currentPost.comments);
 
@@ -86,8 +104,18 @@ const PostItem = ({postData}) => {
                     </span> </div>
 
                     {!clickedComment ?
-                        <> <Comment comments={currentPost.comments}/> </> : <span></span>
+                        <> <Comment post={currentPost}/> </> : <></>
                     }
+                    <div className="row mt-2">
+                        <div className="col-12">
+                            <textarea onChange={(event) =>
+                                setNewComment(event.target.value)} placeholder="Add a comment"
+                                      className="wd-text col-lg-12 row-10 form-control">
+                            </textarea>
+                        </div>
+                        <button onClick={handleCommentAddition} type="button" className="btn btn-primary mt-2">Add Comment</button>
+
+                    </div>
 
             </div>
         </li>
