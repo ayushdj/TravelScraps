@@ -62,7 +62,7 @@ const CountDown = () => {
         }
 
         service.updateCountDown(dispatch, newDate);
-        alert("Successful! Please refresh");
+        window.location.reload();
     }
 
     return (

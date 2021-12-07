@@ -18,6 +18,7 @@ import CalendarScreen from "./components/CalendarComponent/CalendarScreen";
 import calendar from "./reducers/calendar";
 import scrapPost from './reducers/scrapPosts'
 import events from "./reducers/event";
+import Login from "./components/SignInComponent/Login";
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events});
@@ -35,9 +36,9 @@ function App() {
                             <Route path={["/", "/home"]} exact={true}>
                                 <HomeScreen/>
                             </Route>
-                            <Route path={["/", "/auth"]} exact={true}>
-                                <Auth/>
-                            </Route>
+                            {/*<Route path={["/", "/auth"]} exact={true}>*/}
+                            {/*    <Auth/>*/}
+                            {/*</Route>*/}
                             <Route path={["/profile"]} exact={true}>
                                 <ProfileScreen/>
                             </Route>
@@ -49,6 +50,9 @@ function App() {
                             </Route>
                             <Route path={["/calendar"]} exact={true}>
                                 <CalendarScreen/>
+                            </Route>
+                            <Route path={["/", "/logIn"]} exact={true}>
+                                <Login/>
                             </Route>
                         </Switch>
                     </div>
