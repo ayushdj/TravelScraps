@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import service from "./service";
 import PostItem from "./PostItem";
+import WhatsHappening from "./WhatsHappening";
 
 const selectAllPosts = (state) => state.scrapPost;
 
@@ -16,6 +17,9 @@ const ScrapPosts = () => {
 
     return (
         <>
+            <div>
+                <WhatsHappening/>
+            </div>
             <ul className="list-group">
                 {
                     posts.map((post, key) =>

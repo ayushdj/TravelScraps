@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import service from "./service";
 import profileService from '../ProfileScreen/service'
-import Comment from "./Comment";
+import Comment from "./Comments/Comment";
 const selectProfile = (state) => state.profile;
 
 const PostItem = ({postData}) => {
 
-    console.log(postData);
+
     const selectorProfile = useSelector(selectProfile);
     //const [profile, setProfile] = useState({});
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const PostItem = ({postData}) => {
         comments:postData.comments,
     })
 
-    console.log(currentPost.comments);
+    //console.log(currentPost.comments);
 
 
     // user can like
@@ -43,16 +43,19 @@ const PostItem = ({postData}) => {
     return (
         <li className="list-group-item">
             <div className="row">
-                <div className="col-11">
+                <div className="col-1">
+                    <img src="../../../images/cat.jpg" className="rounded-circle float-start wd-avatar"/>
+                </div>
+                <div className="col-10">
                     {/*{currentPost.userName}*/}
-                    {selectorProfile.handle}
+                    <span style={{color:"rgb(125, 125, 125)", marginLeft:"-20px"}}>@{selectorProfile.handle}</span>
                 </div>
                 <div className="col-1">
                     <i className="fas fa-trash"/>
                 </div>
             </div>
             <div className="row">
-                <div className="col-12">
+                <div className="col-12 mt-2">
                     {currentPost.text}
                 </div>
             </div>
@@ -62,22 +65,30 @@ const PostItem = ({postData}) => {
                         <li className="list-group-item">
                             <img src={image}
                                  className="mt-2 wd-border-radius-20px"
-                                 style={{width: "100%"}} alt={" "}/>
+                                 style={{width: "30%"}} alt={" "}/>
                         </li>
                     )
                 }
             </div>
             <div className="row">
                 <div className="col-6">
-                    <i onClick={() => setLiked(!liked)} className="far fa-thumbs-up"/> {!liked ? <span className="ts-liked">Like</span> :
-                    <span>Unlike</span>}
+                    {!liked ? <i onClick={() => setLiked(!liked)} className="far fa-thumbs-up"/> :
+                        <i onClick={() => setLiked(!liked)} style={{color:"rgb(29, 161, 242)"}} className="far fa-thumbs-up"/>
+                    }
+
+                    {!liked ? <span className="ts-liked"> Like</span> :
+                    <span> Unlike</span>}
                 </div>
                 <div className="col-6">
+                    <span>
                     <i onClick={() => setClickedComment(!clickedComment)} className="far fa-comment"/>
+                        {!clickedComment ? <span> Hide all comments</span> : <span> Show all comments</span> }
+                    </span> </div>
+
                     {!clickedComment ?
-                    <><span> Hide all comments</span> <Comment comments={currentPost.comments}/> </> : <span> Show all comments</span>
+                        <> <Comment comments={currentPost.comments}/> </> : <span></span>
                     }
-                </div>
+
             </div>
         </li>
     )
