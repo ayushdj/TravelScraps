@@ -1,10 +1,2 @@
 {
-  "firstName": "Ayush",	"lastName": "Dhananjai",	"handle": "australia",
-  "emailAddress": "dhananjai.a@northeastern.edu",
-  "password": "password",
-  "profilePicture": "../../../images/profile-default.png", "bannerPicture": "../../../images/banner-default.jpg",
-  "bio": "Software Engineer, Web Developer, Graduate Student. +65 | +971 | +1",
-  "location": "Boston, MA",	"dateOfBirth": "February 13, 1997", "dateJoined": "06/2013",
-  "website":"https://www.youtube.com/c/WebDevTV",
-  "followingCount": 69,	"followersCount": 420
 }

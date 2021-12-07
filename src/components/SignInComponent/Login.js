@@ -21,6 +21,73 @@ const initialState = {
 
 // TODO add the handle changes back
 const Login = () => {
+
+    const userNameChangeHandler = (event) => {
+        const userName = event.target.value;
+        const newUser = {
+            ...user,
+            userName : userName
+        };
+        setUser(newUser);
+
+        const newProfile = {
+            ...profile,
+            userName : userName
+        };
+        setProfile(newProfile);
+    }
+
+    const passwordChangeHandler = (event) => {
+        const password = event.target.value;
+        const newUser = {
+            ...user,
+            password : password
+        };
+        setUser(newUser);
+
+        const newProfile = {
+            ...profile,
+            password : password
+        };
+        setProfile(newProfile);
+    }
+
+    const firstNameChangeHandler = (event) => {
+        const firstName = event.target.value;
+        const newProfile = {
+            ...profile,
+            firstName : firstName
+        };
+        setProfile(newProfile);
+    }
+
+    const lastNameChangeHandler = (event) => {
+        const lastName = event.target.value;
+        const newProfile = {
+            ...profile,
+            lastName : lastName
+        };
+        setProfile(newProfile);
+    }
+
+    const emailChangeHandler = (event) => {
+        const email = event.target.value;
+        const newProfile = {
+            ...profile,
+            email : email
+        };
+        setProfile(newProfile);
+    }
+
+    const dobChangeHandler = (event) => {
+        const dateOfBirth = event.target.value;
+        const newProfile = {
+            ...profile,
+            dateOfBirth : dateOfBirth
+        };
+        setProfile(newProfile);
+    }
+
     const [user, setUser] = useState({});
     const history = useHistory();
     const login = () => {
@@ -48,7 +115,11 @@ const Login = () => {
                 headers: {
                     'content-type': 'application/json'
                 }
-            }).then(() => history.push('/profile'));
+            }).then(() => {
+                login()
+                history.push('/home')
+                //window.location.reload();
+            });
         }
     };
 
@@ -63,6 +134,8 @@ const Login = () => {
     }
 
     useEffect(getProfile, [history]);
+
+    const [profile, setProfile] = useState(initialState);
 
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
@@ -79,11 +152,24 @@ const Login = () => {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(true);
 
         if (isSignup) {
+            const newProfile = {firstName:profile.firstName,
+                lastName:profile.lastName,
+                userName:profile.userName,
+                dateOfBirth:profile.date,
+                email:profile.email,
+                password:profile.password,
+                bio: "",
+                website: "",
+                location: "",
+                dateJoined: Date.now(),
+                followingCount: 0,
+                followersCount: 0
+            }
 
-            signUpService.createPerson(user)
+            signUpService.createPerson(newProfile)
                 .then(() => loginService.findProfileByUsername(dispatch, user.userName, user.password))
                 .then((addedProfile) =>
                     calendarService.createCalendar(dispatch, {events: [], person: addedProfile._id}))
@@ -111,55 +197,42 @@ const Login = () => {
                     <Grid container spacing={2}>
                         {isSignup && (
                             <>
-                                <Input
-                                    value={user.firstName}
-                                    onChange={(e) => setUser({...user, firstName: e.target.value})}
-                                    placeholder="firstname"
-                                    className="form-control"/>
-                                <Input
-                                    value={user.lastName}
-                                    onChange={(e) => setUser({...user, lastName: e.target.value})}
-                                    placeholder="lastName"
-                                    className="form-control"/>
-                                <Input
-                                    value={user.email}
-                                    onChange={(e) => setUser({...user, email: e.target.value})}
-                                    placeholder="email"
-                                    type="text"
-                                    className="form-control"/>
-
-                                <Input
-                                    value={user.dateOfBirth}
-                                    onChange={(e) => setUser({...user, date: e.target.value})}
-                                    placeholder="date of birth"
-                                    type="date"
-                                    className="form-control"/>
+                                <Input name="firstName" label="First Name"
+                                       handleChange={firstNameChangeHandler} autoFocus half/>
+                                <Input name="lastName" label="Last Name" handleChange={lastNameChangeHandler}
+                                       half/>
+                                <Input name="email" label="Email Address" handleChange={emailChangeHandler}
+                                       type="email"/>
+                                <Input name="dateOfBirth" type="date"
+                                       handleChange={dobChangeHandler}/>
 
                             </>
                         )}
                         <Input
+                            name="username" label="Username" handleChange={userNameChangeHandler}
+                            type="username"
                             value={user.username}
-                            onChange={(e) => setUser({...user, username: e.target.value})}
-                            placeholder="username"
-                            className="form-control"/>
-                        <input
+                            onChange={(e) => setUser({...user, username: e.target.value})}/>
+                        <Input
+                            name="password" label="Password" handleChange={passwordChangeHandler}
+                            type={showPassword ? 'text' : 'password'}
+                            handleShowPassword={handleShowPassword}
                             value={user.password}
-                            onChange={(e) => setUser({...user, password: e.target.value})}
-                            placeholder="password"
-                            type="password"
-                            className="form-control"/>
-                        {isSignup && <Input placeholder="confirm password"
-                                            type="password"
-                                            className="form-control"/>}
+                            onChange={(e) => setUser({...user, password: e.target.value})}/>
+                        {isSignup && <Input name="confirmPassword" label="Confirm Password"
+                                            handleChange={passwordChangeHandler} type="password"/>}
 
                     </Grid>
 
                     <Grid>
-                        {isSignup ? <Button type="signUp" fullWidth variant="contained" color="primary"
-                                            className={classes.signUp}
-                                            onClick={register}
-                            >Sign Up
-                            </Button>
+                        {isSignup ?<Button
+                                      type="signUp" fullWidth variant="contained" color="primary"
+                                      className={classes.signUp}
+                                      onClick={register}>
+                                      <Typography component={Link} to="/home" className={"text-white"}
+                                                  style={{textDecoration: 'none'}}
+                                                  align="center">Sign Up</Typography>
+                                  </Button>
                             :
                             <Button
                                 type="signUp" fullWidth variant="contained" color="primary"
