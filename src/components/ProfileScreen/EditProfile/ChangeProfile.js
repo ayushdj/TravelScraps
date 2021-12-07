@@ -11,21 +11,29 @@ import Website from "./components/Website/Website";
 import Birthday from "./components/Birthday/Birthday";
 import {Form} from "react-bootstrap";
 import service from '../service';
+import {useHistory} from "react-router-dom";
+
+
 const ChangeProfile = ({profileData}) => {
 
+    const history = useHistory();
+    console.log(profileData);
     let dispatch = useDispatch();
 
     // Creating state variables
-    let [values, setValues] = useState({
-        firstName:profileData.firstName,
-        lastName:profileData.lastName,
-        bio:profileData.bio,
-        location:profileData.location,
-        website:profileData.website,
-        birthday:profileData.dateOfBirth,
-        emailAddress:profileData.emailAddress,
-        userName:profileData.handle
-    })
+    // let [values, setValues] = useState({
+    //     firstName:profileData.firstName,
+    //     lastName:profileData.lastName,
+    //     bio:profileData.bio,
+    //     location:profileData.location,
+    //     website:profileData.website,
+    //     dateOfBirth:profileData.dateOfBirth,
+    //     email:profileData.email,
+    //     userName:profileData.userName
+    // })
+    let [values, setValues] = useState(profileData);
+
+    console.log(values);
 
     // violations
     const [violations, setViolations] = useState({
@@ -39,6 +47,7 @@ const ChangeProfile = ({profileData}) => {
         bioCharacterCount: 0,
         usernameCharacterCount: 0
     })
+
     // event handler function for first name
     const handleFirstName = (event) => {
         // set the first name
@@ -54,9 +63,9 @@ const ChangeProfile = ({profileData}) => {
         // set the bio state variable to be what the user typed
         setValues({...values, bio:event.target.value});
         // find out of the bio is valid
-        let isValidBio = validateBio(values.bio);
+        //let isValidBio = validateBio(values.bio);
         // set the violations for the bio field
-        setViolations({...violations, bioViolation:isValidBio});
+        //setViolations({...violations, bioViolation:isValidBio});
         // setting the character count
         setCharacterCounts({...characterCounts, bioCharacterCount:event.target.value.length});
     }
@@ -72,7 +81,7 @@ const ChangeProfile = ({profileData}) => {
     // event handler function for date component
     const handleBirthday = (event) => {
         // setting the value of the birthday field
-        setValues({...values, birthday:event.target.value});
+        setValues({...values, dateOfBirth:event.target.value});
     }
 
     const handleSaveChanges = (event) => {
@@ -84,19 +93,44 @@ const ChangeProfile = ({profileData}) => {
                 bio:values.bio,
                 location:values.location,
                 website:values.website,
-                dateOfBirth:values.birthday,
-                dateJoined:profileData.dateJoined,
-                handle:profileData.handle,
-                emailAddress:profileData.emailAddress,
+                dateOfBirth:values.dateOfBirth,
+                userName:profileData.userName,
+                email:profileData.email,
                 password:profileData.password,
-                followersCount:profileData.followersCount,
-                followingCount:profileData.followingCount,
                 profilePicture:profileData.profilePicture,
                 bannerPicture:profileData.bannerPicture
             }
-            //console.log('things are being sent to server');
             service.updateProfile(json, dispatch);
+            service.updateUser(json, dispatch);
+            logout();
+            login();
+
+        console.log("USer in profile date change screeen", profileData);
         }
+        const login = () => {
+            fetch(`http://localhost:4000/api/login`, {
+                method: 'POST',
+                body: JSON.stringify(profileData),
+                credentials: 'include',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(() => {
+                history.push('/profile');
+                window.location.reload();
+            });
+        }
+    const logout = () => {
+        fetch(`http://localhost:4000/api/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(() => {
+            history.push('/profile');
+            //window.location.reload();
+        });
+
+
+    }
 
 
     return (
@@ -159,7 +193,7 @@ const ChangeProfile = ({profileData}) => {
                 <Bio handleBioChange={handleBioChange} bio={values.bio} bioViolation={violations.bioViolation}
                      bioCharacterCount={characterCounts.bioCharacterCount} />
                 {/* Birthday component */}
-                <Birthday handleBirthday={handleBirthday} birthday={values.birthday} />
+                <Birthday handleBirthday={handleBirthday} birthday={values.dateOfBirth} />
             </Form>
         </>
     )

@@ -21,6 +21,7 @@ const ProfilePage = ({profileData}) => {
         }
     }
 
+
     return(
         <div>
             <div className="row">
@@ -30,17 +31,17 @@ const ProfilePage = ({profileData}) => {
                 </div>
                 <div className="col-11">
                     <div className="wd-emphasis">{profileData.firstName} {profileData.lastName}</div>
-                    <div className="wd-normal">5196 Tweets</div>
+                    {/*<div className="wd-normal">5196 Tweets</div>*/}
                 </div>
 
             </div>
             <div>
                 <div className="position-relative">
-                    <img className="pos-absolute w-100" src="../../../images/banner-default.jpg" alt="banner"/>
+                    <img className="pos-absolute w-100" src={profileData.bannerPicture} alt="banner"/>
 
                     <div className="pos-profile wd-zindex-bring-to-front">
                         <img className="rounded-circle wd-profile border wd-white-ex"
-                             src="../../../images/profile-default.png" alt="profile"/>
+                             src={profileData.profilePicture} alt="profile"/>
                     </div>
                 </div>
 
@@ -68,16 +69,7 @@ const ProfilePage = ({profileData}) => {
                                         {profileData.dateOfBirth}
                                     </span>
 
-                            <span className="me-4">
-                                        <i className="far fa-calendar pe-1"/>
-                                        {profileData.dateJoined}
-                                    </span>
-
                         </div>
-
-                        <div className="wd-normal">
-                            <span className="pe-2"><b className="text-white">{profileData.followingCount}</b> Following</span>
-                            <b className="text-white">{profileData.followersCount}</b> Followers</div>
                     </div>
                 </div>
                 <br/>
@@ -85,13 +77,13 @@ const ProfilePage = ({profileData}) => {
             </div>
 
 
-            <h2>Screen size</h2>
-            <div className="d-block d-sm-none fa-2x">XS</div>
-            <div className="d-none d-sm-block d-md-none fa-2x">S</div>
-            <div className="d-none d-md-block d-lg-none fa-2x">M</div>
-            <div className="d-none d-lg-block d-xl-none fa-2x">L</div>
-            <div className="d-none d-xl-block d-xxl-none fa-2x">XL</div>
-            <div className="d-none d-xxl-block fa-2x">XXL</div>
+            {/*<h2>Screen size</h2>*/}
+            {/*<div className="d-block d-sm-none fa-2x">XS</div>*/}
+            {/*<div className="d-none d-sm-block d-md-none fa-2x">S</div>*/}
+            {/*<div className="d-none d-md-block d-lg-none fa-2x">M</div>*/}
+            {/*<div className="d-none d-lg-block d-xl-none fa-2x">L</div>*/}
+            {/*<div className="d-none d-xl-block d-xxl-none fa-2x">XL</div>*/}
+            {/*<div className="d-none d-xxl-block fa-2x">XXL</div>*/}
 
         </div>
     );
