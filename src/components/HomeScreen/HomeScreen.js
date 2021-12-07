@@ -4,6 +4,7 @@ import WhoToFollowList from "../WhoToFollow/WhoToFollowList";
 import who from "../../reducers/data/who.json"
 import CountDown from "../CountDownComponent/CountDown";
 import {useHistory} from "react-router-dom";
+import WeatherComponent from "../Weather/WeatherComponent";
 
 const HomeScreen = () => {
     const [user, setUser] = useState({});
@@ -34,6 +35,9 @@ const HomeScreen = () => {
                 {/*</div>*/}
                 <div className="row mt-4">
                     <CountDown/>
+                </div>
+                <div className="row mt-4">
+                    <WeatherComponent/>
                 </div>
             </div>
         </div>
