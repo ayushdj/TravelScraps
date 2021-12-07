@@ -10,7 +10,7 @@ const EditProfile = () => {
     const dispatch = useDispatch();
     useEffect(() =>
         service.findProfileById(dispatch, "61a2a6006d05d5143f2e0acc"), [dispatch]);
-    console.log(profile);
+    console.log("Edit Profile consolelog",profile);
     return (
         <div className="row mt-2">
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">

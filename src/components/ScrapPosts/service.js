@@ -18,14 +18,17 @@ export const createPost = (post) =>
         }
     }).then(response => response.json());
 
-export const updatePost = (post) =>
+export const updatePost = (dispatch, post) =>
     fetch(`${URL}/${post._id}`,{
         method: 'PUT',
         body: JSON.stringify(post),
         headers: {
             'content-type': 'application/json'
         }
-    }).then(response => response.json());
+    }).then(response => response.json()).then(post => dispatch({
+        type: 'update-post',
+        post
+    }));
 
 export const findPostById = (post) =>
     fetch(`${URL}/${post._id}`, {
