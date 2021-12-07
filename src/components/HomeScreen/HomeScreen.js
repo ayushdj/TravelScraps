@@ -34,7 +34,7 @@ const HomeScreen = () => {
                 {/*    <WhoToFollowList who={who}/>*/}
                 {/*</div>*/}
                 <div className="row mt-4">
-                    <CountDown/>
+                    <CountDown user={user}/>
                 </div>
                 <div className="row mt-4">
                     <WeatherComponent/>

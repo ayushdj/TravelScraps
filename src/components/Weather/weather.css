@@ -36,9 +36,10 @@
     width: 44px;
     outline: none;
     background: #7c7c7c2b;
-    color: black;
+    color: gray;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    padding-right: 5px;
 }
 
 .weather-search-bar {

@@ -4,12 +4,12 @@ import CarouselComponent from "../CarouselComponent/CarouselComponent";
 import ScrapPosts from "../ScrapPosts";
 
 const HomeComponent = ({user}) => {
-    return(
+    return (
         <div>
             <div className={"row mb-5 me-3"}>
                 <div className={"col-11 mb-1 w-100"}>
-                    <div><label><i className={"fas fa-search"} /></label></div>
-                    <div><input type ="text"
+                    <div><label><i className={"fas fa-search"}/></label></div>
+                    <div><input type="text"
                                 className={"form-control rounded-pill wd-search-twitter"}
                                 placeholder="Search TravelScraps"/></div>
                 </div>
@@ -19,17 +19,7 @@ const HomeComponent = ({user}) => {
                     <CarouselComponent/>
                 </div>
             </div>
-            <div className={"row mb-5"}>
-                <div className={"col-6 mt-2 mb-1"}>
-                    <div>Recommendations</div>
-
-                </div>
-                <div className={"col-6 mt-2 mb-1"}>
-                    <div>Next Scrapventure</div>
-                    {/* posts go here*/}
-                </div>
-                <ScrapPosts user={user}/>
-            </div>
+            <ScrapPosts user={user}/>
         </div>
     );
 }

@@ -2,31 +2,39 @@ import React, {useEffect, useRef, useState} from "react";
 import './countdown.css';
 import service from "./service";
 import {useDispatch} from "react-redux";
+import _ from "lodash";
 
 let counter;
-let newCount;
-
-const CountDown = () => {
+let newDate;
+const CountDown = ({user}) => {
     const dispatch = useDispatch();
     const [timeDays, setDays] = useState(0);
     const [timeHours, setHours] = useState(0);
     const [timeMinutes, setMinutes] = useState(0);
     const [timeSeconds, setSeconds] = useState(0);
-    let [count, setCount] = useState({time: '00:00:00'});
+    let [count, setCount] = useState({});
 
     let interval = useRef();
     useEffect(async () => {
-        counter = await service.findCountDownById(dispatch, '61a5653205c09e2bae5454d1');
-        setCount(counter.time.date);
+        //console.log(user._id);
+        counter = await service.findCountDownById(dispatch, user._id);
+        if(counter.time !== null) {
+            setCount(counter.time[0]);
+        }
         startTimer();
         return () => {
             clearInterval(interval.current);
         }
-    }, []);
+    }, [counter]);
 
     const startTimer = () => {
-        setCount(counter.time.date)
-        const countdown = new Date(counter.time.date);
+        let countdown;
+        if (!count) {
+            countdown = new Date("0000-00-00");
+        }else {
+            let dateCount = count.date;
+            countdown = new Date(dateCount);
+        }
 
         interval = setInterval(() => {
             const now = new Date().getTime();
@@ -50,18 +58,17 @@ const CountDown = () => {
     };
 
     const setCountOnClick = (event) => {
-        setCount(event.target.value);
-        newCount = event.target.value;
+        setCount({...count, date: event.target.value});
+        newDate = event.target.value;
     }
 
     const setCountInDB = () => {
-        let newDate = {
-            _id: counter.time._id,
-            person: counter.time.person,
-            date: newCount
+        let newCountDate = {
+            _id: count._id,
+            person: count.person,
+            date: newDate
         }
-
-        service.updateCountDown(dispatch, newDate);
+        service.updateCountDown(dispatch, newCountDate);
         window.location.reload();
     }
 
