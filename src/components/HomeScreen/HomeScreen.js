@@ -26,7 +26,7 @@ const HomeScreen = () => {
         <div className={"row mt-2"}>
             <div className={"col-xxl-8 col-xl-8 col-lg-8 col-md-11 col-sm-11 mt-2 border-1 border-dark"}
                  style={{"position": "relative"}}>
-                <HomeComponent/>
+                <HomeComponent user={user}/>
             </div>
             <div className={"d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4"}>
                 {/*<div className="row mb-4">*/}

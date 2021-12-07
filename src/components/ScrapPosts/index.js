@@ -6,8 +6,9 @@ import PostItem from "./PostItem";
 const selectAllPosts = (state) => state.scrapPost;
 
 
-const ScrapPosts = () => {
+const ScrapPosts = ({user}) => {
 
+    console.log("User in scrap posts", user);
     const selectorPosts = useSelector(selectAllPosts);
     const [posts, setPosts] = useState([]);
     const dispatch = useDispatch();

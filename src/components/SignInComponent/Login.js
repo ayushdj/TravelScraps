@@ -48,7 +48,7 @@ const Login = () => {
                 headers: {
                     'content-type': 'application/json'
                 }
-            }).then(() => navigate('/profile'));
+            }).then(() => history.push('/profile'));
         }
     };
 
