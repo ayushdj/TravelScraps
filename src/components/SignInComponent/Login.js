@@ -19,8 +19,8 @@ const initialState = {
     confirmPassword: ''
 };
 
+// TODO add the handle changes back
 const Login = () => {
-
     const [user, setUser] = useState({});
     const history = useHistory();
     const login = () => {
@@ -35,8 +35,22 @@ const Login = () => {
             history.push('/home');
             window.location.reload();
         });
-
     }
+
+    const register = () => {
+        {
+            console.log("API user for registered: ", `http://localhost:4000/api/register`);
+            console.log("API user:", user);
+            fetch(`http://localhost:4000/api/register`, {
+                method: 'POST',
+                body: JSON.stringify(user),
+                credentials: 'include',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(() => navigate('/profile'));
+        }
+    };
 
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
@@ -50,7 +64,6 @@ const Login = () => {
 
     useEffect(getProfile, [history]);
 
-    console.log("Users is obtained: ", user);
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
     const dispatch = useDispatch();
@@ -143,7 +156,10 @@ const Login = () => {
 
                     <Grid>
                         {isSignup ? <Button type="signUp" fullWidth variant="contained" color="primary"
-                                            className={classes.signUp}>Sign Up</Button>
+                                            className={classes.signUp}
+                                            onClick={register}
+                            >Sign Up
+                            </Button>
                             :
                             <Button
                                 type="signUp" fullWidth variant="contained" color="primary"
