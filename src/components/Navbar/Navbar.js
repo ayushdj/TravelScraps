@@ -6,39 +6,82 @@ import decode from 'jwt-decode';
 
 import useStyles from './styles';
 import * as actionType from "../../constants/actionTypes";
-
+const _ = require("lodash");
 const Navbar = () => {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    const dispatch = useDispatch();
+
+    // const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    //const dispatch = useDispatch();
     const location = useLocation();
-    const history = useHistory();
+    //const history = useHistory();
     const classes = useStyles();
 
+    // const logout = () => {
+    //     dispatch({type: actionType.LOGOUT});
+    //
+    //     history.push('/auth');
+    //
+    //     setUser(null);
+    // };
+
+    // useEffect(() => {
+    //     const token = user?.token;
+    //
+    //     if (token) {
+    //         const decodedToken = decode(token);
+    //
+    //         if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    //     }
+    //
+    //     setUser(JSON.parse(localStorage.getItem('profile')));
+    // }, [location]);
+
+    const [user, setUser] = useState({});
+    const history = useHistory();
+    const getProfile = () => {
+        fetch(`http://localhost:4000/api/profile`, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(res => res.json())
+            .then(user => {
+                setUser(user);
+            }).catch(() => history.push('/login'));
+    }
+
     const logout = () => {
-        dispatch({type: actionType.LOGOUT});
+        fetch(`http://localhost:4000/api/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(() => {
+            history.push('/logIn');
+            window.location.reload();
+        });
 
-        history.push('/auth');
 
-        setUser(null);
-    };
+    }
+    useEffect(getProfile, [history]);
 
-    useEffect(() => {
-        const token = user?.token;
 
-        if (token) {
-            const decodedToken = decode(token);
-
-            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-        }
-
-        setUser(JSON.parse(localStorage.getItem('profile')));
-    }, [location]);
+    console.log("User in the nav bar: ", user);
+    const login = () => {
+        fetch(`http://localhost:4000/api/login`, {
+            method: 'POST',
+            body: JSON.stringify(user),
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(() => {
+            history.push('/home')
+        });
+    }
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
+                <Typography component={Link} to="/home" className={classes.heading} variant="h6"
+                            align="center"><i className="fas fa-map"/></Typography>
                 <div className={classes.map}>
-                    <i className="fas fa-map"/>
+
                 </div>
             </div>
             <div className={classes.brandContainer}>
@@ -70,21 +113,40 @@ const Navbar = () => {
                             align="center">Bookmarks</Typography>
             </div>
 
-            <div className={classes.brandContainer}>
+            <div>
                 <Toolbar className={classes.toolbar}>
-                    {user?.result ? (
-                        <div className={classes.profile}>
-                            <Avatar className={classes.purple} alt={user?.result.name}
-                                    src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-                            <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
-                            <Button variant="contained" className={classes.logout} color="secondary"
-                                    onClick={logout}>Logout</Button>
-                        </div>
+                    {_.isEqual({}, user) ? (
+                        <div/>
                     ) : (
-                        <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
-                    )}
+                        <div className="row">
+                            <div className="col">
+                                <Button variant="contained"  color="secondary"
+                                        onClick={logout}>Logout</Button>
+                            </div>
+                            <div className="col">
+                                <label>HELLO {(user.firstName).toUpperCase()}</label>
+                            </div>
+                        </div>
+                    )
+                    }
                 </Toolbar>
             </div>
+
+            {/*<div className={classes.brandContainer}>*/}
+            {/*    <Toolbar className={classes.toolbar}>*/}
+            {/*        {user?.result ? (*/}
+            {/*            <div className={classes.profile}>*/}
+            {/*                <Avatar className={classes.purple} alt={user?.result.name}*/}
+            {/*                        src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>*/}
+            {/*                <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>*/}
+            {/*                <Button variant="contained" className={classes.logout} color="secondary"*/}
+            {/*                        onClick={logout}>Logout</Button>*/}
+            {/*            </div>*/}
+            {/*        ) : (*/}
+            {/*            <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>*/}
+            {/*        )}*/}
+            {/*    </Toolbar>*/}
+            {/*</div>*/}
         </AppBar>
     );
 };

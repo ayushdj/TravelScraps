@@ -3,7 +3,7 @@ import "./home.css"
 import CarouselComponent from "../CarouselComponent/CarouselComponent";
 import ScrapPosts from "../ScrapPosts";
 
-const HomeComponent = () => {
+const HomeComponent = ({user}) => {
     return(
         <div>
             <div className={"row mb-5 me-3"}>
@@ -28,7 +28,7 @@ const HomeComponent = () => {
                     <div>Next Scrapventure</div>
                     {/* posts go here*/}
                 </div>
-                <ScrapPosts/>
+                <ScrapPosts user={user}/>
             </div>
         </div>
     );

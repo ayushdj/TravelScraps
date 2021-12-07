@@ -7,6 +7,7 @@ import service from "./service";
 
 const calendarState = (state) => state.calendar;
 const eventsState = (state) => state.events;
+
 const CalendarScreen = () => {
     const calendarObject = useSelector(calendarState);
     const eventArray = useSelector(eventsState);
