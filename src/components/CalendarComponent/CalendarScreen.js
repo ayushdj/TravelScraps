@@ -77,7 +77,6 @@ const CalendarScreen = () => {
                 ...calendarObject,
                 events: calendarObject.events.filter((eventId) => eventId !== deletedEvent._id)
             }
-            // TODO eventNum changes before deleteEvent, therefore redux not updated
             service.deleteEvent(dispatch, deletedEvent._id, newCalendar, calendarObject._id)
             if (window.confirm("Delete is successful")) {
                 eventNum -= 1
