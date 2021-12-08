@@ -39,19 +39,49 @@ const getEventById = (dispatch, eventId) => {
         });
 }
 
-// const createEvent = (dispatch, event) =>
-//     fetch(EVENT_URL, {
-//         method: 'POST',
-//         body: JSON.stringify(event),
-//         headers: {
-//             'content-type': 'application/json'
-//         }
-//     }).then(response => response.json())
-//         .then(event =>
-//             dispatch({
-//                 type: 'add-event',
-//                 event
-//             }));
+const createEvent = (dispatch, event) =>
+    fetch(EVENT_URL, {
+        method: 'POST',
+        body: JSON.stringify(event),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())
+        .then(event => {
+            dispatch({
+                type: 'add-event',
+                event
+            })
+            return event._id
+        });
+
+
+const updateCalendar = (dispatch, id, newCalendar) => {
+    fetch(`${CALENDAR_URL}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(newCalendar),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())}
+
+
+export const deleteEvent = (dispatch, eventId, newCalendar, calendarId) => {
+    fetch(`${EVENT_URL}/${eventId}`, {
+        method: 'DELETE'
+    }).then(response => {return response.json()})
+        .then(() => {
+            console.log("after delete", newCalendar);
+            updateCalendar(dispatch, calendarId, newCalendar)
+        })
+        .then(() => {
+            console.log("shit's deleted")
+            findCountCalendarByPersonId(dispatch, newCalendar.person)
+        }).then (() =>
+        window.location.reload()
+    )
+
+}
 
 
 
@@ -59,5 +89,5 @@ const getEventById = (dispatch, eventId) => {
 
 
 export default {
-    findCountCalendarByPersonId, createCalendar, getEventById
+    findCountCalendarByPersonId, createCalendar, getEventById, createEvent, updateCalendar, deleteEvent
 }
