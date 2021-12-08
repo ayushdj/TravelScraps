@@ -84,6 +84,7 @@ const CalendarScreen = () => {
             } else {
                 eventNum -= 1
             }
+
         }
 
 
