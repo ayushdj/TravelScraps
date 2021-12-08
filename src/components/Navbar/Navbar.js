@@ -8,32 +8,8 @@ import useStyles from './styles';
 import * as actionType from "../../constants/actionTypes";
 const _ = require("lodash");
 const Navbar = () => {
-    // const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    //const dispatch = useDispatch();
     const location = useLocation();
-    //const history = useHistory();
     const classes = useStyles();
-
-    // const logout = () => {
-    //     dispatch({type: actionType.LOGOUT});
-    //
-    //     history.push('/auth');
-    //
-    //     setUser(null);
-    // };
-
-    // useEffect(() => {
-    //     const token = user?.token;
-    //
-    //     if (token) {
-    //         const decodedToken = decode(token);
-    //
-    //         if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-    //     }
-    //
-    //     setUser(JSON.parse(localStorage.getItem('profile')));
-    // }, [location]);
-
     const [user, setUser] = useState({});
     const history = useHistory();
     const getProfile = () => {
@@ -59,6 +35,7 @@ const Navbar = () => {
     }
     useEffect(getProfile, [history]);
 
+    const loggedIn = JSON.stringify(user) !== "{}"
 
     console.log("User in the nav bar: ", user);
     const login = () => {
@@ -87,31 +64,48 @@ const Navbar = () => {
                 <Typography component={Link} to="/home" className={classes.heading} variant="h6"
                             align="center">Home</Typography>
             </div>
-            <div className={classes.brandContainer}>
-                <Typography component={Link} to="/profile" className={classes.heading} variant="h6"
-                            align="center">Profile</Typography>
-            </div>
-            <div className={classes.brandContainer}>
-                <Typography component={Link} to="/calendar" className={classes.heading} variant="h6"
-                            align="center">Calender</Typography>
-            </div>
+
+            {loggedIn ?
+                <div className={classes.brandContainer}>
+                    <Typography component={Link} to="/profile" className={classes.heading} variant="h6"
+                                align="center">Profile</Typography>
+                </div>
+                : <></>
+            }
+            { loggedIn ?
+                <div className={classes.brandContainer}>
+                    <Typography component={Link} to="/calendar" className={classes.heading} variant="h6"
+                                align="center">Calender</Typography>
+                </div>
+                : <></>
+            }
+            { loggedIn ?
             <div className={classes.brandContainer}>
                 <Typography component={Link} to="/friends" className={classes.heading} variant="h6"
                             align="center">Friends</Typography>
             </div>
+                : <></>
+            }
+
+            { loggedIn ?
             <div className={classes.brandContainer}>
                 <Typography component={Link} to="/messages" className={classes.heading} variant="h6"
                             align="center">Messages</Typography>
             </div>
+                : <></>
+            }
             <div className={classes.brandContainer}>
                 <Typography component={Link} to="/settings" className={classes.heading} variant="h6"
                             align="center">Settings</Typography>
             </div>
+
+            { loggedIn ?
             <div className={classes.brandContainer}>
                 <Typography component={Link} to="/bookmarks" className={classes.heading} variant="h6"
                             align="center">Bookmarks</Typography>
             </div>
-
+                : <></>
+            }
             <div>
                 <Toolbar className={classes.toolbar}>
                     {_.isEqual({}, user) ? (

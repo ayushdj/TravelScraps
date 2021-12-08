@@ -5,6 +5,7 @@ import who from "../../reducers/data/who.json"
 import CountDown from "../CountDownComponent/CountDown";
 import {useHistory} from "react-router-dom";
 import WeatherComponent from "../Weather/WeatherComponent";
+import _ from "lodash";
 
 const HomeScreen = () => {
     const [user, setUser] = useState({});
@@ -16,12 +17,16 @@ const HomeScreen = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-            }).catch(() => history.push('/login'));
+                // })
+            })
+            // }).catch(() => history.push('/login'));
     }
-
+    const loggedIn = JSON.stringify(user) !== "{}"
+    console.log("user loggedIn", loggedIn)
     useEffect(getProfile, [history]);
 
     console.log("Users is obtained in homeComponent : ", user);
+    //const profileComponent = profile.edit ? <EditProfile profile={profile}/> : <ProfilePage profile={profile}/>
 
     return (
         <div className={"row mt-2"}>
@@ -33,9 +38,9 @@ const HomeScreen = () => {
                 {/*<div className="row mb-4">*/}
                 {/*    <WhoToFollowList who={who}/>*/}
                 {/*</div>*/}
-                <div className="row mt-4">
-                    <CountDown user={user}/>
-                </div>
+
+                {loggedIn ?  <CountDown user={user}/> : <></>}
+
                 <div className="row mt-4">
                     <WeatherComponent/>
                 </div>
