@@ -5,7 +5,11 @@ const data = {
 const calendar = (state = data, action) => {
     switch (action.type) {
         case "fetch-calendar":
-            return action.calendar[0];
+            if (action.calendar.length < 1) {
+                return (state)
+            } else {
+                return action.calendar[0];
+            }
 
         default:
             return(state);
