@@ -9,6 +9,7 @@ import calendarService from "../CalendarComponent/service";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Style"
 import {createCountDown} from "../CountDownComponent/service";
+import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst"
 
 const initialState = {
     firstName: '',
@@ -89,6 +90,7 @@ const Login = () => {
         setProfile(newProfile);
     }
 
+
     const [user, setUser] = useState({});
     const history = useHistory();
     const login = () => {
@@ -152,26 +154,47 @@ const Login = () => {
         setShowPassword(false);
     };
 
+    const getUserType = () =>  {
+        const radios = document.getElementsByName('user-role');
+        for (const radio of radios)
+        {
+            if (radio.checked) {
+                return radio.value;
+            }
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault(true);
 
         if (isSignup) {
+            // get radio button value
+            // const userRole = document.getElementById("radio-traveler").checked ? traveler : travelGuide
+            // console.log("userRole", userRole)
+            const role = getUserType()
+            console.log("Role", role)
+
             const newProfile = {firstName:profile.firstName,
                 lastName:profile.lastName,
                 userName:profile.userName,
                 dateOfBirth:profile.date,
                 email:profile.email,
                 password:profile.password,
-                bio: "",
-                website: "",
+                type: role,
+                comments: [],
+                scrapPosts: [],
+                likes: [],
+                bio : "",
+                website : "",
+                profilePicture : "",
+                bannerPicture : "",
                 location: "",
-                dateJoined: Date.now(),
-                followingCount: 0,
-                followersCount: 0
             }
 
             signUpService.createPerson(newProfile)
-                .then(() => loginService.findProfileByUsername(dispatch, user.userName, user.password))
+                .then(() => {
+                    loginService.findProfileByUsername(dispatch, user.userName, user.password)
+                })
                 .then((addedProfile) => {
                         calendarService.createCalendar(dispatch, {events: [], person: addedProfile._id})
                         createCountDown(dispatch, addedProfile._id)
@@ -207,6 +230,19 @@ const Login = () => {
                                        type="email"/>
                                 <Input name="dateOfBirth" type="date"
                                        handleChange={dobChangeHandler}/>
+                                <br/>
+                                <div className = {"ms-3"}>
+                                    <label>User Role</label>
+                                    <input className={"ms-3"} type="radio" value= {TRAVELLER}
+                                           name="user-role" id="radio-traveler" checked />
+                                    <label className={"ms-1"} htmlFor="radio-traveler">Traveler</label>
+
+                                    <input className={"ms-4"} type="radio" value= {TRAVELGUIDE}
+                                           name="user-role" id="radio-guide"/>
+                                    <label className={"ms-1"} htmlFor="radio-guide">Travel guide</label><br/>
+                                </div>
+
+
 
                             </>
                         )}
