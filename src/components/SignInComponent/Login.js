@@ -8,6 +8,7 @@ import loginService from "../Auth/loginService";
 import calendarService from "../CalendarComponent/service";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Style"
+import {createCountDown} from "../CountDownComponent/service";
 
 const initialState = {
     firstName: '',
@@ -171,9 +172,10 @@ const Login = () => {
 
             signUpService.createPerson(newProfile)
                 .then(() => loginService.findProfileByUsername(dispatch, user.userName, user.password))
-                .then((addedProfile) =>
-                    calendarService.createCalendar(dispatch, {events: [], person: addedProfile._id}))
-                .then(() => history.push("/"));
+                .then((addedProfile) => {
+                        calendarService.createCalendar(dispatch, {events: [], person: addedProfile._id})
+                        createCountDown(dispatch, addedProfile._id)
+                }).then(() => history.push("/"));
         } else {
             loginService.findProfileByUsername(dispatch, user.userName, user.password)
                 .then((addedProfile) =>
