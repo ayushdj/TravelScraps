@@ -8,13 +8,13 @@ const selectProfile = (state) => state.profile;
 const PostItem = ({postData}) => {
 
 
-    const selectorProfile = useSelector(selectProfile);
+    // const selectorProfile = useSelector(selectProfile);
     //const [profile, setProfile] = useState({});
     const dispatch = useDispatch();
     useEffect(() => profileService.findProfileById(dispatch, postData.person), []);
 
     const [currentPost, setCurrentPost] = useState({
-        userName: selectorProfile.handle,
+        userName: postData.handle,
         title: postData.title,
         location: postData.location,
         tags: postData.tags,
@@ -66,7 +66,7 @@ const PostItem = ({postData}) => {
                 </div>
                 <div className="col-10">
                     {/*{currentPost.userName}*/}
-                    <span style={{color:"rgb(125, 125, 125)", marginLeft:"-20px"}}>@{selectorProfile.handle}</span>
+                    <span style={{color:"rgb(125, 125, 125)", marginLeft:"-20px"}}>@{postData.handle}</span>
                 </div>
                 <div className="col-1">
                     <i className="fas fa-trash"/>
