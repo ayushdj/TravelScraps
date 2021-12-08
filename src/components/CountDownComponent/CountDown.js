@@ -73,6 +73,7 @@ const CountDown = ({user}) => {
     }
 
     return (
+        <div className="row mt-4">
         <div className="wd-countdown">
             <div className="wd-input">
                 <div className="row">
@@ -108,6 +109,7 @@ const CountDown = ({user}) => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

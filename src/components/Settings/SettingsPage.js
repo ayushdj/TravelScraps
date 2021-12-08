@@ -15,8 +15,8 @@ const SettingsPage = ({profileData}) => {
 
     // Creating state variables
     let [values, setValues] = useState({
-        emailAddress:profileData.emailAddress,
-        handle:profileData.handle,
+        email:profileData.email,
+        userName:profileData.userName,
         password: profileData.password
     })
 
@@ -31,54 +31,58 @@ const SettingsPage = ({profileData}) => {
         usernameCharacterCount: 0
     })
 
-    const handleUserNameChange = (event) => {
+    const userNameUserNameChange = (event) => {
         // set the username to be the value typed by the user
-        setValues({...values, handle:event.target.value})
+        setValues({...values, userName:event.target.value})
         // find out if the username the user entered is valid or not
-        let isValidUserName = validateUsername(values.handle);
+        let isValidUserName = validateUsername(values.userName);
         // set the violation for the username field
         setViolations({...violations, userNameViolation:isValidUserName});
         // setting the character count
         setCharacterCounts({...characterCounts, usernameCharacterCount:event.target.value.length});
     }
-    // event handler function for email
-    const handleEmailChange = (event) => {
+    // event userNamer function for email
+    const userNameEmailChange = (event) => {
         // set the email to be the value typed by the user
-        setValues({...values, emailAddress:event.target.value});
+        setValues({...values, email:event.target.value});
         // find out if the email is valid or not
-        let isValidEmail = validateEmail(values.emailAddress);
+        let isValidEmail = validateEmail(values.email);
         // set the violation for the email field
         setViolations({...violations, emailViolation:isValidEmail});
     }
-    const handlePassword = (event) => {
+    const userNamePassword = (event) => {
         setValues({...values, password: event.target.value});
     }
 
-    const handleSaveChanges = (event) => {
-
-        const json = {
-            _id: profileData._id,
-            firstName: profileData.firstName,
-            lastName: profileData.lastName,
-            bio: profileData.bio,
-            location:profileData.location,
-            website: profileData.website,
-            dateOfBirth: profileData.dateOfBirth,
-            dateJoined: profileData.dateJoined,
-            handle:values.handle,
-            emailAddress:values.emailAddress,
-            password:values.password,
-            followingCount: profileData.followingCount,
-            followersCount: profileData.followersCount,
-            profilePicture:profileData.profilePicture,
-            bannerPicture: profileData.bannerPicture,
+    const userNameSaveChanges = (event) => {
+        if (profileData._id === "") {
+            alert("User is not logged in!")
+        } else {
+            const json = {
+                _id: profileData._id,
+                firstName: profileData.firstName,
+                lastName: profileData.lastName,
+                userName: values.userName,
+                email: values.email,
+                password: values.password,
+                dateOfBirth: profileData.dateOfBirth,
+                type: profileData.type,
+                comments: profileData.comments,
+                scrapPosts: profileData.scrapPosts,
+                likes: profileData.likes,
+                bio: profileData.bio,
+                website: profileData.website,
+                profilePicture: profileData.profilePicture,
+                bannerPicture: profileData.bannerPicture,
+                location: profileData.location
+            }
+            service.updateProfile(json, dispatch);
+            console.log(json);
         }
-        service.updateProfile(json, dispatch);
-        console.log(json);
     }
 
     /*
-    const handleDeleteAccount = (event) => {
+    const userNameDeleteAccount = (event) => {
         service.deleteProfile(profile);
     }*/
 
@@ -95,7 +99,7 @@ const SettingsPage = ({profileData}) => {
                             <InputGroup>
                                 <InputGroup.Text id="inputGroupPrepend">travelscraps.com/</InputGroup.Text>
                                 <Form.Control type="text" className="wd-inputs" placeholder="Username"
-                                              aria-describedby="inputGroupPrepend" onChange={handleUserNameChange} value={values.handle}
+                                              aria-describedby="inputGroupPrepend" onChange={userNameUserNameChange} value={values.userName}
                                               name="username"/>
                                 <Form.Control.Feedback type="invalid">
                                     Please choose a username.
@@ -121,7 +125,7 @@ const SettingsPage = ({profileData}) => {
                             <Row>
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <Form.Control className="wd-inputs" required={true}
-                                                  name="email" onChange={handlePassword} value={values.password}/>
+                                                  name="email" onChange={userNamePassword} value={values.password}/>
                                 </Col>
                             </Row>
                         </Form.Group>
@@ -139,7 +143,7 @@ const SettingsPage = ({profileData}) => {
                     <Row>
                         <Col xs={6} sm={6} md={6} lg={6} xl={6} xxl={6}>
                             <Form.Control type="email" placeholder="name@example.com" className="wd-inputs" required={true}
-                                          name="email" onChange={handleEmailChange} value={values.emailAddress}/>
+                                          name="email" onChange={userNameEmailChange} value={values.email}/>
                             <Form.Text style={{color:"rgb(125, 125, 125)"}}>
                                 We'll never share your email with anyone else.</Form.Text>
                         </Col>
@@ -158,7 +162,7 @@ const SettingsPage = ({profileData}) => {
 
 
             <Row style={{marginTop:"20px"}}>
-                <Col xxl="auto" lg="auto" md="auto" sm="auto" xs="auto"><Button onClick={handleSaveChanges}
+                <Col xxl="auto" lg="auto" md="auto" sm="auto" xs="auto"><Button onClick={userNameSaveChanges}
                     style={{color:"white", backgroundColor:"green"}} variant="success" type="btn btn-success">Save Changes</Button></Col>
                 <Col xxl="auto" lg="auto" md="auto" sm="auto" xs="auto"><Button variant="reset" className="btn btn-danger"
                     style={{color:"white", backgroundColor:"red"}}>Delete Account</Button></Col>
