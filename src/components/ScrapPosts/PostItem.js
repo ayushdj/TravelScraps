@@ -3,10 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import service from "./service";
 import profileService from '../ProfileScreen/service'
 import Comment from "./Comments/Comment";
+import {useHistory} from "react-router-dom";
 const selectProfile = (state) => state.profile;
 
-const PostItem = ({postData}) => {
-
+const PostItem = ({loggedIn, postData}) => {
+    const history = useHistory()
 
     // const selectorProfile = useSelector(selectProfile);
     //const [profile, setProfile] = useState({});
@@ -29,20 +30,24 @@ const PostItem = ({postData}) => {
 
 
     const handleCommentAddition = (event) => {
-        currentPost.comments.push(newComment);
-        const newPost = {
-            _id:postData._id,
-            userName: currentPost.userName,
-            title: currentPost.title,
-            location: currentPost.location,
-            tags: currentPost.tags,
-            text: currentPost.text,
-            travelPlan: currentPost.travelPlan,
-            images: currentPost.images,
-            comments: currentPost.comments,
-            person: currentPost.person,
+        if (!loggedIn) {
+            history.push('/login')
+        } else {
+            currentPost.comments.push(newComment);
+            const newPost = {
+                _id: postData._id,
+                userName: currentPost.userName,
+                title: currentPost.title,
+                location: currentPost.location,
+                tags: currentPost.tags,
+                text: currentPost.text,
+                travelPlan: currentPost.travelPlan,
+                images: currentPost.images,
+                comments: currentPost.comments,
+                person: currentPost.person,
+            }
+            service.updatePost(dispatch, newPost);
         }
-        service.updatePost(dispatch, newPost);
     }
 
     //console.log(currentPost.comments);
@@ -55,6 +60,13 @@ const PostItem = ({postData}) => {
     // have boolean state variable that renders like or unlike based on state
     const [liked, setLiked] = useState(false);
 
+    const handleLikeClick = (liked) => {
+        if (!loggedIn) {
+            history.push('/login')
+        } else {
+            setLiked(!liked)
+        }
+    }
 
     const [clickedComment, setClickedComment] = useState(false);
 
@@ -90,7 +102,7 @@ const PostItem = ({postData}) => {
             </div>
             <div className="row">
                 <div className="col-6">
-                    {!liked ? <i onClick={() => setLiked(!liked)} className="far fa-thumbs-up"/> :
+                    {!liked ? <i onClick={() => handleLikeClick(liked)} className="far fa-thumbs-up"/> :
                         <i onClick={() => setLiked(!liked)} style={{color:"rgb(29, 161, 242)"}} className="far fa-thumbs-up"/>
                     }
 

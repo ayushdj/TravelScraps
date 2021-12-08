@@ -22,6 +22,16 @@ const Navbar = () => {
             }).catch(() => history.push('/login'));
     }
 
+    const loggedIn = JSON.stringify(user) !== "{}"
+    const handleLoginLogout = () => {
+        if (loggedIn) {
+            logout()
+        } else {
+            history.push("/login")
+        }
+    }
+
+
     const logout = () => {
         fetch(`http://localhost:4000/api/logout`, {
             method: 'POST',
@@ -31,25 +41,23 @@ const Navbar = () => {
             window.location.reload();
         });
 
-
     }
     useEffect(getProfile, [history]);
 
-    const loggedIn = JSON.stringify(user) !== "{}"
 
     console.log("User in the nav bar: ", user);
-    const login = () => {
-        fetch(`http://localhost:4000/api/login`, {
-            method: 'POST',
-            body: JSON.stringify(user),
-            credentials: 'include',
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(() => {
-            history.push('/home')
-        });
-    }
+    // const login = () => {
+    //     fetch(`http://localhost:4000/api/login`, {
+    //         method: 'POST',
+    //         body: JSON.stringify(user),
+    //         credentials: 'include',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         }
+    //     }).then(() => {
+    //         history.push('/home')
+    //     });
+    // }
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
@@ -108,20 +116,15 @@ const Navbar = () => {
             }
             <div>
                 <Toolbar className={classes.toolbar}>
-                    {_.isEqual({}, user) ? (
-                        <div/>
-                    ) : (
                         <div className="row">
                             <div className="col">
                                 <Button variant="contained"  color="secondary"
-                                        onClick={logout}>Logout</Button>
+                                        onClick={handleLoginLogout}>{ loggedIn ? "Logout" : "Login"}</Button>
                             </div>
                             <div className="col">
-                                <label>HELLO {(user.firstName).toUpperCase()}</label>
+                                <label>{ loggedIn ? `HELLO ${(user.firstName).toUpperCase()}` : ""}</label>
                             </div>
                         </div>
-                    )
-                    }
                 </Toolbar>
             </div>
 

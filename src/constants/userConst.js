@@ -1,4 +1,5 @@
 export const emptyUser =  {
+    _id: "",
     firstName: "",
     lastName: "",
     userName: "",

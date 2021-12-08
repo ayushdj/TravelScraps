@@ -3,11 +3,12 @@ import './index.css';
 import {useDispatch, useSelector} from "react-redux";
 import profileService from "../../ProfileScreen/service";
 import service from '../service';
+import {useHistory} from "react-router-dom";
 const selectProfile = (state) => state.profile;
 
 
-const WhatsHappening = ({postData}) => {
-
+const WhatsHappening = ({loggedIn}) => {
+    const history = useHistory()
     /*
     const selectorProfile = useSelector(selectProfile);
     useEffect(() => profileService.findProfileById(dispatch, postData.person), []);
@@ -35,17 +36,22 @@ const WhatsHappening = ({postData}) => {
     person: String,
 }
          */
-        let newPost = {
-            title:"",
-            location: "",
-            tags:[],
-            text: whatsHappening,
-            travelPlan:"",
-            images:[],
-            comments:[],
-            person: "",
+
+        if (!loggedIn) {
+            history.push('/login')
+        } else {
+            let newPost = {
+                title: "",
+                location: "",
+                tags: [],
+                text: whatsHappening,
+                travelPlan: "",
+                images: [],
+                comments: [],
+                person: "",
+            }
+            service.createPost(newPost);
         }
-        service.createPost(newPost);
     }
 
     return (
