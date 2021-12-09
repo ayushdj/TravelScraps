@@ -8,7 +8,8 @@ import loginService from "../Auth/loginService";
 import calendarService from "../CalendarComponent/service";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Style"
-import {createCountDown} from "../CountDownComponent/service";
+import countDownService from "../CountDownComponent/service";
+import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst"
 
 const initialState = {
     firstName: '',
@@ -22,6 +23,8 @@ const initialState = {
 
 const Login = () => {
 
+    // save all input changes in setProfile, not setUser
+    // setUser changes are unstable, all the setUser changes can be lost when user register/login reloads aka. it puts {} for user.
     const userNameChangeHandler = (event) => {
         const userName = event.target.value;
         const newUser = {
@@ -88,49 +91,99 @@ const Login = () => {
         setProfile(newProfile);
     }
 
+
     const [user, setUser] = useState({});
     const history = useHistory();
     const login = () => {
+        const newUser = {userName: profile.userName, password: profile.password}
+        alert(`Brave user trying to login ${JSON.stringify(newUser)}`)
         fetch(`http://localhost:4000/api/login`, {
             method: 'POST',
-            body: JSON.stringify(user),
+            body: JSON.stringify(newUser),
             credentials: 'include',
             headers: {
                 'content-type': 'application/json'
             }
-        }).then(() => {
-            history.push('/home');
-            window.location.reload();
-        });
+        })
+        .then(response => {
+            if (response.status === 403) {
+                alert("Cannot find username. Please register.")
+                history.push("/login")
+            } else {
+                history.push("/home")
+                //window.location.reload()
+            }
+
+        })
+            // console.log(`this is promise ${promise}`)
+            // alert(`this is promise ${promise}`)
+            // history.push('/home');
+            // window.location.reload();
+
     }
 
-    const register = () => {
+    const processRegister = () => {
+        const role = getUserType()
+        console.log("Role", role)
+        const newProfile = {
+            firstName:profile.firstName,
+            lastName:profile.lastName,
+            userName:profile.userName,
+            dateOfBirth:profile.date,
+            email:profile.email,
+            password:profile.password,
+            type: role,
+            comments: [],
+            scrapPosts: [],
+            likes: [],
+            bio : "",
+            website : "",
+            profilePicture : "",
+            bannerPicture : "",
+            location: "",
+        }
+        console.log(newProfile)
+        register(newProfile)
+    }
+
+    const register = (newProfile) => {
         {
             console.log("API user for registered: ", `http://localhost:4000/api/register`);
-            console.log("API user:", user);
+            console.log("API user:", newProfile);
+            alert(`API user: ${JSON.stringify(newProfile)}`)
             fetch(`http://localhost:4000/api/register`, {
                 method: 'POST',
-                body: JSON.stringify(user),
+                body: JSON.stringify(newProfile),
                 credentials: 'include',
                 headers: {
                     'content-type': 'application/json'
                 }
-            }).then(() => {
-                login()
-                history.push('/home')
-                //window.location.reload();
-            });
+            })
+                .then(response => {
+                    if(response.status === 404)
+                        alert("username already exists! Pick a different username")
+                    else {
+                        alert("signup success!")
+                        history.push("/home")
+                        //window.location.reload()
+                    }
+
+                })
+
+
         }
     };
 
-    const getProfile = () => {
-        fetch(`http://localhost:4000/api/profile`, {
+    const getProfile = async () => {
+        await fetch(`http://localhost:4000/api/profile`, {
             method: 'POST',
             credentials: 'include'
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-            }).catch(() => history.push('/login'));
+                history.push(`/home`)
+            })
+            // .catch(() => history.push('/login'));
     }
 
     useEffect(getProfile, [history]);
@@ -151,40 +204,24 @@ const Login = () => {
         setShowPassword(false);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault(true);
-
-        if (isSignup) {
-            const newProfile = {firstName:profile.firstName,
-                lastName:profile.lastName,
-                userName:profile.userName,
-                dateOfBirth:profile.date,
-                email:profile.email,
-                password:profile.password,
-                bio: "",
-                website: "",
-                location: "",
-                dateJoined: Date.now(),
-                followingCount: 0,
-                followersCount: 0
+    const getUserType = () =>  {
+        const radios = document.getElementsByName('user-role');
+        for (const radio of radios)
+        {
+            if (radio.checked) {
+                return radio.value;
             }
-
-            signUpService.createPerson(newProfile)
-                .then(() => loginService.findProfileByUsername(dispatch, user.userName, user.password))
-                .then((addedProfile) => {
-                        calendarService.createCalendar(dispatch, {events: [], person: addedProfile._id})
-                        createCountDown(dispatch, addedProfile._id)
-                }).then(() => history.push("/"));
-        } else {
-            loginService.findProfileByUsername(dispatch, user.userName, user.password)
-                .then((addedProfile) =>
-                    calendarService.findCountCalendarByPersonId(dispatch, addedProfile._id))
-                .then(() => history.push("/"));
         }
-    };
+    }
 
+    const handleSubmit = () => {
+        if (isSignup) {
+            processRegister()
+        } else {
+            login()
+        }
+    }
 
-    const handleChange = (e) => setForm({...form, [e.target.name]: e.target.value});
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -200,36 +237,51 @@ const Login = () => {
                             <>
                                 <Input name="firstName" label="First Name"
                                        handleChange={firstNameChangeHandler} autoFocus half/>
-                                <Input name="lastName" label="Last Name" handleChange={lastNameChangeHandler}
+                                <Input name="lastName" label="Last Name"
+                                       handleChange={lastNameChangeHandler}
                                        half/>
-                                <Input name="email" label="Email Address" handleChange={emailChangeHandler}
+                                <Input name="email" label="Email Address"
+                                       handleChange={emailChangeHandler}
                                        type="email"/>
                                 <Input name="dateOfBirth" type="date"
                                        handleChange={dobChangeHandler}/>
+                                <br/>
+                                <div className = {"ms-3"}>
+                                    <label>User Role</label>
+                                    <input className={"ms-3"} type="radio" value= {TRAVELLER}
+                                           name="user-role" id="radio-traveler" checked />
+                                    <label className={"ms-1"} htmlFor="radio-traveler">Traveler</label>
+
+                                    <input className={"ms-4"} type="radio" value= {TRAVELGUIDE}
+                                           name="user-role" id="radio-guide"/>
+                                    <label className={"ms-1"} htmlFor="radio-guide">Travel guide</label><br/>
+                                </div>
+
+
 
                             </>
                         )}
                         <Input
-                            name="username" label="Username" handleChange={userNameChangeHandler}
+                            name="username" label="Username"
                             type="username"
-                            value={user.username}
-                            onChange={(e) => setUser({...user, username: e.target.value})}/>
+                            value={user.userName}
+                            handleChange={userNameChangeHandler}
+                            onChange={(e) => setUser({...user, userName: e.target.value})}/>
                         <Input
-                            name="password" label="Password" handleChange={passwordChangeHandler}
+                            name="password" label="Password"
                             type={showPassword ? 'text' : 'password'}
                             handleShowPassword={handleShowPassword}
                             value={user.password}
+                            handleChange={passwordChangeHandler}
                             onChange={(e) => setUser({...user, password: e.target.value})}/>
-                        {isSignup && <Input name="confirmPassword" label="Confirm Password"
-                                            handleChange={passwordChangeHandler} type="password"/>}
+                        {isSignup && <Input name="confirmPassword" label="Confirm Password" type="password"/>}
 
                     </Grid>
 
                     <Grid>
                         {isSignup ?<Button
                                       type="signUp" fullWidth variant="contained" color="primary"
-                                      className={classes.signUp}
-                                      onClick={register}>
+                                      className={classes.signUp}>
                                       <Typography component={Link} to="/home" className={"text-white"}
                                                   style={{textDecoration: 'none'}}
                                                   align="center">Sign Up</Typography>
@@ -237,8 +289,7 @@ const Login = () => {
                             :
                             <Button
                                 type="signUp" fullWidth variant="contained" color="primary"
-                                className={classes.signUp}
-                                onClick={login}>
+                                className={classes.signUp}>
                                 <Typography component={Link} to="/home" className={"text-white"}
                                             style={{textDecoration: 'none'}}
                                             align="center">Login</Typography>
@@ -256,28 +307,7 @@ const Login = () => {
                 </form>
             </Paper>
         </Container>
-        // <div>
-        //     <h1>Login</h1>
-        //     <input
-        //         value={user.username}
-        //         onChange={(e) => setUser({...user, username: e.target.value})}
-        //         placeholder="username"
-        //         className="form-control"/>
-        //     <input
-        //         value={user.password}
-        //         onChange={(e) => setUser({...user, password: e.target.value})}
-        //         placeholder="password"
-        //         type="password"
-        //         className="form-control"/>
-        //     <button
-        //         className="btn btn-primary"
-        //         onClick={login}>
-        //         <Typography component={Link} to="/home" className={"primary text-white "}
-        //                     style={{ textDecoration: 'none' }}
-        //                     align="center">Login</Typography>
-        //     </button>
-        //
-        // </div>
+
     );
 };
 export default Login;

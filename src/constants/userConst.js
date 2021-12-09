@@ -7,13 +7,16 @@ export const emptyUser =  {
     password: "",
     dateOfBirth: "",
     type: "empty",
-    comments: "",
-    scrapPosts: "",
-    likes: "",
+    comments: [],
+    scrapPosts: [],
+    likes: [],
     bio : "",
     website : "",
     profilePicture : "",
     bannerPicture : "",
     location: "",
 }
+
+export const TRAVELLER = "TRAVELER";
+export const TRAVELGUIDE = "GUIDE";
 
