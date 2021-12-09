@@ -107,15 +107,15 @@ const Login = () => {
             }
         })
         .then(response => {
-                if(response.status === 403) {
-                    alert("Cannot find username. Please register.")
-                    history.push("/login")
-                } else {
-                    history.push("/home")
-                    window.location.reload()
-                }
+            if (response.status === 403) {
+                alert("Cannot find username. Please register.")
+                history.push("/login")
+            } else {
+                history.push("/home")
+                //window.location.reload()
+            }
 
-            });
+        })
             // console.log(`this is promise ${promise}`)
             // alert(`this is promise ${promise}`)
             // history.push('/home');
@@ -163,10 +163,14 @@ const Login = () => {
                 .then(response => {
                     if(response.status === 404)
                         alert("username already exists! Pick a different username")
-                    else
+                    else {
                         alert("signup success!")
                         history.push("/home")
+                        //window.location.reload()
+                    }
+
                 })
+
 
         }
     };
@@ -178,6 +182,7 @@ const Login = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
+                history.push(`/home`)
             })
             // .catch(() => history.push('/login'));
     }
@@ -210,6 +215,14 @@ const Login = () => {
         }
     }
 
+    const handleSubmit = () => {
+        if (isSignup) {
+            processRegister()
+        } else {
+            login()
+        }
+    }
+
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -218,7 +231,7 @@ const Login = () => {
                 </Avatar>
                 <Typography component="h1" variant="h5">{isSignup ? 'Sign up'
                     : 'Sign in'}</Typography>
-                <form className={classes.form}>
+                <form className={classes.form} onSubmit={handleSubmit}>
 
                     <Grid container spacing={2}>
                         {isSignup && (
@@ -269,8 +282,7 @@ const Login = () => {
                     <Grid>
                         {isSignup ?<Button
                                       type="signUp" fullWidth variant="contained" color="primary"
-                                      className={classes.signUp}
-                                      onClick={processRegister}>
+                                      className={classes.signUp}>
                                       <Typography component={Link} to="/home" className={"text-white"}
                                                   style={{textDecoration: 'none'}}
                                                   align="center">Sign Up</Typography>
@@ -278,8 +290,7 @@ const Login = () => {
                             :
                             <Button
                                 type="signUp" fullWidth variant="contained" color="primary"
-                                className={classes.signUp}
-                                onClick={login}>
+                                className={classes.signUp}>
                                 <Typography component={Link} to="/home" className={"text-white"}
                                             style={{textDecoration: 'none'}}
                                             align="center">Login</Typography>
