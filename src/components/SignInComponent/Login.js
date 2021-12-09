@@ -96,9 +96,11 @@ const Login = () => {
     const [user, setUser] = useState({});
     const history = useHistory();
     const login = () => {
+        const newUser = {userName: profile.userName, password: profile.password}
+        alert(`Brave user trying to login ${JSON.stringify(newUser)}`)
         fetch(`http://localhost:4000/api/login`, {
             method: 'POST',
-            body: JSON.stringify(user),
+            body: JSON.stringify(newUser),
             credentials: 'include',
             headers: {
                 'content-type': 'application/json'
@@ -131,31 +133,40 @@ const Login = () => {
             bannerPicture : "",
             location: "",
         }
-        alert(`API user: ${JSON.stringify(newProfile)}`)
         console.log(newProfile)
         register(newProfile)
     }
 
-    const register = (newProfile) => {
+    const register = async (newProfile) => {
         {
             console.log("API user for registered: ", `http://localhost:4000/api/register`);
             console.log("API user:", newProfile);
             alert(`API user: ${JSON.stringify(newProfile)}`)
-            fetch(`http://localhost:4000/api/register`, {
+            await fetch(`http://localhost:4000/api/register`, {
                 method: 'POST',
                 body: JSON.stringify(newProfile),
                 credentials: 'include',
                 headers: {
                     'content-type': 'application/json'
                 }
-            }).then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
-            ).then((savedUser) => {
-                console.log("new user", savedUser)
+            }).then((savedUser) => {
                 alert("Here comes the brave one! Welcome" + savedUser._id)
                 calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
-                countDownService.createCountDown(dispatch, savedUser._id)
-            }).then(() => history.push('/home'))
-                .catch(error => alert("Username already exists! Try different username."));
+                return savedUser
+            }).then((savedUser) => {
+                    countDownService.createCountDown(dispatch, savedUser._id)
+            }).then(() => history.push("/home"))
+                .catch((error) => {
+                    console.log("error", error)
+                    alert(`error is ${error}`)
+                })
+
+            // .then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
+            // ).then((savedUser) => {
+            //     alert("Here comes the brave one! Welcome" + savedUser._id)
+            //     //calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
+            //     //countDownService.createCountDown(dispatch, savedUser._id)
+
         }
     };
 

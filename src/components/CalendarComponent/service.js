@@ -11,19 +11,19 @@ const findCountCalendarByPersonId = (dispatch, id) =>
             })
         });
 
-const createCalendar = (dispatch, calendar) =>
-    fetch(CALENDAR_URL, {
+const createCalendar = async (dispatch, calendar) =>
+    await fetch(CALENDAR_URL, {
         method: 'POST',
         body: JSON.stringify(calendar),
         headers: {
             'content-type': 'application/json'
         }
     }).then(response => response.json())
-        .then(calendar =>
-            dispatch({
-                type: 'fetch-calendar',
-                calendar
-            }));
+        // .then(calendar =>
+        //     dispatch({
+        //         type: 'fetch-calendar',
+        //         calendar
+        //     }));
 
 
 const getEventById = (dispatch, eventId) => {
