@@ -91,8 +91,8 @@ const SettingsScreen = () => {
             }
             service.updateProfile(json, dispatch);
             service.updateUser(json, dispatch);
-            logout();
-            login();
+            logout()
+            login()
 
         }
     }
@@ -112,7 +112,7 @@ const SettingsScreen = () => {
                 'content-type': 'application/json'
             }
         }).then(() => {
-            history.push('/profile');
+            history.push('/settings');
             window.location.reload();
         });
     }
@@ -121,7 +121,7 @@ const SettingsScreen = () => {
             method: 'POST',
             credentials: 'include'
         }).then(() => {
-            history.push('/profile');
+            history.push('/settings');
             //window.location.reload();
         });
     }
