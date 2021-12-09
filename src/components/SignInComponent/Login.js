@@ -166,10 +166,11 @@ const Login = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-            }).catch(() => history.push('/login'));
+            })
+            // .catch(() => history.push('/login'));
     }
 
-    //useEffect(getProfile, [history]);
+    useEffect(getProfile, [history]);
 
     const [profile, setProfile] = useState(initialState);
 

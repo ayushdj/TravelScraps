@@ -1,7 +1,7 @@
 const URL = 'http://localhost:4000/db/countdown/service';
 
 export const createCountDown = (dispatch, id) => {
-
+    alert(`countdown id ${id}`)
     fetch(URL, {
         method: 'POST',
         body: JSON.stringify({person: id, date: ""}),

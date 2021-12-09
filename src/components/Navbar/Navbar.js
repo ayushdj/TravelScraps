@@ -20,7 +20,7 @@ const Navbar = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-            }).catch(() => history.push('/login'));
+            })
     }
 
     const loggedIn = JSON.stringify(user) !== "{}"
