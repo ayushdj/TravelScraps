@@ -71,11 +71,9 @@ export const deleteEvent = (dispatch, eventId, newCalendar, calendarId) => {
         method: 'DELETE'
     }).then(response => {return response.json()})
         .then(() => {
-            console.log("after delete", newCalendar);
             updateCalendar(dispatch, calendarId, newCalendar)
         })
         .then(() => {
-            console.log("shit's deleted")
             findCountCalendarByPersonId(dispatch, newCalendar.person)
         }).then (() =>
         window.location.reload()
