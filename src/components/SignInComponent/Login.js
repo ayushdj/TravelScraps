@@ -137,31 +137,42 @@ const Login = () => {
         register(newProfile)
     }
 
-    const register = async (newProfile) => {
+    const register = (newProfile) => {
         {
             console.log("API user for registered: ", `http://localhost:4000/api/register`);
             console.log("API user:", newProfile);
             alert(`API user: ${JSON.stringify(newProfile)}`)
-            await fetch(`http://localhost:4000/api/register`, {
+            fetch(`http://localhost:4000/api/register`, {
                 method: 'POST',
                 body: JSON.stringify(newProfile),
                 credentials: 'include',
                 headers: {
                     'content-type': 'application/json'
                 }
-            }).then((savedUser) => {
-                alert("Here comes the brave one! Welcome" + savedUser._id)
-                calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
-                return savedUser
-            }).then((savedUser) => {
-                    countDownService.createCountDown(dispatch, savedUser._id)
-            }).then(() => history.push("/home"))
-                .catch((error) => {
-                    console.log("error", error)
-                    alert(`error is ${error}`)
+            // }).then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
+            // ).then((savedUser) => {
+            //     alert("Here comes the brave one! Welcome" + savedUser._id)
+            //     calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
+            //     countDownService.createCountDown(dispatch, savedUser._id)
+            //     return savedUser
+            })
+                // .then(() => history.push("/home"))
+                .then(response => {
+                    if(response.status === 404) //or any status code really
+                        alert("username already exists! Pick a different username")
+                    else
+                        alert("signup success!")
+                        history.push("/home")
                 })
+                // .catch((error) => {
+                //     console.log("error", error)
+                //     alert(`error is ${error}`)
+                //     if (error === "EXISTING") {
+                //         alert("username already exists! Pick a different username")
+                //     }
+                // })
 
-            // .then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
+            //.then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
             // ).then((savedUser) => {
             //     alert("Here comes the brave one! Welcome" + savedUser._id)
             //     //calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
