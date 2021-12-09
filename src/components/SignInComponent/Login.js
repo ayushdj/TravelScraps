@@ -105,12 +105,22 @@ const Login = () => {
             headers: {
                 'content-type': 'application/json'
             }
-        }).then((promise) => {
-            console.log(`this is promise ${promise}`)
-            alert(`this is promise ${promise}`)
-            history.push('/home');
-            window.location.reload();
-        });
+        })
+        .then(response => {
+                if(response.status === 403) {
+                    alert("Cannot find username. Please register.")
+                    history.push("/login")
+                } else {
+                    history.push("/home")
+                    window.location.reload()
+                }
+
+            });
+            // console.log(`this is promise ${promise}`)
+            // alert(`this is promise ${promise}`)
+            // history.push('/home');
+            // window.location.reload();
+
     }
 
     const processRegister = () => {
@@ -149,40 +159,20 @@ const Login = () => {
                 headers: {
                     'content-type': 'application/json'
                 }
-            // }).then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
-            // ).then((savedUser) => {
-            //     alert("Here comes the brave one! Welcome" + savedUser._id)
-            //     calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
-            //     countDownService.createCountDown(dispatch, savedUser._id)
-            //     return savedUser
             })
-                // .then(() => history.push("/home"))
                 .then(response => {
-                    if(response.status === 404) //or any status code really
+                    if(response.status === 404)
                         alert("username already exists! Pick a different username")
                     else
                         alert("signup success!")
                         history.push("/home")
                 })
-                // .catch((error) => {
-                //     console.log("error", error)
-                //     alert(`error is ${error}`)
-                //     if (error === "EXISTING") {
-                //         alert("username already exists! Pick a different username")
-                //     }
-                // })
-
-            //.then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
-            // ).then((savedUser) => {
-            //     alert("Here comes the brave one! Welcome" + savedUser._id)
-            //     //calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
-            //     //countDownService.createCountDown(dispatch, savedUser._id)
 
         }
     };
 
-    const getProfile = () => {
-        fetch(`http://localhost:4000/api/profile`, {
+    const getProfile = async () => {
+        await fetch(`http://localhost:4000/api/profile`, {
             method: 'POST',
             credentials: 'include'
         }).then(res => res.json())
