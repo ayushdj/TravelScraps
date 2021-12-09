@@ -22,10 +22,8 @@ const HomeScreen = () => {
             // }).catch(() => history.push('/login'));
     }
     const loggedIn = JSON.stringify(user) !== "{}"
-    console.log("user loggedIn", loggedIn)
     useEffect(getProfile, [history]);
 
-    console.log("Users is obtained in homeComponent : ", user);
     //const profileComponent = profile.edit ? <EditProfile profile={profile}/> : <ProfilePage profile={profile}/>
 
     return (

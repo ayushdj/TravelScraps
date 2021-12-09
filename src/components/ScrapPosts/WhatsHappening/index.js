@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import profileService from "../../ProfileScreen/service";
 import service from '../service';
 import {useHistory} from "react-router-dom";
-import $ from 'jquery';
 const selectProfile = (state) => state.profile;
 
 

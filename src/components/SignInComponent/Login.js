@@ -21,7 +21,6 @@ const initialState = {
     confirmPassword: ''
 };
 
-// TODO add the handle changes back
 const Login = () => {
 
     // save all input changes in setProfile, not setUser

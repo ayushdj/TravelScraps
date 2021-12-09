@@ -10,7 +10,6 @@ const comments = (state = data, action) => {
             return state.filter(comment => comment._id !== action.comment._id);
 
         case "add-comment":
-            console.log("Hello from comments reducer", action)
             if (state.some(obj => _.isEqual(obj, action.comment))) {
                 return state;
             }

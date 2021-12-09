@@ -32,16 +32,18 @@ export const updatePost = (dispatch, post) =>
     }));
 
 const updatePostComments = (dispatch, id, newPost) => {
+
     fetch(`${URL}/${id}`, {
         method: 'PUT',
         body: JSON.stringify(newPost),
         headers: {
             'content-type': 'application/json'
         }
-    }).then(response => response.json())}
+    }).then(response => response.json())
+}
 
-export const findPostById = (post) =>
-    fetch(`${URL}/${post._id}`, {
+export const findPostById = (dispatch, post) =>
+    fetch(`${URL}/${post}`, {
         method: 'GET',
         body: JSON.stringify(post),
         headers: {
@@ -50,8 +52,6 @@ export const findPostById = (post) =>
     }).then(response => response.json());
 
 export const findCommentById = (dispatch, id) => {
-    console.log("Inside the post service comment", id)
-
     fetch(`${COMMENT_URL}/${id}`)
         .then(response => {
             return response.json()
@@ -80,23 +80,36 @@ const createComment = (dispatch, comment) =>
             return comment._id
         });
 
+export const deleteComment = (dispatch, commentId, newPost, postId) => {
+    fetch(`${COMMENT_URL}/${commentId}`, {
+        method: 'DELETE'
+    }).then(response => {return response.json()})
+        .then(() => {
+            updatePostComments(dispatch, postId, newPost)
+        }).then (() =>
+        window.location.reload()
+    )
+}
 
+export const findAllUsers = (id) => {
+    fetch("http://localhost:4000/api/users/"+id).then(response => {
+        response.json().then(r => {
+            console.log(r)
+            return r
+        })
+    })
+}
 
-// export const deleteComments = (dispatch, eventId, newCalendar, calendarId) => {
-//     fetch(`${EVENT_URL}/${eventId}`, {
-//         method: 'DELETE'
-//     }).then(response => {return response.json()})
-//         .then(() => {
-//             console.log("after delete", newCalendar);
-//             updateCalendar(dispatch, calendarId, newCalendar)
-//         })
-//         .then(() => {
-//             console.log("shit's deleted")
-//             findCountCalendarByPersonId(dispatch, newCalendar.person)
-//         }).then (() =>
-//         window.location.reload()
-//     )
 
 export default {
-    findAllPosts, createPost, updatePost, deletePost, findPostById, findCommentById, createComment, updatePostComments
+    findAllPosts,
+    createPost,
+    updatePost,
+    deletePost,
+    findPostById,
+    findCommentById,
+    createComment,
+    updatePostComments,
+    deleteComment,
+    findAllUsers
 }
