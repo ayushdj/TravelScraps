@@ -8,7 +8,7 @@ import loginService from "../Auth/loginService";
 import calendarService from "../CalendarComponent/service";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Style"
-import {createCountDown} from "../CountDownComponent/service";
+import countDownService from "../CountDownComponent/service";
 import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst"
 
 const initialState = {
@@ -24,6 +24,8 @@ const initialState = {
 // TODO add the handle changes back
 const Login = () => {
 
+    // save all input changes in setProfile, not setUser
+    // setUser changes are unstable, all the setUser changes can be lost when user register/login reloads aka. it puts {} for user.
     const userNameChangeHandler = (event) => {
         const userName = event.target.value;
         const newUser = {
@@ -101,28 +103,59 @@ const Login = () => {
             headers: {
                 'content-type': 'application/json'
             }
-        }).then(() => {
+        }).then((promise) => {
+            console.log(`this is promise ${promise}`)
+            alert(`this is promise ${promise}`)
             history.push('/home');
             window.location.reload();
         });
     }
 
-    const register = () => {
+    const processRegister = () => {
+        const role = getUserType()
+        console.log("Role", role)
+        const newProfile = {
+            firstName:profile.firstName,
+            lastName:profile.lastName,
+            userName:profile.userName,
+            dateOfBirth:profile.date,
+            email:profile.email,
+            password:profile.password,
+            type: role,
+            comments: [],
+            scrapPosts: [],
+            likes: [],
+            bio : "",
+            website : "",
+            profilePicture : "",
+            bannerPicture : "",
+            location: "",
+        }
+        alert(`API user: ${JSON.stringify(newProfile)}`)
+        console.log(newProfile)
+        register(newProfile)
+    }
+
+    const register = (newProfile) => {
         {
             console.log("API user for registered: ", `http://localhost:4000/api/register`);
-            console.log("API user:", user);
+            console.log("API user:", newProfile);
+            alert(`API user: ${JSON.stringify(newProfile)}`)
             fetch(`http://localhost:4000/api/register`, {
                 method: 'POST',
-                body: JSON.stringify(user),
+                body: JSON.stringify(newProfile),
                 credentials: 'include',
                 headers: {
                     'content-type': 'application/json'
                 }
-            }).then(() => {
-                login()
-                history.push('/home')
-                //window.location.reload();
-            });
+            }).then(() => loginService.findProfileByUsername(dispatch, newProfile.userName, newProfile.password)
+            ).then((savedUser) => {
+                console.log("new user", savedUser)
+                alert("Here comes the brave one! Welcome" + savedUser._id)
+                calendarService.createCalendar(dispatch, {events: [], person: savedUser._id})
+                countDownService.createCountDown(dispatch, savedUser._id)
+            }).then(() => history.push('/home'))
+                .catch(error => alert("Username already exists! Try different username."));
         }
     };
 
@@ -136,7 +169,7 @@ const Login = () => {
             }).catch(() => history.push('/login'));
     }
 
-    useEffect(getProfile, [history]);
+    //useEffect(getProfile, [history]);
 
     const [profile, setProfile] = useState(initialState);
 
@@ -164,51 +197,6 @@ const Login = () => {
         }
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault(true);
-
-        if (isSignup) {
-            // get radio button value
-            // const userRole = document.getElementById("radio-traveler").checked ? traveler : travelGuide
-            // console.log("userRole", userRole)
-            const role = getUserType()
-            console.log("Role", role)
-
-            const newProfile = {firstName:profile.firstName,
-                lastName:profile.lastName,
-                userName:profile.userName,
-                dateOfBirth:profile.date,
-                email:profile.email,
-                password:profile.password,
-                type: role,
-                comments: [],
-                scrapPosts: [],
-                likes: [],
-                bio : "",
-                website : "",
-                profilePicture : "",
-                bannerPicture : "",
-                location: "",
-            }
-
-            signUpService.createPerson(newProfile)
-                .then(() => {
-                    loginService.findProfileByUsername(dispatch, user.userName, user.password)
-                })
-                .then((addedProfile) => {
-                        calendarService.createCalendar(dispatch, {events: [], person: addedProfile._id})
-                        createCountDown(dispatch, addedProfile._id)
-                }).then(() => history.push("/"));
-        } else {
-            loginService.findProfileByUsername(dispatch, user.userName, user.password)
-                .then((addedProfile) =>
-                    calendarService.findCountCalendarByPersonId(dispatch, addedProfile._id))
-                .then(() => history.push("/"));
-        }
-    };
-
-
-    const handleChange = (e) => setForm({...form, [e.target.name]: e.target.value});
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -217,16 +205,18 @@ const Login = () => {
                 </Avatar>
                 <Typography component="h1" variant="h5">{isSignup ? 'Sign up'
                     : 'Sign in'}</Typography>
-                <form className={classes.form} onSubmit={handleSubmit}>
+                <form className={classes.form}>
 
                     <Grid container spacing={2}>
                         {isSignup && (
                             <>
                                 <Input name="firstName" label="First Name"
                                        handleChange={firstNameChangeHandler} autoFocus half/>
-                                <Input name="lastName" label="Last Name" handleChange={lastNameChangeHandler}
+                                <Input name="lastName" label="Last Name"
+                                       handleChange={lastNameChangeHandler}
                                        half/>
-                                <Input name="email" label="Email Address" handleChange={emailChangeHandler}
+                                <Input name="email" label="Email Address"
+                                       handleChange={emailChangeHandler}
                                        type="email"/>
                                 <Input name="dateOfBirth" type="date"
                                        handleChange={dobChangeHandler}/>
@@ -247,18 +237,19 @@ const Login = () => {
                             </>
                         )}
                         <Input
-                            name="username" label="Username" handleChange={userNameChangeHandler}
+                            name="username" label="Username"
                             type="username"
-                            value={user.username}
-                            onChange={(e) => setUser({...user, username: e.target.value})}/>
+                            value={user.userName}
+                            handleChange={userNameChangeHandler}
+                            onChange={(e) => setUser({...user, userName: e.target.value})}/>
                         <Input
-                            name="password" label="Password" handleChange={passwordChangeHandler}
+                            name="password" label="Password"
                             type={showPassword ? 'text' : 'password'}
                             handleShowPassword={handleShowPassword}
                             value={user.password}
+                            handleChange={passwordChangeHandler}
                             onChange={(e) => setUser({...user, password: e.target.value})}/>
-                        {isSignup && <Input name="confirmPassword" label="Confirm Password"
-                                            handleChange={passwordChangeHandler} type="password"/>}
+                        {isSignup && <Input name="confirmPassword" label="Confirm Password" type="password"/>}
 
                     </Grid>
 
@@ -266,7 +257,7 @@ const Login = () => {
                         {isSignup ?<Button
                                       type="signUp" fullWidth variant="contained" color="primary"
                                       className={classes.signUp}
-                                      onClick={register}>
+                                      onClick={processRegister}>
                                       <Typography component={Link} to="/home" className={"text-white"}
                                                   style={{textDecoration: 'none'}}
                                                   align="center">Sign Up</Typography>
@@ -293,28 +284,7 @@ const Login = () => {
                 </form>
             </Paper>
         </Container>
-        // <div>
-        //     <h1>Login</h1>
-        //     <input
-        //         value={user.username}
-        //         onChange={(e) => setUser({...user, username: e.target.value})}
-        //         placeholder="username"
-        //         className="form-control"/>
-        //     <input
-        //         value={user.password}
-        //         onChange={(e) => setUser({...user, password: e.target.value})}
-        //         placeholder="password"
-        //         type="password"
-        //         className="form-control"/>
-        //     <button
-        //         className="btn btn-primary"
-        //         onClick={login}>
-        //         <Typography component={Link} to="/home" className={"primary text-white "}
-        //                     style={{ textDecoration: 'none' }}
-        //                     align="center">Login</Typography>
-        //     </button>
-        //
-        // </div>
+
     );
 };
 export default Login;
