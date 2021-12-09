@@ -6,6 +6,7 @@ import decode from 'jwt-decode';
 
 import useStyles from './styles';
 import * as actionType from "../../constants/actionTypes";
+import {emptyUser} from "../../constants/userConst";
 const _ = require("lodash");
 const Navbar = () => {
     const location = useLocation();
@@ -19,7 +20,7 @@ const Navbar = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-            }).catch(() => history.push('/login'));
+            })
     }
 
     const loggedIn = JSON.stringify(user) !== "{}"
