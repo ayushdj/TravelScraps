@@ -4,15 +4,36 @@ import service from "./service";
 import profileService from '../ProfileScreen/service'
 import Comment from "./Comments/Comment";
 import {useHistory} from "react-router-dom";
+import _ from 'lodash';
+
 const selectProfile = (state) => state.profile;
+const selectComments = (state) => state.comments;
 
-const PostItem = ({loggedIn, postData}) => {
+const PostItem = ({loggedIn, postData, user}) => {
+    const selectorComments = useSelector(selectComments);
     const history = useHistory()
-
-    // const selectorProfile = useSelector(selectProfile);
-    //const [profile, setProfile] = useState({});
+    const selectorProfile = useSelector(selectProfile);
+    const [profile, setProfile] = useState({});
     const dispatch = useDispatch();
-    useEffect(() => profileService.findProfileById(dispatch, postData.person), []);
+    useEffect(() => profileService.findProfileById(dispatch, postData.person).then((profile) => setProfile(profile)), []);
+    let currentPoster;
+
+    if (_.isEqual({}, profile)) {
+        currentPoster = {
+            userName: "",
+            title: "",
+            location: "",
+            tags: [],
+            text: "",
+            travelPlan: "",
+            images: [],
+            comments: [],
+            person: ""
+        };
+    } else {
+        currentPoster = profile.profile;
+    }
+
 
     const [currentPost, setCurrentPost] = useState({
         userName: postData.handle,
@@ -21,43 +42,35 @@ const PostItem = ({loggedIn, postData}) => {
         tags: postData.tags,
         text: postData.text,
         travelPlan: postData.travelPlan,
-        images:postData.images,
-        comments:postData.comments,
-        person:postData.person
+        images: postData.images,
+        comments: postData.comments,
+        person: postData.person
     })
 
     const [newComment, setNewComment] = useState("");
 
 
-    const handleCommentAddition = (event) => {
+    const handleCommentAddition = async (event) => {
         if (!loggedIn) {
             history.push('/login')
         } else {
-            currentPost.comments.push(newComment);
-            const newPost = {
-                _id: postData._id,
-                userName: currentPost.userName,
-                title: currentPost.title,
-                location: currentPost.location,
-                tags: currentPost.tags,
-                text: currentPost.text,
-                travelPlan: currentPost.travelPlan,
-                images: currentPost.images,
-                comments: currentPost.comments,
-                person: currentPost.person,
+            const newCommentObj = {
+                text:newComment,
+                post:postData._id,
+                person:user._id,
             }
-            service.updatePost(dispatch, newPost);
+            service.createComment(dispatch, newCommentObj).then((commentId) => {
+                const newPostObject = {
+                   ...postData,
+                    comments: [...postData.comments, commentId]
+                }
+                console.log("THE NEW POST OBJECT",newPostObject);
+                service.updatePostComments(dispatch, postData._id, newPostObject)
+            }).then(() =>
+                service.findPostById(dispatch, postData)
+            ).then(() => numComments += 1).then(() => window.location.reload());
         }
     }
-
-    //console.log(currentPost.comments);
-
-
-    // user can like
-    // user can comment
-    // user can delete
-
-    // have boolean state variable that renders like or unlike based on state
     const [liked, setLiked] = useState(false);
 
     const handleLikeClick = (liked) => {
@@ -68,24 +81,51 @@ const PostItem = ({loggedIn, postData}) => {
         }
     }
 
+    const handleDeletePost = () => {
+        service.deletePost(postData._id);
+        window.location.reload();
+    }
     const [clickedComment, setClickedComment] = useState(false);
 
+
+    let numComments = postData.comments.length;
+    const [comments, setComments] = useState(selectorComments);
+
+
+
+    const populateComments = async () => {
+        for (let i = 0; i < postData.comments.length; i++) {
+            let id = postData.comments[i];
+            await service.findCommentById(dispatch, id);
+        }
+
+    }
+    useEffect(() => populateComments(), [numComments]);
+
+    console.log("selector comments post id",selectorComments.post,"post data id",postData._id)
+    console.log(selectorComments);
     return (
         <li className="list-group-item">
             <div className="row">
                 <div className="col-1">
-                    <img src="../../../images/cat.jpg" className="rounded-circle float-start wd-avatar"/>
+                    <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar"/>
                 </div>
                 <div className="col-10">
-                    {/*{currentPost.userName}*/}
-                    <span style={{color:"rgb(125, 125, 125)", marginLeft:"-20px"}}>@{postData.handle}</span>
+                    <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}>@{currentPoster.userName}</span>
+                    <br/>
+                    <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
+                        className="fas fa-street-view"/> {postData.location}</span>
+
                 </div>
                 <div className="col-1">
-                    <i className="fas fa-trash"/>
+                    {
+                        user._id === postData.person ? <i className="fas fa-trash" onClick={handleDeletePost}/> : <></>
+                    }
                 </div>
             </div>
             <div className="row">
                 <div className="col-12 mt-2">
+                    <h5 style={{color: "white"}}><strong>{postData.title}</strong></h5>
                     {currentPost.text}
                 </div>
             </div>
@@ -103,31 +143,58 @@ const PostItem = ({loggedIn, postData}) => {
             <div className="row">
                 <div className="col-6">
                     {!liked ? <i onClick={() => handleLikeClick(liked)} className="far fa-thumbs-up"/> :
-                        <i onClick={() => setLiked(!liked)} style={{color:"rgb(29, 161, 242)"}} className="far fa-thumbs-up"/>
+                        <i onClick={() => setLiked(!liked)} style={{color: "rgb(29, 161, 242)"}}
+                           className="far fa-thumbs-up"/>
                     }
 
                     {!liked ? <span className="ts-liked"> Like</span> :
-                    <span> Unlike</span>}
+                        <span> Unlike</span>}
                 </div>
                 <div className="col-6">
                     <span>
                     <i onClick={() => setClickedComment(!clickedComment)} className="far fa-comment"/>
-                        {!clickedComment ? <span> Hide all comments</span> : <span> Show all comments</span> }
-                    </span> </div>
+                        {!clickedComment ? <span> Hide all comments</span> : <span> Show all comments</span>}
+                    </span></div>
 
-                    {!clickedComment ?
-                        <> <Comment post={currentPost}/> </> : <></>
-                    }
-                    <div className="row mt-2">
-                        <div className="col-12">
+                {!clickedComment ?
+                    <>
+                        <ul className={"list-group"}>
+
+                            {
+                                selectorComments.map( (comment) => comment.post === postData._id ?
+                                    <li className={"list-group-item"} style={{backgroundColor: "black"}}>
+                                        <div className="row">
+                                            <div className="col-1">
+                                                <img src={user.profilePicture}
+                                                     className="rounded-circle float-start wd-avatar"/>
+                                            </div>
+                                            <div className="col-11">
+                                                <span style={{
+                                                    marginLeft: "-30px",
+                                                    fontSize: "15px",
+                                                    color: "white"
+                                                }}>{comment.text}</span>
+                                            </div>
+                                        </div>
+                                    </li> : <></>
+                                )
+                            }
+                        </ul>
+                    </>
+
+                    : <></>
+                }
+                <div className="row mt-2">
+                    <div className="col-12">
                             <textarea onChange={(event) =>
                                 setNewComment(event.target.value)} placeholder="Add a comment"
                                       className="wd-text col-lg-12 row-10 form-control">
                             </textarea>
-                        </div>
-                        <button onClick={handleCommentAddition} type="button" className="btn btn-primary mt-2">Add Comment</button>
-
                     </div>
+                    <button onClick={handleCommentAddition} type="button" className="btn btn-primary mt-2">Add Comment
+                    </button>
+
+                </div>
 
             </div>
         </li>

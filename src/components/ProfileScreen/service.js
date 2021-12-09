@@ -40,12 +40,18 @@ export const updateUser = (user, dispatch) => {
     }));
 }
 
-export const deleteProfile = (profile) => {
-    fetch(`${URL}/${profile._id}`, {
+export const deleteProfile = (profileID) => {
+    fetch(`${URL}/${profileID}`, {
+        method: 'DELETE'
+    })
+}
+
+export const deleteUser = (userID) => {
+    fetch(`${USER_URL}/${userID}`, {
         method: 'DELETE'
     })
 }
 
 export default {
-    updateProfile, findProfileById, deleteProfile, updateUser
+    updateProfile, findProfileById, deleteProfile, updateUser, deleteUser
 }

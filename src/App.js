@@ -7,6 +7,7 @@ import HomeScreen from "./components/HomeScreen/HomeScreen";
 import {combineReducers, createStore} from "redux";
 import profile from './reducers/profile';
 import scrapPost from './reducers/scrapPosts';
+import comments from './reducers/comment';
 import {Provider} from "react-redux";
 import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
 import EditProfile from "./components/ProfileScreen/EditProfile";
@@ -21,7 +22,8 @@ import events from "./reducers/event";
 import Login from "./components/SignInComponent/Login";
 
 
-const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events});
+const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
+                                            comments:comments});
 const store = createStore(reducer);
 
 function App() {

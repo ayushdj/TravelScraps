@@ -16,15 +16,16 @@ const ScrapPosts = ({user}) => {
     useEffect(() => service.findAllPosts().then(posts => setPosts(posts)), []);
     const loggedIn = JSON.stringify(user) !== "{}"
 
+
     return (
         <>
             <div>
-                <WhatsHappening loggedIn = {loggedIn}/>
+                <WhatsHappening loggedIn = {loggedIn} user={user}/>
             </div>
             <ul className="list-group">
                 {
                     posts.map((post, key) =>
-                        <PostItem loggedIn = {loggedIn} postData={post} key={key}/>
+                        <PostItem loggedIn = {loggedIn} postData={post} user={user} key={key}/>
                     )
                 }
             </ul>
