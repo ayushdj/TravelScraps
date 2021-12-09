@@ -10,12 +10,13 @@ const selectProfile = (state) => state.profile;
 const selectComments = (state) => state.comments;
 
 const PostItem = ({loggedIn, postData, user}) => {
+    let sizePost = postData.length;
     const selectorComments = useSelector(selectComments);
     const history = useHistory()
     const selectorProfile = useSelector(selectProfile);
     const [profile, setProfile] = useState({});
     const dispatch = useDispatch();
-    useEffect(() => profileService.findProfileById(dispatch, postData.person).then((profile) => setProfile(profile)), []);
+    useEffect(() => profileService.findProfileById(dispatch, postData.person).then((profile) => setProfile(profile)), [sizePost]);
     let currentPoster;
 
     if (_.isEqual({}, profile)) {
@@ -36,7 +37,6 @@ const PostItem = ({loggedIn, postData, user}) => {
 
 
     const [currentPost, setCurrentPost] = useState({
-        userName: postData.handle,
         title: postData.title,
         location: postData.location,
         tags: postData.tags,
@@ -55,20 +55,25 @@ const PostItem = ({loggedIn, postData, user}) => {
             history.push('/login')
         } else {
             const newCommentObj = {
-                text:newComment,
-                post:postData._id,
-                person:user._id,
+                text: newComment,
+                post: postData._id,
+                person: user._id,
+                profilePicture: user.profilePicture
             }
             service.createComment(dispatch, newCommentObj).then((commentId) => {
                 const newPostObject = {
-                   ...postData,
-                    comments: [...postData.comments, commentId]
+                    title: postData.title,
+                    location: postData.location,
+                    tags: postData.tags,
+                    text: postData.text,
+                    travelPlan: postData.travelPlan,
+                    images: postData.images,
+                    comments: [...postData.comments, commentId],
+                    person: postData.person
                 }
-                console.log("THE NEW POST OBJECT",newPostObject);
+
                 service.updatePostComments(dispatch, postData._id, newPostObject)
-            }).then(() =>
-                service.findPostById(dispatch, postData)
-            ).then(() => numComments += 1).then(() => window.location.reload());
+            }).then(() => numComments += 1).then(() => window.location.reload());
         }
     }
     const [liked, setLiked] = useState(false);
@@ -92,7 +97,6 @@ const PostItem = ({loggedIn, postData, user}) => {
     const [comments, setComments] = useState(selectorComments);
 
 
-
     const populateComments = async () => {
         for (let i = 0; i < postData.comments.length; i++) {
             let id = postData.comments[i];
@@ -102,20 +106,31 @@ const PostItem = ({loggedIn, postData, user}) => {
     }
     useEffect(() => populateComments(), [numComments]);
 
-    console.log("selector comments post id",selectorComments.post,"post data id",postData._id)
-    console.log(selectorComments);
+    const deleteComment = (event) => {
+        if (window.confirm("Delete this comment?")) {
+            const deletedComment = selectorComments.find((comment) => comment._id === event._id)
+            const newPost = {
+                ...postData,
+                comments: postData.comments.filter((comment) => comment !== deletedComment._id)
+            }
+
+            service.deleteComment(dispatch, deletedComment._id, newPost, postData._id)
+            numComments -= 1
+
+        }
+    }
+
     return (
         <li className="list-group-item">
             <div className="row">
                 <div className="col-1">
                     <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar"/>
                 </div>
-                <div className="col-10">
+                <div className="col-9">
                     <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}>@{currentPoster.userName}</span>
                     <br/>
                     <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
                         className="fas fa-street-view"/> {postData.location}</span>
-
                 </div>
                 <div className="col-1">
                     {
@@ -161,20 +176,26 @@ const PostItem = ({loggedIn, postData, user}) => {
                         <ul className={"list-group"}>
 
                             {
-                                selectorComments.map( (comment) => comment.post === postData._id ?
+                                selectorComments.map((comment) => comment.post === postData._id ?
                                     <li className={"list-group-item"} style={{backgroundColor: "black"}}>
                                         <div className="row">
                                             <div className="col-1">
-                                                <img src={user.profilePicture}
-                                                     className="rounded-circle float-start wd-avatar"/>
+                                                <img src={comment.profilePicture}
+                                                                     className="rounded-circle float-start wd-avatar"/>
                                             </div>
-                                            <div className="col-11">
+                                            <div className="col-10">
                                                 <span style={{
                                                     marginLeft: "-30px",
                                                     fontSize: "15px",
                                                     color: "white"
                                                 }}>{comment.text}</span>
                                             </div>
+                                            {
+                                                user._id === postData.person || user._id === comment.person ?
+                                                    <div className="col-1" onClick={() => deleteComment(comment)}>
+                                                        <i className="fas fa-times"/>
+                                                    </div> : <></>
+                                            }
                                         </div>
                                     </li> : <></>
                                 )

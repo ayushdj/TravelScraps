@@ -45,7 +45,6 @@ const Navbar = () => {
     useEffect(getProfile, [history]);
 
 
-    console.log("User in the nav bar: ", user);
     // const login = () => {
     //     fetch(`http://localhost:4000/api/login`, {
     //         method: 'POST',

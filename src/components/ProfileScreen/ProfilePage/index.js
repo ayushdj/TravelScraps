@@ -5,8 +5,6 @@ import EditProfile from "../EditProfile";
 import {Link} from "react-router-dom";
 
 const ProfilePage = ({profileData}) => {
-
-    console.log(profileData);
     const dispatch = useDispatch();
 
     const formatDate = (dateString) => {

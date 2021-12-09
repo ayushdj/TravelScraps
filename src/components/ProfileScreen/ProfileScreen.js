@@ -6,7 +6,6 @@ import {useHistory} from "react-router-dom";
 const selectProfile = (state) => state.profile;
 
 const ProfileScreen = () => {
-
     const [user, setUser] = useState({});
     const history = useHistory();
     const getProfile = () => {

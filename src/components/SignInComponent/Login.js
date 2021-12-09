@@ -20,7 +20,6 @@ const initialState = {
     confirmPassword: ''
 };
 
-// TODO add the handle changes back
 const Login = () => {
 
     const userNameChangeHandler = (event) => {

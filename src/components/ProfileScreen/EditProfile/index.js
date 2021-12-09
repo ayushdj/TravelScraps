@@ -28,7 +28,6 @@ const EditProfile = () => {
     useEffect(getProfile, [history]);
 
     //const history = useHistory();
-    console.log("This is the change profile screen",user);
     let dispatch = useDispatch();
 
 
@@ -45,7 +44,6 @@ const EditProfile = () => {
     // })
     let [values, setValues] = useState({});
     //setValues(user);
-    console.log("This is the initial state of the values",values);
 
     // violations
     const [violations, setViolations] = useState({
@@ -117,7 +115,6 @@ const EditProfile = () => {
         //window.location.reload();
         logout();
         login();
-        console.log("USer in profile date change screeen", user);
     }
     const login = () => {
         fetch(`http://localhost:4000/api/login`, {
@@ -144,7 +141,6 @@ const EditProfile = () => {
 
     }
 
-    //console.log("USer in edit screen", user);
     return (
         <div className="row mt-2">
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
