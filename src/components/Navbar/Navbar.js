@@ -13,7 +13,6 @@ const Navbar = () => {
     const classes = useStyles();
     const [userType, setUserType] = useState(TRAVELLER);
     const [user, setUser] = useState({});
-    console.log("userType", userType)
     const history = useHistory();
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
@@ -76,14 +75,14 @@ const Navbar = () => {
                             align="center">Home</Typography>
             </div>
 
-            {loggedIn ?
+            {loggedIn && userType !== ADMIN ?
                 <div className={classes.brandContainer}>
                     <Typography component={Link} to="/profile" className={classes.heading} variant="h6"
                                 align="center">Profile</Typography>
                 </div>
                 : <></>
             }
-            {loggedIn ?
+            {loggedIn && userType !== ADMIN ?
                 <div className={classes.brandContainer}>
                     <Typography component={Link} to="/calendar" className={classes.heading} variant="h6"
                                 align="center">Calender</Typography>
@@ -100,7 +99,7 @@ const Navbar = () => {
 
             {loggedIn && userType !== TRAVELLER ?
                 <div className={classes.brandContainer}>
-                    <Typography component={Link} to="/users" className={classes.heading} variant="h6"
+                    <Typography component={Link} to="/travelers" className={classes.heading} variant="h6"
                                 align="center">{userType === TRAVELGUIDE ? "Client" : "Users"}</Typography>
                 </div>
 
@@ -108,7 +107,7 @@ const Navbar = () => {
             }
 
 
-            {loggedIn ?
+            {loggedIn && userType !== ADMIN ?
                 <div className={classes.brandContainer}>
                     <Typography component={Link} to="/messages" className={classes.heading} variant="h6"
                                 align="center">Messages</Typography>
@@ -120,7 +119,7 @@ const Navbar = () => {
                             align="center">Settings</Typography>
             </div>
 
-            {loggedIn ?
+            {loggedIn && userType !== ADMIN ?
                 <div className={classes.brandContainer}>
                     <Typography component={Link} to="/bookmarks" className={classes.heading} variant="h6"
                                 align="center">Bookmarks</Typography>
@@ -132,10 +131,11 @@ const Navbar = () => {
                     <div className="row">
                         <div className="col">
                             <div>
-                                {loggedIn ? <Button variant="contained" color="secondary" className={classes.logoutButton}
-                                                    onClick={handleLoginLogout}>Logout</Button>
+                                {loggedIn ?
+                                    <Button variant="contained" color="secondary" className={classes.logoutButton}
+                                            onClick={handleLoginLogout}>Logout</Button>
                                     :
-                                    <Button variant="contained" color="primary" className={classes.loginButton}
+                                    <Button variant="contained" color="primary" className={classes.logoutButton}
                                             onClick={handleLoginLogout}>Login</Button>}
                             </div>
                         </div>
@@ -146,21 +146,6 @@ const Navbar = () => {
                 </Toolbar>
             </div>
 
-            {/*<div className={classes.brandContainer}>*/}
-            {/*    <Toolbar className={classes.toolbar}>*/}
-            {/*        {user?.result ? (*/}
-            {/*            <div className={classes.profile}>*/}
-            {/*                <Avatar className={classes.purple} alt={user?.result.name}*/}
-            {/*                        src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>*/}
-            {/*                <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>*/}
-            {/*                <Button variant="contained" className={classes.logout} color="secondary"*/}
-            {/*                        onClick={logout}>Logout</Button>*/}
-            {/*            </div>*/}
-            {/*        ) : (*/}
-            {/*            <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>*/}
-            {/*        )}*/}
-            {/*    </Toolbar>*/}
-            {/*</div>*/}
         </AppBar>
     );
 };

@@ -115,7 +115,6 @@ const Login = () => {
                 }
 
             })
-        // console.log(`this is promise ${promise}`)
         // alert(`this is promise ${promise}`)
         // history.push('/home');
         // window.location.reload();
@@ -124,7 +123,7 @@ const Login = () => {
 
     const processRegister = () => {
         const role = getUserType()
-        console.log("Role", role)
+
         const newProfile = {
             firstName: profile.firstName,
             lastName: profile.lastName,
@@ -191,7 +190,7 @@ const Login = () => {
             .then(user => {
                 setUser(user);
                 history.push(`/privacy`)
-                window.location.reload();
+                //window.location.reload();
             })
         // .catch(() => history.push('/login'));
     }

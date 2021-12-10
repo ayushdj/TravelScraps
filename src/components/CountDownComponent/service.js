@@ -19,7 +19,6 @@ export const createCountDown = async(dispatch, id) => {
 
 
 export const updateCountDown = (dispatch, date) => {
-    //console.log("Updates countdown", URL+`/`+date._id);
     fetch(URL+`/`+date._id, {
         method: 'PUT',
         body: JSON.stringify(date),

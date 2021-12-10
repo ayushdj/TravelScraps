@@ -18,7 +18,6 @@ const findTravelerCalendar = (personId, eventId) =>
         .then(response => response.json())
         .then(addedCalendar => {
             const calendar = addedCalendar[0]
-            console.log("find traveler calendar", calendar)
             const newCalendar = {...calendar, events: [...calendar.events, eventId]}
             updateTravelerCalendar(calendar._id, newCalendar)
         })
@@ -82,13 +81,9 @@ const createEventForTraveler = (event) =>
 const sendEventToTraveler = (personId, event) =>
         createEventForTraveler(event)
             .then(eventId => {
-                console.log("traveler personId", personId)
-                console.log("traveler eventId", eventId)
                 findTravelerCalendar(personId, eventId)
 
             })
-
-
 
 const updateCalendar = (dispatch, id, newCalendar) => {
     fetch(`${CALENDAR_URL}/${id}`, {

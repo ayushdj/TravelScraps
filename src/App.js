@@ -20,6 +20,7 @@ import calendar from "./reducers/calendar";
 import events from "./reducers/event";
 import Login from "./components/SignInComponent/Login";
 import Privacy from "./components/Privacy/Privacy"
+import Travelers from "./components/TravelersComponent/Travelers";
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
@@ -59,7 +60,9 @@ function App() {
                             <Route path={["/privacy"]} exact={true}>
                                 <Privacy/>
                             </Route>
-
+                            <Route path={["/travelers"]} exact={true}>
+                                <Travelers/>
+                            </Route>
                         </Switch>
                     </div>
                 </BrowserRouter>
