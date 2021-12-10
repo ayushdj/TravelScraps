@@ -94,7 +94,6 @@ export const deleteComment = (dispatch, commentId, newPost, postId) => {
 export const findAllUsers = (id) => {
     fetch("http://localhost:4000/api/users/"+id).then(response => {
         response.json().then(r => {
-            console.log(r)
             return r
         })
     })

@@ -2,7 +2,6 @@ const date = '00-00-0000';
 const counter = (state = date, action) => {
     switch (action.type) {
         case "new-Counter":
-            console.log("action inside newCounter", action);
             if (action.date === null || action.date === 'undefined') {
                 return null;
             }

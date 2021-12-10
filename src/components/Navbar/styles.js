@@ -44,15 +44,9 @@ export default makeStyles((theme) => ({
     map: {
         color: 'rgba(0,183,255, 1)'
     },
-    loginButton: {
-        position: "fixed",
-        right: 150,
-        display: "flex",
-        flexDirection: "row"
-    },
     logoutButton: {
-        position: "fixed",
-        right: 150,
+        position: "relative",
+        right: 0,
         display: "flex",
         flexDirection: "row"
     },

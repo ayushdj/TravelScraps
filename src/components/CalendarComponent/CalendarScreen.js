@@ -46,7 +46,6 @@ const CalendarScreen = () => {
             let id = calendarObject.events[i];
             await service.getEventById(dispatch, id);
         }
-        console.log("Calling backend");
     }
 
     useEffect(() => populateData(), [eventNum]);
@@ -85,13 +84,11 @@ const CalendarScreen = () => {
                 selected.push(option.value);
             }
         }
-        console.log("selected personId", selected)
         const newEvent = {title: guideTitle, date: guideDate }
         await addEventToUserCalendar(dispatch, newEvent)
 
         if (guideTitle !== null && guideTitle !== "" && guideDate !== null) {
             for (let personId of selected) {
-                console.log("befoer network call", personId)
                 await service.sendEventToTraveler(personId, newEvent)
             }
         }
