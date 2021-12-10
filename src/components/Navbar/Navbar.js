@@ -5,13 +5,15 @@ import {useDispatch} from 'react-redux';
 import decode from 'jwt-decode';
 import useStyles from './styles';
 import * as actionType from "../../constants/actionTypes";
-import {emptyUser} from "../../constants/userConst";
+import {ADMIN, emptyUser, TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
 
 const _ = require("lodash");
 const Navbar = () => {
     const location = useLocation();
     const classes = useStyles();
+    const [userType, setUserType] = useState(TRAVELLER);
     const [user, setUser] = useState({});
+    console.log("userType", userType)
     const history = useHistory();
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
@@ -20,6 +22,7 @@ const Navbar = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
+                setUserType(user.type);
             })
     }
 
@@ -87,13 +90,23 @@ const Navbar = () => {
                 </div>
                 : <></>
             }
-            {loggedIn ?
+            {/*{loggedIn ?*/}
+            {/*    <div className={classes.brandContainer}>*/}
+            {/*        <Typography component={Link} to="/friends" className={classes.heading} variant="h6"*/}
+            {/*                    align="center">Friends</Typography>*/}
+            {/*    </div>*/}
+            {/*    : <></>*/}
+            {/*}*/}
+
+            {loggedIn && userType !== TRAVELLER ?
                 <div className={classes.brandContainer}>
-                    <Typography component={Link} to="/friends" className={classes.heading} variant="h6"
-                                align="center">Friends</Typography>
+                    <Typography component={Link} to="/users" className={classes.heading} variant="h6"
+                                align="center">{userType === TRAVELGUIDE ? "Client" : "Users"}</Typography>
                 </div>
+
                 : <></>
             }
+
 
             {loggedIn ?
                 <div className={classes.brandContainer}>
