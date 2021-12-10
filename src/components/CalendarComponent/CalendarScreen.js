@@ -60,23 +60,30 @@ const CalendarScreen = () => {
 
     useEffect(() => populateData(), [eventNum]);
 
-    const handleTravelerDateClick = async (dateClickInfo) => {
+    const handleTravelerDateClick = (dateClickInfo) => {
         const formatedDate = dateClickInfo.dateStr
         let title = prompt("Please enter title of your new plan:", "Home");
         if (title !== null && title !== "") {
             const newEvent = {title: title, date: formatedDate }
-            await service.createEvent(dispatch, newEvent)
-                .then( (eventId) => {
-                    const newCalendar = {...calendarObject, events: [...calendarObject.events, eventId]}
-                    service.updateCalendar(dispatch, calendarObject._id, newCalendar)
-                }).then(() =>
-                    service.findCountCalendarByPersonId(dispatch, calendarObject.person)
-                ).then(() => eventNum += 1);
+            addEventToUserCalendar(dispatch, newEvent)
         }
     }
 
+    const addEventToUserCalendar = async(dispatch, newEvent) => {
+        await service.createEvent(dispatch, newEvent)
+            .then( (eventId) => {
+                const newCalendar = {...calendarObject, events: [...calendarObject.events, eventId]}
+                service.updateCalendar(dispatch, calendarObject._id, newCalendar)
+            }).then(() =>
+                service.findCountCalendarByPersonId(dispatch, calendarObject.person)
+            ).then(() => eventNum += 1);
+    }
 
+    const handleGuideDateClick = (dateClickInfo) => {
+        guideDate = dateClickInfo.dateStr
+        openModal()
 
+    }
 
     const handleSendEvent = async () => {
         const selected = [];
@@ -89,6 +96,7 @@ const CalendarScreen = () => {
         console.log("selected personId", selected)
         const newEvent = {title: guideTitle, date: guideDate }
         alert(`newEvent ${JSON.stringify(newEvent)}`)
+        await addEventToUserCalendar(dispatch, newEvent)
 
         if (guideTitle !== null && guideTitle !== "" && guideDate !== null) {
             for (let personId of selected) {
@@ -98,11 +106,7 @@ const CalendarScreen = () => {
         }
     }
 
-    const handleGuideDateClick = (dateClickInfo) => {
-        guideDate = dateClickInfo.dateStr
-        openModal()
 
-    }
 
 
     const handleEventClick = (info) => {
