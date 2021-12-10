@@ -6,17 +6,17 @@ import {useDispatch, useSelector} from "react-redux";
 import service from "./service";
 import {useHistory} from "react-router-dom";
 import './calendar.css'
-import {TRAVELLER} from "../../constants/userConst";
+import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
 import Input from "../Auth/Input";
 
 const calendarState = (state) => state.calendar;
 const eventsState = (state) => state.events;
 
 let guideDate;
+let isGuide;
 
 const CalendarScreen = () => {
     const [user, setUser] = useState({});
-    const [eventList, setEventList] = useState([]);
     const [guideTitle, setGuideTitle] = useState("")
     const history = useHistory();
     const getProfile = async () => {
@@ -26,9 +26,7 @@ const CalendarScreen = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-                // if (user._id !== null) {
-                //     service.findCountCalendarByPersonId(dispatch, user._id)
-                // }
+                isGuide = user.type === TRAVELGUIDE
             }).catch(() => history.push('/login'));
     }
 
@@ -38,16 +36,9 @@ const CalendarScreen = () => {
     const calendarObject = useSelector(calendarState);
     const eventArray = useSelector(eventsState);
     const dispatch = useDispatch();
-    // const eventFetchFunction = calendarObject.events.map(id => service.getEventById(dispatch, id));
     let eventNum = calendarObject.events.length;
 
-    // const eventArray = useSelector(eventsState);
-    // const eventArray = calendarObject.events
     useEffect(() =>  service.findCountCalendarByPersonId(dispatch, user._id), [user]);
-
-
-    // const eventFetchFunction = calendarObject.events.map(id => service.getEventById(dispatch, id));
-
 
 
     const populateData = async () => {
@@ -59,6 +50,7 @@ const CalendarScreen = () => {
     }
 
     useEffect(() => populateData(), [eventNum]);
+
 
     const handleTravelerDateClick = (dateClickInfo) => {
         const formatedDate = dateClickInfo.dateStr
@@ -104,9 +96,8 @@ const CalendarScreen = () => {
                 await service.sendEventToTraveler(personId, newEvent)
             }
         }
+        closeModal()
     }
-
-
 
 
     const handleEventClick = (info) => {
@@ -127,21 +118,9 @@ const CalendarScreen = () => {
 
     // Get the modal
     const modal = document.getElementById("guideModal");
-
-    // Get the button that opens the modal
-    const btn = document.getElementById("mybtn");
-
-    // Get the <span> element that closes the modal
-    const span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
     const openModal = () => modal.style.display = "block";
-
-
-    // When the user clicks on <span> (x), close the modal
     const closeModal = () => modal.style.display = "none";
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target === modal) {
             modal.style.display = "none";
@@ -150,19 +129,6 @@ const CalendarScreen = () => {
 
     const [travelers, setTravelers] = useState([]);
     useEffect(() => service.findByType(TRAVELLER, setTravelers), [history])
-
-    const [eventTravelers, setEventTravelers] = useState([])
-
-
-    // Get the button that opens the modal
-    const personList = document.getElementById("person-list");
-    // locate your element and add the Click Event Listener
-    const handleClickPerson = (e) => {
-        if (e.target && e.target.nodeName === "LI") {
-            setEventTravelers([...eventTravelers, e.target.id])
-        }
-    }
-
 
 
     return (
@@ -173,7 +139,7 @@ const CalendarScreen = () => {
                         <div className="modal-header">
                             <h5 className="modal-title">Add Event</h5>
                             <button onClick={closeModal} type="button" className="close bg-white border-0" data-dismiss="modal" aria-label="Close">
-                                <span class="close">&times;</span>
+                                <span className="close">&times;</span>
                             </button>
                         </div>
 
@@ -194,13 +160,10 @@ const CalendarScreen = () => {
                 </div>
             </div>
 
-            <button onClick={openModal} id="myBtn">Open Modal</button>
-
-
         <div className="mainContainer">
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
-                dateClick={handleGuideDateClick}
+                dateClick={isGuide ? handleGuideDateClick : handleTravelerDateClick}
                 eventClick={handleEventClick}
                 initialView="dayGridMonth"
                 events={ {events: eventArray,   eventColor: '#378006'}}
