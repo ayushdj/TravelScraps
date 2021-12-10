@@ -9,7 +9,7 @@ import calendarService from "../CalendarComponent/service";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Style"
 import countDownService from "../CountDownComponent/service";
-import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst"
+import {ADMIN, TRAVELGUIDE, TRAVELLER} from "../../constants/userConst"
 
 const initialState = {
     firstName: '',
@@ -29,13 +29,13 @@ const Login = () => {
         const userName = event.target.value;
         const newUser = {
             ...user,
-            userName : userName
+            userName: userName
         };
         setUser(newUser);
 
         const newProfile = {
             ...profile,
-            userName : userName
+            userName: userName
         };
         setProfile(newProfile);
     }
@@ -44,13 +44,13 @@ const Login = () => {
         const password = event.target.value;
         const newUser = {
             ...user,
-            password : password
+            password: password
         };
         setUser(newUser);
 
         const newProfile = {
             ...profile,
-            password : password
+            password: password
         };
         setProfile(newProfile);
     }
@@ -59,7 +59,7 @@ const Login = () => {
         const firstName = event.target.value;
         const newProfile = {
             ...profile,
-            firstName : firstName
+            firstName: firstName
         };
         setProfile(newProfile);
     }
@@ -68,7 +68,7 @@ const Login = () => {
         const lastName = event.target.value;
         const newProfile = {
             ...profile,
-            lastName : lastName
+            lastName: lastName
         };
         setProfile(newProfile);
     }
@@ -77,7 +77,7 @@ const Login = () => {
         const email = event.target.value;
         const newProfile = {
             ...profile,
-            email : email
+            email: email
         };
         setProfile(newProfile);
     }
@@ -86,7 +86,7 @@ const Login = () => {
         const dateOfBirth = event.target.value;
         const newProfile = {
             ...profile,
-            dateOfBirth : dateOfBirth
+            dateOfBirth: dateOfBirth
         };
         setProfile(newProfile);
     }
@@ -105,20 +105,20 @@ const Login = () => {
                 'content-type': 'application/json'
             }
         })
-        .then(response => {
-            if (response.status === 403) {
-                alert("Cannot find username. Please register.")
-                history.push("/login")
-            } else {
-                history.push("/home")
-                //window.location.reload()
-            }
+            .then(response => {
+                if (response.status === 403) {
+                    alert("Cannot find username. Please register.")
+                    history.push("/login")
+                } else {
+                    history.push("/home")
+                    //window.location.reload()
+                }
 
-        })
-            // console.log(`this is promise ${promise}`)
-            // alert(`this is promise ${promise}`)
-            // history.push('/home');
-            // window.location.reload();
+            })
+        // console.log(`this is promise ${promise}`)
+        // alert(`this is promise ${promise}`)
+        // history.push('/home');
+        // window.location.reload();
 
     }
 
@@ -126,20 +126,20 @@ const Login = () => {
         const role = getUserType()
         console.log("Role", role)
         const newProfile = {
-            firstName:profile.firstName,
-            lastName:profile.lastName,
-            userName:profile.userName,
-            dateOfBirth:profile.date,
-            email:profile.email,
-            password:profile.password,
+            firstName: profile.firstName,
+            lastName: profile.lastName,
+            userName: profile.userName,
+            dateOfBirth: profile.date,
+            email: profile.email,
+            password: profile.password,
             type: role,
             comments: [],
             scrapPosts: [],
             likes: [],
-            bio : "",
-            website : "",
-            profilePicture : "",
-            bannerPicture : "",
+            bio: "",
+            website: "",
+            profilePicture: "https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1-705x705.jpg",
+            bannerPicture: "https://atiinc.org/wp-content/uploads/2017/01/cover-default.jpg",
             location: "",
         }
         console.log(newProfile)
@@ -160,17 +160,14 @@ const Login = () => {
                 }
             })
                 .then(response => {
-                    if(response.status === 404)
+                    if (response.status === 404)
                         alert("username already exists! Pick a different username")
                     else {
                         alert("signup success!")
-                        history.push("/home")
                         //window.location.reload()
                     }
 
-                })
-
-
+                }).then(() => getProfilePrivacy())
         }
     };
 
@@ -183,7 +180,20 @@ const Login = () => {
                 setUser(user);
                 history.push(`/home`)
             })
-            // .catch(() => history.push('/login'));
+        // .catch(() => history.push('/login'));
+    }
+
+    const getProfilePrivacy = async () => {
+        await fetch(`http://localhost:4000/api/profile`, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(res => res.json())
+            .then(user => {
+                setUser(user);
+                history.push(`/privacy`)
+                window.location.reload();
+            })
+        // .catch(() => history.push('/login'));
     }
 
     useEffect(getProfile, [history]);
@@ -192,7 +202,6 @@ const Login = () => {
 
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
-    const dispatch = useDispatch();
     const classes = useStyles();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -204,10 +213,9 @@ const Login = () => {
         setShowPassword(false);
     };
 
-    const getUserType = () =>  {
+    const getUserType = () => {
         const radios = document.getElementsByName('user-role');
-        for (const radio of radios)
-        {
+        for (const radio of radios) {
             if (radio.checked) {
                 return radio.value;
             }
@@ -217,6 +225,7 @@ const Login = () => {
     const handleSubmit = () => {
         if (isSignup) {
             processRegister()
+            history.push("/privacy");
         } else {
             login()
         }
@@ -246,19 +255,26 @@ const Login = () => {
                                 <Input name="dateOfBirth" type="date"
                                        handleChange={dobChangeHandler}/>
                                 <br/>
-                                <div className = {"ms-3"}>
+                                <div className={"row ms-3"}>
                                     <label>User Role</label>
-                                    <input className={"ms-3"} type="radio" value= {TRAVELLER}
-                                           name="user-role" id="radio-traveler" checked />
-                                    <label className={"ms-1"} htmlFor="radio-traveler">Traveler</label>
-
-                                    <input className={"ms-4"} type="radio" value= {TRAVELGUIDE}
-                                           name="user-role" id="radio-guide"/>
-                                    <label className={"ms-1"} htmlFor="radio-guide">Travel guide</label><br/>
                                 </div>
-
-
-
+                                <div className={"row ms-3"}>
+                                    <div className={"col-4"}>
+                                        <input className={"ms-3"} type="radio" value={TRAVELLER}
+                                               name="user-role" id="radio-traveler"/><br/>
+                                        <label className={"ms-1"} htmlFor="radio-traveler">Traveler</label>
+                                    </div>
+                                    <div className="col-4">
+                                        <input className={"ms-4"} type="radio" value= {TRAVELGUIDE}
+                                               name="user-role" id="radio-guide"/><br/>
+                                        <label className={"ms-1"} htmlFor="radio-guide">Travel guide</label><br/>
+                                    </div>
+                                    <div className="col-4">
+                                        <input className={"ms-4"} type="radio" value= {ADMIN}
+                                               name="user-role" id="radio-guide"/><br/>
+                                        <label className={"ms-1"} htmlFor="radio-guide">Admin</label><br/>
+                                    </div>
+                                </div>
                             </>
                         )}
                         <Input
@@ -279,13 +295,13 @@ const Login = () => {
                     </Grid>
 
                     <Grid>
-                        {isSignup ?<Button
-                                      type="signUp" fullWidth variant="contained" color="primary"
-                                      className={classes.signUp}>
-                                      <Typography component={Link} to="/home" className={"text-white"}
-                                                  style={{textDecoration: 'none'}}
-                                                  align="center">Sign Up</Typography>
-                                  </Button>
+                        {isSignup ? <Button
+                                type="signUp" fullWidth variant="contained" color="primary"
+                                className={classes.signUp}>
+                                <Typography component={Link} to="/home" className={"text-white"}
+                                            style={{textDecoration: 'none'}}
+                                            align="center">Sign Up</Typography>
+                            </Button>
                             :
                             <Button
                                 type="signUp" fullWidth variant="contained" color="primary"

@@ -1,5 +1,4 @@
 export const emptyUser =  {
-    _id: "",
     firstName: "",
     lastName: "",
     userName: "",
@@ -14,9 +13,10 @@ export const emptyUser =  {
     website : "",
     profilePicture : "",
     bannerPicture : "",
-    location: "",
+    location: ""
 }
 
 export const TRAVELLER = "TRAVELER";
 export const TRAVELGUIDE = "GUIDE";
+export const ADMIN = "ADMIN";
 

@@ -2,7 +2,7 @@ import './App.css';
 import './vendors/bootstrap/css/bootstrap.min.css';
 import './vendors/bootstrap/bootstrap.min.css';
 import './vendors/fontawesome/css/all.min.css';
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import {combineReducers, createStore} from "redux";
 import profile from './reducers/profile';
@@ -12,7 +12,6 @@ import {Provider} from "react-redux";
 import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
 import EditProfile from "./components/ProfileScreen/EditProfile";
 import Navbar from "./components/Navbar/Navbar";
-import Auth from "./components/Auth/Auth";
 import SettingsScreen  from "./components/Settings/SettingsScreen"
 import counter from './reducers/countDown';
 import who from './reducers/whoReducer';
@@ -20,6 +19,7 @@ import CalendarScreen from "./components/CalendarComponent/CalendarScreen";
 import calendar from "./reducers/calendar";
 import events from "./reducers/event";
 import Login from "./components/SignInComponent/Login";
+import Privacy from "./components/Privacy/Privacy"
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
@@ -53,13 +53,18 @@ function App() {
                             <Route path={["/calendar"]} exact={true}>
                                 <CalendarScreen/>
                             </Route>
-                            <Route path={["/", "/logIn"]} exact={true}>
+                            <Route path={["/", "/login"]} exact={true}>
                                 <Login/>
                             </Route>
+                            <Route path={["/privacy"]} exact={true}>
+                                <Privacy/>
+                            </Route>
+
                         </Switch>
                     </div>
                 </BrowserRouter>
             </Provider>
+
         </>
 
     );

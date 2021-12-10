@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import SettingsPage from "./SettingsPage";
 import service from "../ProfileScreen/service";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {emptyUser} from "../../constants/userConst";
 import {Col, Form, InputGroup, Row} from "react-bootstrap";
 import {Button} from "@material-ui/core";
@@ -22,9 +21,8 @@ const SettingsScreen = () => {
             .then(user => {
                 setUser(user);
                 setValues(user);
-            })
+            }).catch(() => history.push('/settings'));
     }
-    console.log("This is the initial settings data: ", user);
     useEffect(getProfile, [history]);
 
     //let dispatch = useDispatch();
@@ -67,7 +65,7 @@ const SettingsScreen = () => {
     }
 
     const userNameSaveChanges = (event) => {
-        if (user._id === "") {
+        if (values._id === "") {
             alert("User is not logged in!")
         } else {
             const json = {
@@ -90,11 +88,22 @@ const SettingsScreen = () => {
 
             }
             service.updateProfile(json, dispatch);
-            service.updateUser(json, dispatch);
-            logout();
-            login();
-
+            service.setSession(json._id, dispatch)
+            alert("Success! Please login with your new credentials")
+            logout()
         }
+    }
+
+
+    const logout = () => {
+        fetch(`http://localhost:4000/api/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(() => {
+            history.push('/login');
+            window.location.reload();
+        });
+
     }
 
     const deleteUser = () => {
@@ -103,28 +112,6 @@ const SettingsScreen = () => {
         deleteLogout();
     }
 
-    const login = () => {
-        fetch(`http://localhost:4000/api/login`, {
-            method: 'POST',
-            body: JSON.stringify(user),
-            credentials: 'include',
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(() => {
-            history.push('/profile');
-            window.location.reload();
-        });
-    }
-    const logout = () => {
-        fetch(`http://localhost:4000/api/logout`, {
-            method: 'POST',
-            credentials: 'include'
-        }).then(() => {
-            history.push('/profile');
-            //window.location.reload();
-        });
-    }
 
     const deleteLogout = () => {
         fetch(`http://localhost:4000/api/logout`, {
@@ -225,6 +212,7 @@ const SettingsScreen = () => {
                     </>
                 </div>
             </div>
+            <footer><Link to="/privacy">Privacy Policy</Link></footer>
         </>
     )
 }

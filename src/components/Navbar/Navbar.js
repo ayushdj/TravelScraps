@@ -3,10 +3,10 @@ import {AppBar, Typography, Toolbar, Avatar, Button} from '@material-ui/core';
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import decode from 'jwt-decode';
-
 import useStyles from './styles';
 import * as actionType from "../../constants/actionTypes";
 import {emptyUser} from "../../constants/userConst";
+
 const _ = require("lodash");
 const Navbar = () => {
     const location = useLocation();
@@ -80,26 +80,26 @@ const Navbar = () => {
                 </div>
                 : <></>
             }
-            { loggedIn ?
+            {loggedIn ?
                 <div className={classes.brandContainer}>
                     <Typography component={Link} to="/calendar" className={classes.heading} variant="h6"
                                 align="center">Calender</Typography>
                 </div>
                 : <></>
             }
-            { loggedIn ?
-            <div className={classes.brandContainer}>
-                <Typography component={Link} to="/friends" className={classes.heading} variant="h6"
-                            align="center">Friends</Typography>
-            </div>
+            {loggedIn ?
+                <div className={classes.brandContainer}>
+                    <Typography component={Link} to="/friends" className={classes.heading} variant="h6"
+                                align="center">Friends</Typography>
+                </div>
                 : <></>
             }
 
-            { loggedIn ?
-            <div className={classes.brandContainer}>
-                <Typography component={Link} to="/messages" className={classes.heading} variant="h6"
-                            align="center">Messages</Typography>
-            </div>
+            {loggedIn ?
+                <div className={classes.brandContainer}>
+                    <Typography component={Link} to="/messages" className={classes.heading} variant="h6"
+                                align="center">Messages</Typography>
+                </div>
                 : <></>
             }
             <div className={classes.brandContainer}>
@@ -107,24 +107,29 @@ const Navbar = () => {
                             align="center">Settings</Typography>
             </div>
 
-            { loggedIn ?
-            <div className={classes.brandContainer}>
-                <Typography component={Link} to="/bookmarks" className={classes.heading} variant="h6"
-                            align="center">Bookmarks</Typography>
-            </div>
+            {loggedIn ?
+                <div className={classes.brandContainer}>
+                    <Typography component={Link} to="/bookmarks" className={classes.heading} variant="h6"
+                                align="center">Bookmarks</Typography>
+                </div>
                 : <></>
             }
             <div>
                 <Toolbar className={classes.toolbar}>
-                        <div className="row">
-                            <div className="col">
-                                <Button variant="contained"  color="secondary"
-                                        onClick={handleLoginLogout}>{ loggedIn ? "Logout" : "Login"}</Button>
-                            </div>
-                            <div className="col">
-                                <label>{ loggedIn ? `HELLO ${(user.firstName).toUpperCase()}` : ""}</label>
+                    <div className="row">
+                        <div className="col">
+                            <div>
+                                {loggedIn ? <Button variant="contained" color="secondary" className={classes.logoutButton}
+                                                    onClick={handleLoginLogout}>Logout</Button>
+                                    :
+                                    <Button variant="contained" color="primary" className={classes.loginButton}
+                                            onClick={handleLoginLogout}>Login</Button>}
                             </div>
                         </div>
+                        <div className="col">
+                            <label>{loggedIn ? `HELLO ${(user.firstName).toUpperCase()}` : ""}</label>
+                        </div>
+                    </div>
                 </Toolbar>
             </div>
 
