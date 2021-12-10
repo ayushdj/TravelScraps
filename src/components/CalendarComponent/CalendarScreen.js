@@ -87,7 +87,6 @@ const CalendarScreen = () => {
         }
         console.log("selected personId", selected)
         const newEvent = {title: guideTitle, date: guideDate }
-        alert(`newEvent ${JSON.stringify(newEvent)}`)
         await addEventToUserCalendar(dispatch, newEvent)
 
         if (guideTitle !== null && guideTitle !== "" && guideDate !== null) {
