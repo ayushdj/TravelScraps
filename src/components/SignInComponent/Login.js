@@ -142,7 +142,7 @@ const Login = () => {
             bannerPicture: "https://atiinc.org/wp-content/uploads/2017/01/cover-default.jpg",
             location: "",
         }
-        console.log(newProfile)
+        alert(JSON.stringify(newProfile))
         register(newProfile)
     }
 
@@ -217,6 +217,7 @@ const Login = () => {
         const radios = document.getElementsByName('user-role');
         for (const radio of radios) {
             if (radio.checked) {
+                //console.log("checked", radio.value)
                 return radio.value;
             }
         }
@@ -271,8 +272,8 @@ const Login = () => {
                                     </div>
                                     <div className="col-4">
                                         <input className={"ms-4"} type="radio" value= {ADMIN}
-                                               name="user-role" id="radio-guide"/><br/>
-                                        <label className={"ms-1"} htmlFor="radio-guide">Admin</label><br/>
+                                               name="user-role" id="radio-admin"/><br/>
+                                        <label className={"ms-1"} htmlFor="radio-admin">Admin</label><br/>
                                     </div>
                                 </div>
                             </>
