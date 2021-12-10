@@ -7,11 +7,52 @@ import {Button} from "@material-ui/core";
 import {Col, Form, InputGroup, Row} from 'react-bootstrap';
 import Password from "./components/Password/Password";
 import service from "../ProfileScreen/service";
+import {useHistory} from "react-router-dom";
 const selectProfile = (state) => state.profile;
 
 const SettingsPage = ({profileData}) => {
 
     let dispatch = useDispatch();
+
+    const logout = () => {
+        fetch(`http://localhost:4000/api/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(() => {
+            history.push('/settings');
+            //window.location.reload();
+        });
+
+    }
+
+    const login = () => {
+        fetch(`http://localhost:4000/api/login`, {
+            method: 'POST',
+            body: JSON.stringify(user),
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(() => {
+            history.push('/settings');
+            //window.location.reload();
+        });
+    }
+
+    const [user, setUser] = useState({});
+    const history = useHistory();
+    const getProfile = () => {
+        fetch(`http://localhost:4000/api/profile`, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(res => res.json())
+            .then(user => {
+                setUser(user);
+            })
+    }
+
+    useEffect(getProfile, [history]);
+
 
     // Creating state variables
     let [values, setValues] = useState({
@@ -78,6 +119,9 @@ const SettingsPage = ({profileData}) => {
             }
             service.updateProfile(json, dispatch);
             console.log(json);
+
+            history.push("/settings")
+            window.location.reload()
         }
     }
 

@@ -17,14 +17,11 @@ const HomeScreen = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-                // })
             })
             // }).catch(() => history.push('/login'));
     }
     const loggedIn = JSON.stringify(user) !== "{}"
     useEffect(getProfile, [history]);
-
-    //const profileComponent = profile.edit ? <EditProfile profile={profile}/> : <ProfilePage profile={profile}/>
 
     return (
         <div className={"row mt-2"}>
