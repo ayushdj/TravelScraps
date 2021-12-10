@@ -20,7 +20,8 @@ export const updateProfile = (profile, dispatch) => {
         headers: {
             'content-type': 'application/json'
         }
-    }).then(response => response.json()).then(profile => dispatch({
+    }).then(response => response.json()).then(profile =>
+        dispatch({
         type: 'update-profile',
         profile
     }));
@@ -37,7 +38,7 @@ export const updateUser = (user, dispatch) => {
     }).then(response => response.json()).then(user => dispatch({
         type: 'update-user',
         user
-    }));
+    })).then(window.location.reload);
 }
 
 export const deleteProfile = (profileID) => {
@@ -52,6 +53,17 @@ export const deleteUser = (userID) => {
     })
 }
 
+const setSession = (json, dispatch) => {
+    fetch(`http://localhost:4000/api/session/set/profile/${json}`)
+        .then(response => response.json())
+        .then(() =>
+            dispatch({
+                type: 'update-user',
+                json
+            })
+        ).catch(err => console.error(err));
+}
+
 export default {
-    updateProfile, findProfileById, deleteProfile, updateUser, deleteUser
+    updateProfile, findProfileById, deleteProfile, updateUser, deleteUser, setSession
 }

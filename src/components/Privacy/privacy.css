@@ -1,0 +1,65 @@
+
+nav a {
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    padding: 20px 20px 0px 25px;
+}
+
+nav {
+    position: fixed;
+    left:0;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+}
+
+section {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1000;
+}
+
+section h1 {
+    color: white;
+    font-size: 50px;
+    text-transform: uppercase;
+    opacity: 0;
+}
+
+/* Styles applied on trigger */
+section:target {
+    opacity: 1;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+section:target h1 {
+    opacity: 50%;
+    animation: 3s fadeOut backwards 5s;
+}
+
+#first {
+    background: peru;
+}
+#second {
+    background: #874A85;
+}
+
+#third {
+    background: #a88308;
+}
+
+#fourth {
+    background: #01ad99;
+}
+
+#fifth {
+    background: #2e6da4;
+}

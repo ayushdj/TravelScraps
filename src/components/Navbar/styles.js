@@ -41,7 +41,19 @@ export default makeStyles((theme) => ({
         color: theme.palette.getContrastText(deepPurple[500]),
         backgroundColor: deepPurple[500],
     },
-    map:{
+    map: {
         color: 'rgba(0,183,255, 1)'
-    }
+    },
+    loginButton: {
+        position: "fixed",
+        right: 150,
+        display: "flex",
+        flexDirection: "row"
+    },
+    logoutButton: {
+        position: "fixed",
+        right: 150,
+        display: "flex",
+        flexDirection: "row"
+    },
 }));
