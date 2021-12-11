@@ -106,7 +106,6 @@ const Navbar = () => {
                 : <></>
             }
 
-
             {loggedIn && userType !== ADMIN ?
                 <div className={classes.brandContainer}>
                     <Typography component={Link} to="/messages" className={classes.heading} variant="h6"
