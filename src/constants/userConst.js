@@ -17,6 +17,6 @@ export const emptyUser =  {
 }
 
 export const TRAVELLER = "TRAVELER";
-export const TRAVELGUIDE = "TRAVELGUIDE";
+export const TRAVELGUIDE = "GUIDE";
 export const ADMIN = "ADMIN";
 

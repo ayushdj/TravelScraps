@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import service from "./service";
 import profileService from "../ProfileScreen/service";
-import {Link, useHistory, useParams} from "react-router-dom";
-import {ADMIN} from "../../constants/userConst";
+import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import './index.css';
 
@@ -12,7 +11,6 @@ const ScrapPostsReDirect = () => {
     const id = useParams();
     const selectorProfile = useSelector(selectProfile);
     const [posts, setPosts] = useState([]);
-    const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => service.findAllPosts().then(post => setPosts(post)), [posts]);
@@ -50,12 +48,6 @@ const ScrapPostsReDirect = () => {
                                  src={profile.profilePicture} alt="profile"/>
                         </div>
                     </div>
-
-                    <Link to="/edit-profile">
-                        <div className="mt-2 float-end"><a className="btn btn-outline-dark wd-round">Edit Profile</a>
-                        </div>
-                    </Link>
-
                     <br/><br/>
                     <div className="mt-5">
                         <div>
