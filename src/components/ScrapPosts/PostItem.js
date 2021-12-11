@@ -121,7 +121,9 @@ const PostItem = ({loggedIn, postData, user}) => {
 
         }
     }
-
+    const handleAvatarClicker = (comment) => {
+        history.push(`/userProfile/${comment.person}`);
+    }
     return (
       <>
           <li className="list-group-item wd-scrapPosts-main">
@@ -182,7 +184,7 @@ const PostItem = ({loggedIn, postData, user}) => {
                                   selectorComments.map((comment) => comment.post === postData._id ?
                                       <li className={"list-group-item"} style={{backgroundColor: "black"}}>
                                           <div className="row">
-                                              <div className="col-1">
+                                              <div className="col-1" onClick={() => handleAvatarClicker(comment)}>
                                                   <img src={comment.profilePicture}
                                                        className="rounded-circle float-start wd-avatar"/>
                                               </div>

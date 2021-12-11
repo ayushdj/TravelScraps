@@ -25,6 +25,9 @@ import SearchWeather from "./components/SearchComponent/SearchWeather";
 
 import details from "./reducers/details";
 import Details from "./DetailsComponent/Details";
+import ScrapPosts from "./components/ScrapPosts";
+import ScrapPostsReDirect from "./components/ScrapPosts/ScrapPostReDirect";
+import ProfileScreenClicked from "./components/ScrapPosts/ProfileScreenClicked";
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
@@ -73,8 +76,9 @@ function App() {
                             <Route path={["/details", "/details/:criteria"]} exact={true}>
                                 <Details/>
                             </Route>
-
-
+                            <Route path={["/userProfile/:pid"]} exact={true}>
+                                <ProfileScreenClicked/>
+                            </Route>
                         </Switch>
                     </div>
                 </BrowserRouter>
