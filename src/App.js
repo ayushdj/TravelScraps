@@ -21,6 +21,7 @@ import events from "./reducers/event";
 import Login from "./components/SignInComponent/Login";
 import Privacy from "./components/Privacy/Privacy"
 import Travelers from "./components/TravelersComponent/Travelers";
+import SearchWeather from "./components/SearchComponent/SearchWeather";
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
@@ -62,6 +63,9 @@ function App() {
                             </Route>
                             <Route path={["/travelers"]} exact={true}>
                                 <Travelers/>
+                            </Route>
+                            <Route path={["/search", "/search/:criteria"]} exact={true}>
+                                <SearchWeather/>
                             </Route>
                         </Switch>
                     </div>

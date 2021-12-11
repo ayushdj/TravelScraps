@@ -25,3 +25,30 @@ const returnWeatherData = (data) => {
     }
 }
 
+export const getMultipleWeather = (city, setWeatherList) => {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`)
+        .then((response) => (response.json()))
+        .then(data => setWeatherList(getWeatherListData(data.list)))
+        // .then((data) => setWeatherList(getWeatherListData(data.list)))
+        .catch(error => alert("City name not found!"))
+}
+
+const getWeatherListData = (weatherList) => {
+    return weatherList.map(data => getDailyWeather(data))
+}
+
+const getDailyWeather = (data) => {
+    return {
+        temp: Math.round(data.main.temp),
+        description: data.weather[0].description,
+        humidity: data.main.humidity,
+        wind: data.wind.speed,
+        date: data.dt_txt
+    }
+}
+
+const getDay = (date) => {
+    if (date !== "") {
+
+    }
+}
