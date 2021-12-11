@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import profileService from "../../ProfileScreen/service";
 import service from '../service';
 import {useHistory} from "react-router-dom";
-const selectProfile = (state) => state.profile;
 
+const selectProfile = (state) => state.profile;
 
 
 const WhatsHappening = ({loggedIn, user}) => {
@@ -80,39 +80,54 @@ const WhatsHappening = ({loggedIn, user}) => {
     return (
         <>
 
-            <div className="row">
+            <div className="row wd-border">
                 <div className="col-xxl-1 col-xl-1 col-lg-1">
                     <img src={user.profilePicture}
                          className="rounded-circle float-start wd-avatar" alt={"image"}/>
                 </div>
+                <div className="col-11">
 
-                <div className="col-xxl-11 col-xl-11 col-lg-11 col-md-11 col-sm-11">
-                    <textarea value={title} onChange={(event) =>
-                        setTitle(event.target.value)} placeholder="Title" className="wd-text col-lg-12 row-10 form-control">
-                    </textarea>
+                    <div className="row">
+                        <div className="col-6">
+                            <input value={title} onChange={(event) =>
+                                setTitle(event.target.value)} placeholder="Title"
+                                   className="wd-text-post col-lg-12 row-10 form-control">
+                            </input>
+                        </div>
+                        <div className="col-6">
+                            <input value={title} onChange={(event) =>
+                                setLocation(event.target.value)} placeholder="Location"
+                                   className="wd-text-post col-lg-12 form-control">
+                            </input>
+                        </div>
 
-                    <textarea value={whatsHappening} onChange={(event) =>
-                        setWhatsHappening(event.target.value)} placeholder="What's Happening?" className="wd-text col-lg-12 row-10 form-control">
-                    </textarea>
+                    </div>
+                    <br/>
 
-                    <textarea value={location} onChange={(event) =>
-                        setLocation(event.target.value)} placeholder="Location" className="wd-text col-lg-12 form-control">
-                    </textarea>
+                    <div className="row">
+
+                        <div className="col-12">
+                        <textarea value={whatsHappening} onChange={(event) =>
+                            setWhatsHappening(event.target.value)} placeholder="What's Happening?"
+                                  className="wd-text col-lg-12 row-10 form-control">
+                        </textarea>
+                        </div>
+
+                    </div>
                 </div>
-
 
             </div>
 
             <div className="row mt-2">
-                <div className="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1" >
+                <div className="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
 
                 </div>
                 <div className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-9">
 
-                    <i className="far fa-image wd-imageIcon" style={{color:"rgb(29, 161, 242)"}}/>
-                    <i className="fas fa-chart-line wd-imageIcon" style={{color:"rgb(29, 161, 242)"}}/>
-                    <i className="far fa-smile wd-imageIcon" style={{color:"rgb(29, 161, 242)"}}/>
-                    <i className="far fa-calendar" style={{color:"rgb(29, 161, 242)"}}/>
+                    <i className="far fa-image wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
+                    <i className="fas fa-chart-line wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
+                    <i className="far fa-smile wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
+                    <i className="far fa-calendar" style={{color: "rgb(29, 161, 242)"}}/>
 
                     {/* IMAGE SHIT */}
                     {/*<div className="container">*/}
@@ -145,7 +160,8 @@ const WhatsHappening = ({loggedIn, user}) => {
 
                 </div>
 
-                <button onClick={createNewPost} type="submit" className="wd-tweet-button2 btn btn-primary float-end rounded-pill col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
+                <button onClick={createNewPost} type="submit"
+                        className="wd-tweet-button2 btn btn-primary float-end rounded-pill col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
                     Post
                 </button>
             </div>

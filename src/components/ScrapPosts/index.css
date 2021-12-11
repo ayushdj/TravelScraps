@@ -1,3 +1,19 @@
 .ts-liked:hover {
-    color:red;
+    color: rgb(29, 161, 242);
+}
+
+.wd-scrapPosts {
+    margin-bottom: 15px;
+    border:1px solid white;
+}
+
+.wd-scrapPosts-main {
+    border:1px solid white;
+    background-color: black;
+}
+
+.wd-scrapPosts-picture {
+    background-color: black;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
