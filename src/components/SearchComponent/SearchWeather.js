@@ -90,10 +90,9 @@ const SearchWeather = () => {
         return weatherList.map(weather =>
             <>
                 <a onClick={(event) => {
-                    console.log("weather", weather)
                     const details = {weather, cityInfo}
                     dispatch({ type: "update-details", details});
-
+                    history.push(`/details/${criteria}`)
                 }} className="list-group-item list-group-item-action flex-column align-items-start">
 
                 <div className={"row"}>

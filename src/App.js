@@ -22,11 +22,13 @@ import Login from "./components/SignInComponent/Login";
 import Privacy from "./components/Privacy/Privacy"
 import Travelers from "./components/TravelersComponent/Travelers";
 import SearchWeather from "./components/SearchComponent/SearchWeather";
-import {Details} from "@material-ui/icons";
+
+import details from "./reducers/details";
+import Details from "./DetailsComponent/Details";
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
-                                            comments:comments});
+                                            comments:comments, details: details});
 const store = createStore(reducer);
 
 function App() {

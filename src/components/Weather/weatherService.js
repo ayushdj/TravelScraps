@@ -29,7 +29,7 @@ export const getMultipleWeather = (city, setWeatherList, eventArray, history, se
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`)
         .then((response) => (response.json()))
         .then(data => {
-            setCityInfo(setCityInfo(data.city))
+            setCityInfo(data.city)
             setWeatherList(getWeatherListData(data.list, eventArray))})
         // .then((data) => setWeatherList(getWeatherListData(data.list)))
         .catch(error => {
