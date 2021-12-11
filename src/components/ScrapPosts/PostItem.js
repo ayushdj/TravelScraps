@@ -5,6 +5,7 @@ import profileService from '../ProfileScreen/service'
 import Comment from "./Comments/Comment";
 import {useHistory} from "react-router-dom";
 import _ from 'lodash';
+import {ADMIN, TRAVELLER} from "../../constants/userConst";
 
 const selectProfile = (state) => state.profile;
 const selectComments = (state) => state.comments;
@@ -134,7 +135,7 @@ const PostItem = ({loggedIn, postData, user}) => {
                 </div>
                 <div className="col-1">
                     {
-                        user._id === postData.person ? <i className="fas fa-trash" onClick={handleDeletePost}/> : <></>
+                        user._id === postData.person || user.type === ADMIN ? <i className="fas fa-trash" onClick={handleDeletePost}/> : <></>
                     }
                 </div>
             </div>
@@ -191,7 +192,7 @@ const PostItem = ({loggedIn, postData, user}) => {
                                                 }}>{comment.text}</span>
                                             </div>
                                             {
-                                                user._id === postData.person || user._id === comment.person ?
+                                                user._id === postData.person || user._id === comment.person || user.type === ADMIN ?
                                                     <div className="col-1" onClick={() => deleteComment(comment)}>
                                                         <i className="fas fa-times"/>
                                                     </div> : <></>
@@ -205,18 +206,21 @@ const PostItem = ({loggedIn, postData, user}) => {
 
                     : <></>
                 }
-                <div className="row mt-2">
-                    <div className="col-12">
+                {
+                    user.type === ADMIN ? <></> :
+                        <div className="row mt-2">
+                            <div className="col-12">
                             <textarea onChange={(event) =>
                                 setNewComment(event.target.value)} placeholder="Add a comment"
                                       className="wd-text col-lg-12 row-10 form-control">
                             </textarea>
-                    </div>
-                    <button onClick={handleCommentAddition} type="button" className="btn btn-primary mt-2">Add Comment
-                    </button>
+                            </div>
+                            <button onClick={handleCommentAddition} type="button" className="btn btn-primary mt-2">Add Comment
+                            </button>
 
-                </div>
+                        </div>
 
+                }
             </div>
         </li>
     )

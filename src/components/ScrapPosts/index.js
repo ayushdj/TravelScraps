@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import service from "./service";
 import PostItem from "./PostItem";
 import WhatsHappening from "./WhatsHappening";
+import {ADMIN, TRAVELLER} from "../../constants/userConst";
 
 const selectAllPosts = (state) => state.scrapPost;
 
@@ -16,13 +17,15 @@ const ScrapPosts = ({user}) => {
 
     return (
         <>
-            <div>
-                <WhatsHappening loggedIn = {loggedIn} user={user}/>
-            </div>
+            {loggedIn && user.type !== ADMIN
+                ? <div>
+                    <WhatsHappening loggedIn={loggedIn} user={user}/>
+                </div> : <></>
+            }
             <ul className="list-group">
                 {
                     posts.map((post, key) =>
-                        <PostItem loggedIn = {loggedIn} postData={post} user={user} key={key}/>
+                        <PostItem loggedIn={loggedIn} postData={post} user={user} key={key}/>
                     )
                 }
             </ul>

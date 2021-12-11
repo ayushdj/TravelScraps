@@ -6,6 +6,7 @@ import CountDown from "../CountDownComponent/CountDown";
 import {useHistory} from "react-router-dom";
 import WeatherComponent from "../Weather/WeatherComponent";
 import _ from "lodash";
+import {TRAVELLER} from "../../constants/userConst";
 
 const HomeScreen = () => {
     const [user, setUser] = useState({});
@@ -34,7 +35,7 @@ const HomeScreen = () => {
                 {/*    <WhoToFollowList who={who}/>*/}
                 {/*</div>*/}
 
-                {loggedIn ?  <CountDown user={user}/> : <></>}
+                {loggedIn && user.type === TRAVELLER ?  <CountDown user={user}/> : <></>}
 
                 <div className="row mt-4">
                     <WeatherComponent/>
