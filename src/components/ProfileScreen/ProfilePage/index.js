@@ -12,19 +12,25 @@ const ProfilePage = ({profileData}) => {
             case 2:
                 const dateSplit = dateString.split("/")
                 const newDateString = dateSplit[0] + "/1/" + dateSplit[1]
-                return new Date(newDateString).toLocaleDateString('en-us', {month:"long", year:"numeric"})
+                return new Date(newDateString).toLocaleDateString('en-us', {month: "long", year: "numeric"})
             default:
-                return new Date(dateString).toLocaleDateString('en-us', {month:"long", day:"numeric", year:"numeric"})
+                return new Date(dateString).toLocaleDateString('en-us', {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric"
+                })
 
         }
     }
 
 
-    return(
+    return (
         <div>
             <div className="row">
                 <div className="col-1">
-                    <i className="fas fa-arrow-left fa-1x" />
+                    <Link to="/home">
+                        <i className="fas fa-arrow-left fa-1x text-white"/>
+                    </Link>
 
                 </div>
                 <div className="col-11">
@@ -64,7 +70,7 @@ const ProfilePage = ({profileData}) => {
 
                             <span className="me-4">
                                         <i className="fas fa-birthday-cake pe-1"/>
-                                        {profileData.dateOfBirth}
+                                {profileData.dateOfBirth}
                                     </span>
 
                         </div>
