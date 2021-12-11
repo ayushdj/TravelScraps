@@ -23,9 +23,12 @@ import Privacy from "./components/Privacy/Privacy"
 import Travelers from "./components/TravelersComponent/Travelers";
 import SearchWeather from "./components/SearchComponent/SearchWeather";
 
+import details from "./reducers/details";
+import Details from "./DetailsComponent/Details";
+
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
-                                            comments:comments});
+                                            comments:comments, details: details});
 const store = createStore(reducer);
 
 function App() {
@@ -67,6 +70,11 @@ function App() {
                             <Route path={["/search", "/search/:criteria"]} exact={true}>
                                 <SearchWeather/>
                             </Route>
+                            <Route path={["/details", "/details/:criteria"]} exact={true}>
+                                <Details/>
+                            </Route>
+
+
                         </Switch>
                     </div>
                 </BrowserRouter>
