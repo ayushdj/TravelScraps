@@ -8,9 +8,10 @@ import WeatherComponent from "../Weather/WeatherComponent";
 import _ from "lodash";
 import service from "../CalendarComponent/service";
 import {useDispatch, useSelector} from "react-redux";
+import {TRAVELLER} from "../../constants/userConst";
 const calendarState = (state) => state.calendar;
 
-import {TRAVELLER} from "../../constants/userConst";
+
 
 
 const HomeScreen = () => {
