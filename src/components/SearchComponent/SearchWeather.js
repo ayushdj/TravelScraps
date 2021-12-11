@@ -15,14 +15,13 @@ const SearchWeather = () => {
     const [weatherList, setWeatherList] = useState([])
     const [inputValue, setInputValue] = useState("")
     const [city, setCity] = useState("")
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     useEffect(() => {
         if (city !== "") {
-            getMultipleWeather(city, setWeatherList, eventArray)
+            getMultipleWeather(city, setWeatherList, eventArray, history)
         }}, [city])
-
-
-    const dispatch = useDispatch();
-
 
     const handleCitySearch = () => {
         setCity(inputValue)
@@ -31,7 +30,6 @@ const SearchWeather = () => {
     const [user, setUser] = useState({});
     const eventArray = useSelector(eventsState);
     const calendarObject = useSelector(calendarState);
-    const history = useHistory();
 
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
