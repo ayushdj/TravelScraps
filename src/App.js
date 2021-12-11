@@ -22,6 +22,7 @@ import Login from "./components/SignInComponent/Login";
 import Privacy from "./components/Privacy/Privacy"
 import Travelers from "./components/TravelersComponent/Travelers";
 import SearchWeather from "./components/SearchComponent/SearchWeather";
+import {Details} from "@material-ui/icons";
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
@@ -67,6 +68,11 @@ function App() {
                             <Route path={["/search", "/search/:criteria"]} exact={true}>
                                 <SearchWeather/>
                             </Route>
+                            <Route path={["/details", "/details/:criteria"]} exact={true}>
+                                <Details/>
+                            </Route>
+
+
                         </Switch>
                     </div>
                 </BrowserRouter>

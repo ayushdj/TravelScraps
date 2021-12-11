@@ -6,6 +6,7 @@ import profileService from "../ProfileScreen/service";
 import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
 import {getMultipleWeather, getWeather} from "../Weather/weatherService";
 import {useDispatch, useSelector} from "react-redux";
+import {AUTH} from "../../constants/actionTypes";
 
 const TYPE_URL = 'http://localhost:4000/db/type';
 const calendarState = (state) => state.calendar;
@@ -17,7 +18,7 @@ const SearchWeather = () => {
     const { criteria } = useParams()
     const [weatherList, setWeatherList] = useState([])
     const [inputValue, setInputValue] = useState("")
-    const [city, setCity] = useState( criteria ? criteria : "")
+    const [cityInfo, setCityInfo] = useState({})
 
     const [user, setUser] = useState({});
     const eventArray = useSelector(eventsState);
@@ -27,15 +28,13 @@ const SearchWeather = () => {
         console.log(`criteria is ${criteria}`)
         if (criteria) {
             console.log("network call called")
-            getMultipleWeather(criteria, setWeatherList, eventArray, history)
+            getMultipleWeather(criteria, setWeatherList, eventArray, history, setCityInfo)
         }}, [eventArray])
 
     const handleCitySearch = () => {
         history.push(`/search/${inputValue}`)
         window.location.reload()
     }
-
-
 
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
@@ -62,6 +61,10 @@ const SearchWeather = () => {
     console.log("weather list ", weatherList)
     console.log("events", eventArray)
 
+    const onDetailClick = (event) => {
+        console.log("detail click", event)
+    }
+
     const displaySearchBar = () => {
         return <>
             <input type ="text"
@@ -86,7 +89,12 @@ const SearchWeather = () => {
     const displayWeatherResult = () => {
         return weatherList.map(weather =>
             <>
-                <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+                <a onClick={(event) => {
+                    console.log("weather", weather)
+                    const details = {weather, cityInfo}
+                    dispatch({ type: "update-details", details});
+
+                }} className="list-group-item list-group-item-action flex-column align-items-start">
 
                 <div className={"row"}>
                     <div className={"col-8"}>
