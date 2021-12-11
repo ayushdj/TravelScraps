@@ -1,4 +1,4 @@
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import service from "../CalendarComponent/service";
 import profileService from "../ProfileScreen/service";
@@ -12,24 +12,30 @@ const calendarState = (state) => state.calendar;
 const eventsState = (state) => state.events;
 
 const SearchWeather = () => {
-    const [weatherList, setWeatherList] = useState([])
-    const [inputValue, setInputValue] = useState("")
-    const [city, setCity] = useState("")
     const dispatch = useDispatch();
     const history = useHistory();
-
-    useEffect(() => {
-        if (city !== "") {
-            getMultipleWeather(city, setWeatherList, eventArray, history)
-        }}, [city])
-
-    const handleCitySearch = () => {
-        setCity(inputValue)
-    }
+    const { criteria } = useParams()
+    const [weatherList, setWeatherList] = useState([])
+    const [inputValue, setInputValue] = useState("")
+    const [city, setCity] = useState( criteria ? criteria : "")
 
     const [user, setUser] = useState({});
     const eventArray = useSelector(eventsState);
     const calendarObject = useSelector(calendarState);
+
+    useEffect(() => {
+        console.log(`criteria is ${criteria}`)
+        if (criteria) {
+            console.log("network call called")
+            getMultipleWeather(criteria, setWeatherList, eventArray, history)
+        }}, [eventArray])
+
+    const handleCitySearch = () => {
+        history.push(`/search/${inputValue}`)
+        window.location.reload()
+    }
+
+
 
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
@@ -88,16 +94,19 @@ const SearchWeather = () => {
                             <h5 className="mb-1">{weather.date}</h5>
                             <small className="text-muted">Day {weather.count}</small>
                         </div>
-                    </div>
-                    <div className={"col-4"}>
-                        {weather.userEvent.length > 0 ? displayUserEventCards(weather.userEvent) : <></>}
-                    </div>
                         <p className="mb-1">
                             temp: {weather.temp} <br/>
                             Humidity: {weather.humidity} <br/>
                             wind: {weather.wind} <br/>
                         </p>
                         <small className="text-primary">{weather.description}</small>
+                    </div>
+
+
+
+                    <div className={"col-4"}>
+                        {weather.userEvent.length > 0 ? displayUserEventCards(weather.userEvent) : <></>}
+                    </div>
                 </div>
                 </a>
             </>
