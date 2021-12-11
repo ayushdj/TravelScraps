@@ -4,6 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import profileService from "../../ProfileScreen/service";
 import service from '../service';
 import {useHistory} from "react-router-dom";
+
+import FilesUploadComponent from '../FilesUploadComponent/files-upload-component';
+
+import FileBase64 from 'react-file-base64';
+import axios from "axios";
+
 const selectProfile = (state) => state.profile;
 
 
@@ -19,6 +25,7 @@ const WhatsHappening = ({loggedIn, user}) => {
     const [whatsHappening, setWhatsHappening] = useState("");
     const [location, setLocation] = useState("");
     const [title, setTitle] = useState("");
+    const [images, setImages] = useState([]);
 
     const handleWhatsHappening = (event) => {
         setWhatsHappening(event.target.value);
@@ -48,13 +55,35 @@ const WhatsHappening = ({loggedIn, user}) => {
                 tags: [],
                 text: whatsHappening,
                 travelPlan: "",
-                images: [],
+                images: images,
                 comments: [],
                 person: user._id,
             }
             service.createPost(newPost);
+            console.log("images", images);
+            console.log("new post", newPost);
             window.location.reload();
         }
+    }
+    let imgCollection = [];
+
+    const onFileChange = (e) => {
+        console.log("Event files", e.target.files)
+        imgCollection = e.target.files
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+        const formData = new FormData();
+        for (const key of Object.keys(imgCollection)) {
+            setImages([...images, imgCollection[key]]);
+            formData.append('imgCollection', imgCollection[key])
+        }
+        axios.post("http://localhost:4000/api/upload-images", formData, {
+        }).then(res => {
+            console.log(res.data)
+        })
     }
 
     // const imageUploader = () => {
@@ -98,6 +127,27 @@ const WhatsHappening = ({loggedIn, user}) => {
                     <textarea value={location} onChange={(event) =>
                         setLocation(event.target.value)} placeholder="Location" className="wd-text col-lg-12 form-control">
                     </textarea>
+
+                    <div className="container">
+                        <div className="row">
+                            <form onSubmit={onSubmit}>
+                                <div className="form-group">
+                                    <input type="file" name="imgCollection" onChange={onFileChange} multiple />
+                                </div>
+                                <div className="form-group">
+                                    <button className="btn btn-primary" type="submit">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <FilesUploadComponent />
+
+                    {/*<FileBase64
+                        multiple={true}
+                        value={images}
+                        onDone={({base64})=>setImages(base64.target.value)}/>*/}
+
                 </div>
 
 
