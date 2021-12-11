@@ -34,21 +34,31 @@ export const getMultipleWeather = (city, setWeatherList) => {
 }
 
 const getWeatherListData = (weatherList) => {
-    return weatherList.map(data => getDailyWeather(data))
+    //const weathers = weatherList.map(data => getDailyWeather(data))
+    let finalWeatherList = []
+    let count = 1
+    let prevDay = "";
+    for (let data of weatherList) {
+        const day = data.dt_txt.substring(0, 10)
+        if (prevDay !== "" && day !== prevDay) {
+            count += 1
+        }
+        finalWeatherList = [...finalWeatherList, getDailyWeather(data, day, count)]
+        prevDay = day
+    }
+    return finalWeatherList
 }
 
-const getDailyWeather = (data) => {
+const getDailyWeather = (data, day, count) => {
     return {
         temp: Math.round(data.main.temp),
         description: data.weather[0].description,
         humidity: data.main.humidity,
         wind: data.wind.speed,
-        date: data.dt_txt
+        date: data.dt_txt,
+        day,
+        count
     }
 }
 
-const getDay = (date) => {
-    if (date !== "") {
 
-    }
-}

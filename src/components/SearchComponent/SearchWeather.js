@@ -10,6 +10,8 @@ const TYPE_URL = 'http://localhost:4000/db/type';
 
 const SearchWeather = () => {
     const [weatherList, setWeatherList] = useState([])
+    const [event, setEventList] = useState([])
+
     const [inputValue, setInputValue] = useState("")
     const [city, setCity] = useState("seoul")
     useEffect(() => {
@@ -71,7 +73,7 @@ const SearchWeather = () => {
                     <div className={"col-8"}>
                         <div className="d-flex w-100 justify-content-between">
                             <h5 className="mb-1">{weather.date}</h5>
-                            <small className="text-muted">Day 1</small>
+                            <small className="text-muted">Day {weather.count}</small>
                         </div>
                     </div>
                     <div className="col-4 card bg-primary">
@@ -83,13 +85,13 @@ const SearchWeather = () => {
                             wind: {weather.wind} <br/>
                         </p>
                         <small className="text-primary">{weather.description}</small>
-
-
                 </div>
                 </a>
             </>
             )
     }
+
+
 
     return (
         <>
