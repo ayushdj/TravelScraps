@@ -6,6 +6,9 @@ import CountDown from "../CountDownComponent/CountDown";
 import {useHistory} from "react-router-dom";
 import WeatherComponent from "../Weather/WeatherComponent";
 import _ from "lodash";
+import service from "../CalendarComponent/service";
+import {useDispatch, useSelector} from "react-redux";
+const calendarState = (state) => state.calendar;
 
 const HomeScreen = () => {
     const [user, setUser] = useState({});
@@ -22,6 +25,17 @@ const HomeScreen = () => {
     }
     const loggedIn = JSON.stringify(user) !== "{}"
     useEffect(getProfile, [history]);
+    const dispatch = useDispatch()
+
+    useEffect(() =>  service.findCountCalendarByPersonId(dispatch, user._id), [user]);
+    const calendarObject = useSelector(calendarState);
+    const getAllEvents = async () => {
+        for (let i = 0; i < calendarObject.events.length; i++) {
+            let id = calendarObject.events[i];
+            await service.getEventById(dispatch, id);
+        }
+    }
+    useEffect(() => getAllEvents(), [calendarObject])
 
     return (
         <div className={"row mt-2"}>

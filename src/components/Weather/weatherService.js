@@ -25,15 +25,15 @@ const returnWeatherData = (data) => {
     }
 }
 
-export const getMultipleWeather = (city, setWeatherList) => {
+export const getMultipleWeather = (city, setWeatherList, eventArray) => {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`)
         .then((response) => (response.json()))
-        .then(data => setWeatherList(getWeatherListData(data.list)))
+        .then(data => setWeatherList(getWeatherListData(data.list, eventArray)))
         // .then((data) => setWeatherList(getWeatherListData(data.list)))
         .catch(error => alert("City name not found!"))
 }
 
-const getWeatherListData = (weatherList) => {
+const getWeatherListData = (weatherList, eventArray) => {
     //const weathers = weatherList.map(data => getDailyWeather(data))
     let finalWeatherList = []
     let count = 1
@@ -43,13 +43,20 @@ const getWeatherListData = (weatherList) => {
         if (prevDay !== "" && day !== prevDay) {
             count += 1
         }
-        finalWeatherList = [...finalWeatherList, getDailyWeather(data, day, count)]
+        let userEvent = [];
+        for (let event of eventArray) {
+            if (event.date === day) {
+                userEvent = [...userEvent, event]
+            }
+        }
+
+        finalWeatherList = [...finalWeatherList, getDailyWeather(data, day, count, userEvent)]
         prevDay = day
     }
     return finalWeatherList
 }
 
-const getDailyWeather = (data, day, count) => {
+const getDailyWeather = (data, day, count, userEvent) => {
     return {
         temp: Math.round(data.main.temp),
         description: data.weather[0].description,
@@ -57,7 +64,8 @@ const getDailyWeather = (data, day, count) => {
         wind: data.wind.speed,
         date: data.dt_txt,
         day,
-        count
+        count,
+        userEvent
     }
 }
 

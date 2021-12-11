@@ -5,29 +5,34 @@ import profileService from "../ProfileScreen/service";
 
 import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
 import {getMultipleWeather, getWeather} from "../Weather/weatherService";
+import {useDispatch, useSelector} from "react-redux";
 
 const TYPE_URL = 'http://localhost:4000/db/type';
+const calendarState = (state) => state.calendar;
+const eventsState = (state) => state.events;
 
 const SearchWeather = () => {
     const [weatherList, setWeatherList] = useState([])
-    const [event, setEventList] = useState([])
-
     const [inputValue, setInputValue] = useState("")
-    const [city, setCity] = useState("seoul")
+    const [city, setCity] = useState("")
     useEffect(() => {
         if (city !== "") {
-            getMultipleWeather(city, setWeatherList)
+            getMultipleWeather(city, setWeatherList, eventArray)
         }}, [city])
 
 
-    console.log("weather list ", weatherList)
+    const dispatch = useDispatch();
+
 
     const handleCitySearch = () => {
         setCity(inputValue)
     }
 
     const [user, setUser] = useState({});
+    const eventArray = useSelector(eventsState);
+    const calendarObject = useSelector(calendarState);
     const history = useHistory();
+
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
             method: 'POST',
@@ -38,18 +43,20 @@ const SearchWeather = () => {
             })
 
     }
+    const populateData = async () => {
+        for (let i = 0; i < calendarObject.events.length; i++) {
+            let id = calendarObject.events[i];
+            await service.getEventById(dispatch, id);
+        }
+    }
+
     useEffect(getProfile, [history]);
-    console.log("this is weather search site")
+    useEffect(() =>  service.findCountCalendarByPersonId(dispatch, user._id), [user]);
+    useEffect(() => populateData(), [calendarObject]);
 
 
-    // const [travelers, setTravelers] = useState([]);
-    // useEffect(() => service.findByType(TRAVELLER, setTravelers), [history])
-    //
-    // const [guides, setGuides] = useState([]);
-    // useEffect(() => service.findByType(TRAVELGUIDE, setGuides), [history])
-    //
-    // const [allUsers, setAllUsers] = useState([]);
-    // useEffect(async () => await setAllUsers([...guides,  ...travelers]), [travelers]);
+    console.log("weather list ", weatherList)
+    console.log("events", eventArray)
 
     const displaySearchBar = () => {
         return <>
@@ -64,6 +71,14 @@ const SearchWeather = () => {
         </>
     }
 
+    const displayUserEventCards = (userEvent) => {
+        return userEvent.map(e =>
+            <div className="card bg-primary mb-2">
+                event: {e.title}
+            </div>
+            )
+    }
+
     const displayWeatherResult = () => {
         return weatherList.map(weather =>
             <>
@@ -76,8 +91,8 @@ const SearchWeather = () => {
                             <small className="text-muted">Day {weather.count}</small>
                         </div>
                     </div>
-                    <div className="col-4 card bg-primary">
-                        This is some text within a card body.
+                    <div className={"col-4"}>
+                        {weather.userEvent.length > 0 ? displayUserEventCards(weather.userEvent) : <></>}
                     </div>
                         <p className="mb-1">
                             temp: {weather.temp} <br/>
