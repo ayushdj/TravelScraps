@@ -3,6 +3,8 @@ import ProfilePage from "./ProfilePage";
 import {useSelector, useDispatch} from "react-redux";
 import service from './service';
 import {useHistory} from "react-router-dom";
+import ScrapPostByPerson from "../ScrapPosts/ScrapPostsByPerson";
+
 const selectProfile = (state) => state.profile;
 
 const ProfileScreen = () => {
@@ -20,13 +22,18 @@ const ProfileScreen = () => {
 
     useEffect(getProfile, [history]);
 
-    return(
-        <div className="row mt-2">
-            <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                 style={{"position": "relative"}}>
-                <ProfilePage profileData={user}/>
+    return (
+        <>
+            <div className="row mt-2">
+                <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                     style={{"position": "relative"}}>
+                    <ProfilePage profileData={user}/>
+                </div>
             </div>
-        </div>
+            <div className="row mt-2">
+                <ScrapPostByPerson/>
+            </div>
+        </>
     );
 };
 export default ProfileScreen;

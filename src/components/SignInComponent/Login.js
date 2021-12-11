@@ -111,7 +111,7 @@ const Login = () => {
                     history.push("/login")
                 } else {
                     history.push("/home")
-                    //window.location.reload()
+                    window.location.reload()
                 }
 
             })
@@ -122,7 +122,9 @@ const Login = () => {
     }
 
     const processRegister = () => {
+        console.log("Inside process register");
         const role = getUserType()
+        console.log("role", role);
 
         const newProfile = {
             firstName: profile.firstName,
@@ -163,10 +165,9 @@ const Login = () => {
                         alert("username already exists! Pick a different username")
                     else {
                         alert("signup success!")
-                        //window.location.reload()
                     }
 
-                }).then(() => getProfilePrivacy())
+                }).then(() => getProfilePrivacy()).then(() => window.location.reload()).catch(error => console.log("Signup failed", error))
         }
     };
 
@@ -190,9 +191,7 @@ const Login = () => {
             .then(user => {
                 setUser(user);
                 history.push(`/privacy`)
-                //window.location.reload();
-            })
-        // .catch(() => history.push('/login'));
+            }).catch((error) => console.log("testing if get profile privacy fails", error));
     }
 
     useEffect(getProfile, [history]);
@@ -213,19 +212,25 @@ const Login = () => {
     };
 
     const getUserType = () => {
+        console.log("Getting user type");
         const radios = document.getElementsByName('user-role');
+        console.log("radios", radios)
         for (const radio of radios) {
+            console.log("Radio", radio.checked);
             if (radio.checked) {
-                //console.log("checked", radio.value)
+                console.log("checked", radio.value)
                 return radio.value;
             }
         }
     }
 
     const handleSubmit = () => {
+        console.log("Trying to sign up");
         if (isSignup) {
+            console.log("Sign up true", isSignup);
             processRegister()
             history.push("/privacy");
+            //window.location.reload();
         } else {
             login()
         }
@@ -262,17 +267,17 @@ const Login = () => {
                                     <div className={"col-4"}>
                                         <input className={"ms-3"} type="radio" value={TRAVELLER}
                                                name="user-role" id="radio-traveler"/><br/>
-                                        <label className={"ms-1"} htmlFor="radio-traveler">Traveler</label>
+                                        <label className={"ms-1"}>Traveler</label>
                                     </div>
                                     <div className="col-4">
                                         <input className={"ms-4"} type="radio" value= {TRAVELGUIDE}
                                                name="user-role" id="radio-guide"/><br/>
-                                        <label className={"ms-1"} htmlFor="radio-guide">Travel guide</label><br/>
+                                        <label className={"ms-1"}>Travel guide</label><br/>
                                     </div>
                                     <div className="col-4">
                                         <input className={"ms-4"} type="radio" value= {ADMIN}
                                                name="user-role" id="radio-admin"/><br/>
-                                        <label className={"ms-1"} htmlFor="radio-admin">Admin</label><br/>
+                                        <label className={"ms-1"}>Admin</label><br/>
                                     </div>
                                 </div>
                             </>

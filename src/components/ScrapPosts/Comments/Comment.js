@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './index.css'
+
 const Comment = ({post, user}) => {
 
 
@@ -11,7 +12,6 @@ const Comment = ({post, user}) => {
     }
 
      */
-    console.log(post);
 
     return (
         <>
@@ -19,23 +19,20 @@ const Comment = ({post, user}) => {
             <ul className={"list-group"}>
                 {
                     post.comments.map((comment) =>
-                        <li className={"list-group-item"} style={{backgroundColor:"black"}}>
+                        <li className={"list-group-item"} style={{backgroundColor: "black"}}>
                             <div className="row">
                                 <div className="col-1">
                                     <img src={user.profilePicture} className="rounded-circle float-start wd-avatar"/>
                                 </div>
                                 <div className="col-11">
-                                    <span style={{marginLeft:"-30px", fontSize:"15px", color:"white"}}>
+                                    <span style={{marginLeft: "-30px", fontSize: "15px", color: "white"}}>
                                          {comment}
                                     </span>
 
                                 </div>
                             </div>
 
-                        </li>
-                    )
-
-                }
+                        </li>)}
             </ul>
         </>
     )

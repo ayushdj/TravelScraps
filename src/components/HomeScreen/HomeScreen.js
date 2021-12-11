@@ -10,6 +10,9 @@ import service from "../CalendarComponent/service";
 import {useDispatch, useSelector} from "react-redux";
 const calendarState = (state) => state.calendar;
 
+import {TRAVELLER} from "../../constants/userConst";
+
+
 const HomeScreen = () => {
     const [user, setUser] = useState({});
     const history = useHistory();
@@ -48,7 +51,7 @@ const HomeScreen = () => {
                 {/*    <WhoToFollowList who={who}/>*/}
                 {/*</div>*/}
 
-                {loggedIn ?  <CountDown user={user}/> : <></>}
+                {loggedIn && user.type === TRAVELLER ?  <CountDown user={user}/> : <></>}
 
                 <div className="row mt-4">
                     <WeatherComponent/>

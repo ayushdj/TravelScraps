@@ -5,6 +5,8 @@ import profileService from '../ProfileScreen/service'
 import Comment from "./Comments/Comment";
 import {useHistory} from "react-router-dom";
 import _ from 'lodash';
+import {ADMIN, TRAVELLER} from "../../constants/userConst";
+import './index.css';
 
 const selectProfile = (state) => state.profile;
 const selectComments = (state) => state.comments;
@@ -121,104 +123,110 @@ const PostItem = ({loggedIn, postData, user}) => {
     }
 
     return (
-        <li className="list-group-item">
-            <div className="row">
-                <div className="col-1">
-                    <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar"/>
-                </div>
-                <div className="col-9">
-                    <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}>@{currentPoster.userName}</span>
-                    <br/>
-                    <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
-                        className="fas fa-street-view"/> {postData.location}</span>
-                </div>
-                <div className="col-1">
-                    {
-                        user._id === postData.person ? <i className="fas fa-trash" onClick={handleDeletePost}/> : <></>
-                    }
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-12 mt-2">
-                    <h5 style={{color: "white"}}><strong>{postData.title}</strong></h5>
-                    {currentPost.text}
-                </div>
-            </div>
-            <div className="row">
-                {
-                    currentPost.images.map(image =>
-                        <li className="list-group-item">
-                            <img src={image}
-                                 className="mt-2 wd-border-radius-20px"
-                                 style={{width: "30%"}} alt={" "}/>
-                        </li>
-                    )
-                }
-            </div>
-            <div className="row">
-                <div className="col-6">
-                    {!liked ? <i onClick={() => handleLikeClick(liked)} className="far fa-thumbs-up"/> :
-                        <i onClick={() => setLiked(!liked)} style={{color: "rgb(29, 161, 242)"}}
-                           className="far fa-thumbs-up"/>
-                    }
+      <>
+          <li className="list-group-item wd-scrapPosts-main">
+              <div className="row">
+                  <div className="col-1">
+                      <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar"/>
+                  </div>
+                  <div className="col-9">
+                      <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}>@{currentPoster.userName}</span>
+                      <br/>
+                      <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
+                          className="fas fa-street-view"/> {postData.location}</span>
+                  </div>
+                  <div className="col-1">
+                      {
+                          user._id === postData.person || user.type === ADMIN ? <i className="fas fa-trash" onClick={handleDeletePost}/> : <></>
+                      }
+                  </div>
+              </div>
+              <div className="row">
+                  <div className="col-12 mt-2">
+                      <h5 style={{color: "white"}}><strong>{postData.title}</strong></h5>
+                      {currentPost.text}
+                  </div>
+              </div>
+              <div className="row">
+                  {
+                      currentPost.images.map(image =>
+                          <li className="list-group-item wd-scrapPosts-picture">
+                              <img src={image}
+                                   className="mt-2 wd-border-radius-20px"
+                                   style={{width: "30%"}} alt={" "}/>
+                          </li>
+                      )
+                  }
+              </div>
+              <div className="row mb-3 mt-2">
+                  <div className="col-6">
+                      {!liked ? <i onClick={() => handleLikeClick(liked)} className="far fa-thumbs-up"/> :
+                          <i onClick={() => setLiked(!liked)} style={{color: "rgb(29, 161, 242)"}}
+                             className="far fa-thumbs-up"/>
+                      }
 
-                    {!liked ? <span className="ts-liked"> Like</span> :
-                        <span> Unlike</span>}
-                </div>
-                <div className="col-6">
+                      {!liked ? <span className="ts-liked"> Like</span> :
+                          <span> Unlike</span>}
+                  </div>
+                  <div className="col-6">
                     <span>
                     <i onClick={() => setClickedComment(!clickedComment)} className="far fa-comment"/>
                         {!clickedComment ? <span> Hide all comments</span> : <span> Show all comments</span>}
                     </span></div>
 
-                {!clickedComment ?
-                    <>
-                        <ul className={"list-group"}>
+                  {!clickedComment ?
+                      <>
+                          <ul className={"list-group mt-2"}>
 
-                            {
-                                selectorComments.map((comment) => comment.post === postData._id ?
-                                    <li className={"list-group-item"} style={{backgroundColor: "black"}}>
-                                        <div className="row">
-                                            <div className="col-1">
-                                                <img src={comment.profilePicture}
-                                                                     className="rounded-circle float-start wd-avatar"/>
-                                            </div>
-                                            <div className="col-10">
+                              {
+                                  selectorComments.map((comment) => comment.post === postData._id ?
+                                      <li className={"list-group-item"} style={{backgroundColor: "black"}}>
+                                          <div className="row">
+                                              <div className="col-1">
+                                                  <img src={comment.profilePicture}
+                                                       className="rounded-circle float-start wd-avatar"/>
+                                              </div>
+                                              <div className="col-10">
                                                 <span style={{
                                                     marginLeft: "-30px",
                                                     fontSize: "15px",
                                                     color: "white"
                                                 }}>{comment.text}</span>
-                                            </div>
-                                            {
-                                                user._id === postData.person || user._id === comment.person ?
-                                                    <div className="col-1" onClick={() => deleteComment(comment)}>
-                                                        <i className="fas fa-times"/>
-                                                    </div> : <></>
-                                            }
-                                        </div>
-                                    </li> : <></>
-                                )
-                            }
-                        </ul>
-                    </>
+                                              </div>
+                                              {
+                                                  user._id === postData.person || user._id === comment.person || user.type === ADMIN ?
+                                                      <div className="col-1" onClick={() => deleteComment(comment)}>
+                                                          <i className="fas fa-times"/>
+                                                      </div> : <></>
+                                              }
+                                          </div>
+                                      </li> : <></>
+                                  )
+                              }
+                          </ul>
+                      </>
 
-                    : <></>
-                }
-                <div className="row mt-2">
-                    <div className="col-12">
+                      : <></>
+                  }
+                  {
+                      !loggedIn || user.type === ADMIN ? <></> :
+                          <div className="row mt-3">
+                              <div className="col-12">
                             <textarea onChange={(event) =>
                                 setNewComment(event.target.value)} placeholder="Add a comment"
                                       className="wd-text col-lg-12 row-10 form-control">
                             </textarea>
-                    </div>
-                    <button onClick={handleCommentAddition} type="button" className="btn btn-primary mt-2">Add Comment
-                    </button>
+                              </div>
+                              <button onClick={handleCommentAddition} type="button" className="btn btn-primary mt-2">Add Comment
+                              </button>
 
-                </div>
+                          </div>
 
-            </div>
-        </li>
+                  }
+              </div>
+          </li>
+          <br/>
+      </>
     )
 }
 
