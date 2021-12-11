@@ -89,6 +89,7 @@ const Navbar = () => {
                 </div>
                 : <></>
             }
+
             {/*{loggedIn ?*/}
             {/*    <div className={classes.brandContainer}>*/}
             {/*        <Typography component={Link} to="/friends" className={classes.heading} variant="h6"*/}
@@ -103,6 +104,14 @@ const Navbar = () => {
                                 align="center">{userType === TRAVELGUIDE ? "Client" : "Users"}</Typography>
                 </div>
 
+                : <></>
+            }
+
+            {loggedIn && userType !== ADMIN ?
+                <div className={classes.brandContainer}>
+                    <Typography component={Link} to="/search" className={classes.heading} variant="h6"
+                                align="center">Weather</Typography>
+                </div>
                 : <></>
             }
 
