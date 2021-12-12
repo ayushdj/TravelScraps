@@ -122,7 +122,7 @@ const Navbar = () => {
 
             {loggedIn && userType !== ADMIN ?
                 <div className={classes.brandContainer}>
-                    <Typography component={Link} to="/bookmarks" className={classes.heading} variant="h6"
+                    <Typography component={Link} to="/likes" className={classes.heading} variant="h6"
                                 align="center">Likes</Typography>
                 </div>
                 : <></>

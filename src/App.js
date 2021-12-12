@@ -25,6 +25,7 @@ import SearchWeather from "./components/SearchComponent/SearchWeather";
 
 import details from "./reducers/details";
 import Details from "./DetailsComponent/Details";
+import LikesByPerson from "./components/Likes/LikesByPerson";
 import ScrapPosts from "./components/ScrapPosts";
 import ScrapPostsReDirect from "./components/ScrapPosts/ScrapPostReDirect";
 import ProfileScreenClicked from "./components/ScrapPosts/ProfileScreenClicked";
@@ -46,9 +47,6 @@ function App() {
                             <Route path={["/", "/home"]} exact={true}>
                                 <HomeScreen/>
                             </Route>
-                            {/*<Route path={["/", "/auth"]} exact={true}>*/}
-                            {/*    <Auth/>*/}
-                            {/*</Route>*/}
                             <Route path={["/profile"]} exact={true}>
                                 <ProfileScreen/>
                             </Route>
@@ -75,6 +73,9 @@ function App() {
                             </Route>
                             <Route path={["/details", "/details/:criteria"]} exact={true}>
                                 <Details/>
+                            </Route>
+                            <Route path={["/likes", "/likes/:id"]} exact={true}>
+                                <LikesByPerson/>
                             </Route>
                             <Route path={["/userProfile/:pid"]} exact={true}>
                                 <ProfileScreenClicked/>
