@@ -10,17 +10,29 @@ export default makeStyles((theme) => ({
         //justifyContent: 'space-between',
         alignItems: 'center',
         padding: '10px 50px',
+        backgroundColor: "white"
     },
     heading: {
+        display: "flex-end",
+        alignItems: "center",
+        padding: "0 1rem",
+        cursor: "pointer",
         color: 'rgba(0,183,255, 1)',
         textDecoration: 'none',
-    },
-    image: {
-        marginLeft: '15px',
+        height: 'auto',
+        "&.active": {
+            backgroundColor: "yellow",
+            color: "red"
+        },
+        "&.hover": {
+            backgroundColor: "yellow",
+            color: "red"
+        }
+
     },
     toolbar: {
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         width: '400px',
     },
     profile: {
