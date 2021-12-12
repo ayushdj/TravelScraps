@@ -45,7 +45,9 @@ const ScrapPostByPerson = () => {
         window.location.reload();
     }
 
+
     let found = posts.filter(p => p.person === user._id).length;
+
     return (
         <div>
             <h1>Posts</h1>
