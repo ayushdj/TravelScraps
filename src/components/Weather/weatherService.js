@@ -26,7 +26,7 @@ const returnWeatherData = (data) => {
 }
 
 export const getMultipleWeather = (city, setWeatherList, eventArray, history, setCityInfo) => {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`)
         .then((response) => (response.json()))
         .then(data => {
             setCityInfo(data.city)
