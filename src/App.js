@@ -25,6 +25,7 @@ import SearchWeather from "./components/SearchComponent/SearchWeather";
 
 import details from "./reducers/details";
 import Details from "./DetailsComponent/Details";
+import LikesByPerson from "./components/Likes/LikesByPerson";
 
 
 const reducer = combineReducers({profile: profile, counter: counter, who: who, scrapPost:scrapPost, calendar: calendar, events: events,
@@ -72,6 +73,9 @@ function App() {
                             </Route>
                             <Route path={["/details", "/details/:criteria"]} exact={true}>
                                 <Details/>
+                            </Route>
+                            <Route path={["/likes", "/likes/:id"]} exact={true}>
+                                <LikesByPerson/>
                             </Route>
 
 

@@ -45,10 +45,11 @@ const updatePostComments = (dispatch, id, newPost) => {
 export const findPostById = (dispatch, post) =>
     fetch(`${URL}/${post}`, {
         method: 'GET',
-        body: JSON.stringify(post),
+        //body: JSON.stringify(post),
+        /*
         headers: {
             'content-type': 'application/json'
-        }
+        }*/
     }).then(response => response.json());
 
 export const findCommentById = (dispatch, id) => {

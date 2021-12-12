@@ -21,6 +21,7 @@ const PostItem = ({loggedIn, postData, user}) => {
     useEffect(() => profileService.findProfileById(dispatch, postData.person).then((profile) => setProfile(profile)), [sizePost]);
     let currentPoster;
 
+    console.log(user);
     if (_.isEqual({}, profile)) {
         currentPoster = {
             userName: "",
@@ -82,9 +83,35 @@ const PostItem = ({loggedIn, postData, user}) => {
 
     const handleLikeClick = (liked) => {
         if (!loggedIn) {
-            history.push('/login')
+            history.push('/login');
         } else {
-            setLiked(!liked)
+            setLiked(!liked);
+        }
+        // if they have unliked the post
+        if (liked === true) {
+            console.log('hi hello Im here');
+            let allLikesByUser = user.likes.filter(each => each !== postData._id);
+            //console.log(allLikesByUser);
+            /*user = {
+                ...user,
+                likes:allLikesByUser,
+            }
+            profileService.updateUser(user, dispatch);*/
+        } if (liked === false) {
+            // add post id to array of likes in person object
+            let allLikesByUser = user.likes;
+            if (!allLikesByUser.includes(postData._id)) {
+                allLikesByUser.push(postData._id);
+                user = {
+                    ...user,
+                    likes:allLikesByUser,
+                }
+                profileService.updateUser(user, dispatch);
+                profileService.updateProfile(profile, dispatch);
+            }
+
+
+            //window.location.reload();
         }
     }
 
