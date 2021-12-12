@@ -45,10 +45,12 @@ const ScrapPostByPerson = () => {
         window.location.reload();
     }
 
+    let found = posts.filter(p => p.person === user._id).length;
     return (
         <div>
+            <h1>Posts</h1>
             {
-                posts.length === 0 ? <></> :
+                found === 0 ? <h2>No Posts!</h2> :
                     posts.filter(p => p.person === user._id).map(post =>
                         <div className="row wd-scrapPosts mb-3">
                             <div className="col-1">

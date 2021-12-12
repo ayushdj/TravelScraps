@@ -102,9 +102,9 @@ const SearchWeather = () => {
                             <small className="text-muted">Day {weather.count}</small>
                         </div>
                         <p className="mb-1">
-                            temp: {weather.temp} <br/>
-                            Humidity: {weather.humidity} <br/>
-                            wind: {weather.wind} <br/>
+                            temp: {weather.temp}°C <br/>
+                            Humidity: {weather.humidity}%<br/>
+                            wind: {weather.wind}km/h<br/>
                         </p>
                         <small className="text-primary">{weather.description}</small>
                     </div>
