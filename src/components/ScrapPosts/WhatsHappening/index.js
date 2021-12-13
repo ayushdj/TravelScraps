@@ -95,7 +95,7 @@ const WhatsHappening = ({loggedIn, user}) => {
                             </input>
                         </div>
                         <div className="col-6">
-                            <input value={title} onChange={(event) =>
+                            <input value={location} onChange={(event) =>
                                 setLocation(event.target.value)} placeholder="Location"
                                    className="wd-text-post col-lg-12 form-control">
                             </input>
