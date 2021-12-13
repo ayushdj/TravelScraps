@@ -60,10 +60,11 @@ const CalendarScreen = () => {
         }
     }
 
-    const addEventToUserCalendar = async(dispatch, newEvent) => {
-        await service.createEvent(dispatch, newEvent)
+    const addEventToUserCalendar = (dispatch, newEvent) => {
+        service.createEvent(dispatch, newEvent)
             .then( (eventId) => {
                 const newCalendar = {...calendarObject, events: [...calendarObject.events, eventId]}
+                console.log("new calendar", newCalendar)
                 service.updateCalendar(dispatch, calendarObject._id, newCalendar)
             }).then(() =>
                 service.findCountCalendarByPersonId(dispatch, calendarObject.person)
@@ -98,7 +99,7 @@ const CalendarScreen = () => {
 
     const handleEventClick = (info) => {
         if (window.confirm("Delete this event?")) {
-            const deletedEvent = eventArray.find((event) => event.title === info.event.title)
+            const deletedEvent = eventArray.find((event) => event._id === info.event.extendedProps._id)
             const newCalendar = {
                 ...calendarObject,
                 events: calendarObject.events.filter((eventId) => eventId !== deletedEvent._id)
