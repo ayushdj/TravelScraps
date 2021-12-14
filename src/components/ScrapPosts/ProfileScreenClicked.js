@@ -15,7 +15,7 @@ const ProfileScreenClicked = () => {
         }).then(res => res.json())
             .then(user => {
                 setUser(user);
-            }).catch(() => history.push('/login'));
+            });
     }
 
     useEffect(getProfile, [history]);

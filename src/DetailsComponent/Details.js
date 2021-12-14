@@ -11,10 +11,11 @@ const Details = () => {
     const details = useSelector(detailsState);
     const {cityInfo, weather} = details
     console.log("details", details)
+    const history = useHistory();
 
     const [posts, setPosts] = useState([]);
     useEffect(() => service.findAllPosts()
-        .then(posts => setPosts(posts.filter(post => post.location.toLowerCase().includes(cityInfo.name.toLowerCase()) ))), []);
+        .then(posts => setPosts(posts.filter(post => post.location.toLowerCase().includes(cityInfo.name.toLowerCase()) ))), [history]);
 
 
     const displayCityDetails = () => {
@@ -52,7 +53,6 @@ const Details = () => {
         </>
     }
     const [user, setUser] = useState({});
-    const history = useHistory();
     const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
             method: 'POST',

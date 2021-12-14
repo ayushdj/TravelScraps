@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {Avatar, Button, Paper, Grid, Typography, Container, Link} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import useStyles from './styles';
 import Input from './Input';
-import {signin, signup} from "../../actions/auth";
 import signUpService from "./signUpService";
 import loginService from "./loginService";
 import calendarService from "../CalendarComponent/service"
