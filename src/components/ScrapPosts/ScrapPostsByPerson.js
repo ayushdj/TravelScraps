@@ -50,25 +50,25 @@ const ScrapPostByPerson = () => {
 
     return (
         <div>
-            <h1>Posts</h1>
+            <h1>My Posts</h1>
             {
                 found === 0 ? <h2>No Posts!</h2> :
                     posts.filter(p => p.person === user._id).map(post =>
-                        <div className="row wd-scrapPosts mb-3">
-                            <div className="col-1">
+                        <div className="row wd-scrapPosts mb-3" >
+                            <div className="col-1" style={{marginTop:"10px", marginLeft:"10px"}}>
                                 <img src={user.profilePicture}
                                      className="rounded-circle float-start wd-avatar"/>
                             </div>
-                            <div className="col-9">
+                            <div className="col-9" style={{marginTop:"10px"}}>
                                 <span style={{
                                     color: "rgb(125, 125, 125)",
-                                    marginLeft: "-20px"
+                                    marginLeft: "-50px"
                                 }}>@{user.userName}</span>
                                 <br/>
-                                <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
+                                <span style={{color: "rgb(125, 125, 125)", marginLeft: "-50px"}}><i
                                     className="fas fa-street-view"/> {user.location}</span>
                             </div>
-                            <div className="col-1">
+                            <div className="col-1" style={{marginTop:"10px", marginLeft:"90px"}}>
                                 {
                                     user._id === post.person || user.type === ADMIN ?
                                         <i className="fas fa-trash" onClick={post => handleDeletePost(post)}/> : <></>
@@ -92,6 +92,7 @@ const ScrapPostByPerson = () => {
                                     )
                                 }
                             </div>
+
                         </div>
                     )}
         </div>
