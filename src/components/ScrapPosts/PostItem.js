@@ -132,9 +132,9 @@ const PostItem = ({loggedIn, postData, user}) => {
                       <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar"/>
                   </div>
                   <div className="col-9">
-                      <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}>@{currentPoster.userName}</span>
+                      <span style={{color: "rgb(125, 125, 125)"}}>@{currentPoster.userName}</span>
                       <br/>
-                      <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
+                      <span style={{color: "rgb(125, 125, 125)"}}><i
                           className="fas fa-street-view"/> {postData.location}</span>
                   </div>
                   <div className="col-1">
@@ -190,7 +190,6 @@ const PostItem = ({loggedIn, postData, user}) => {
                                               </div>
                                               <div className="col-10">
                                                 <span style={{
-                                                    marginLeft: "-30px",
                                                     fontSize: "15px",
                                                     color: "white"
                                                 }}>{comment.text}</span>

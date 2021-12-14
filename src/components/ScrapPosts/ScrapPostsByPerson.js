@@ -62,13 +62,12 @@ const ScrapPostByPerson = () => {
                             <div className="col-9" style={{marginTop:"10px"}}>
                                 <span style={{
                                     color: "rgb(125, 125, 125)",
-                                    marginLeft: "-50px"
                                 }}>@{user.userName}</span>
                                 <br/>
-                                <span style={{color: "rgb(125, 125, 125)", marginLeft: "-50px"}}><i
+                                <span style={{color: "rgb(125, 125, 125)"}}><i
                                     className="fas fa-street-view"/> {user.location}</span>
                             </div>
-                            <div className="col-1" style={{marginTop:"10px", marginLeft:"90px"}}>
+                            <div className="col-1" style={{marginTop:"10px"}}>
                                 {
                                     user._id === post.person || user.type === ADMIN ?
                                         <i className="fas fa-trash" onClick={post => handleDeletePost(post)}/> : <></>

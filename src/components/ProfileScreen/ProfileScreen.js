@@ -25,13 +25,15 @@ const ProfileScreen = () => {
     return (
         <>
             <div className="row mt-2">
-                <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                <div className="col-12"
                      style={{"position": "relative"}}>
                     <ProfilePage profileData={user}/>
                 </div>
             </div>
             <div className="row mt-2">
-                <ScrapPostByPerson/>
+                <div className="col-12">
+                    <ScrapPostByPerson/>
+                </div>
             </div>
         </>
     );

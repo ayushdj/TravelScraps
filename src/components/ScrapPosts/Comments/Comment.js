@@ -19,19 +19,17 @@ const Comment = ({post, user}) => {
             <ul className={"list-group"}>
                 {
                     post.comments.map((comment) =>
-                        <li className={"list-group-item"} style={{backgroundColor: "black"}}>
+                        <li className="list-group-item" style={{backgroundColor: "black"}}>
                             <div className="row">
                                 <div className="col-1">
                                     <img src={user.profilePicture} className="rounded-circle float-start wd-avatar"/>
                                 </div>
                                 <div className="col-11">
-                                    <span style={{marginLeft: "-30px", fontSize: "15px", color: "white"}}>
+                                    <span className="wd-comment">
                                          {comment}
                                     </span>
-
                                 </div>
                             </div>
-
                         </li>)}
             </ul>
         </>
