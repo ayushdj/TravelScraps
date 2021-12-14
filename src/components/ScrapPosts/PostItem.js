@@ -139,7 +139,7 @@ const PostItem = ({loggedIn, postData, user}) => {
                   </div>
                   <div className="col-1">
                       {
-                          user._id === postData.person || user.type === ADMIN ? <i className="fas fa-trash" onClick={handleDeletePost}/> : <></>
+                          user._id === postData.person || user.type === ADMIN ? <i style={{marginLeft:"50px"}} className="fas fa-trash" onClick={handleDeletePost}/> : <></>
                       }
                   </div>
               </div>
@@ -150,6 +150,7 @@ const PostItem = ({loggedIn, postData, user}) => {
                   </div>
               </div>
               <div className="row">
+                  <ul className="list-group-horizontal">
                   {
                       currentPost.images.map(image =>
                           <li className="list-group-item wd-scrapPosts-picture">
@@ -159,21 +160,20 @@ const PostItem = ({loggedIn, postData, user}) => {
                           </li>
                       )
                   }
+                  </ul>
               </div>
               <div className="row mb-3 mt-2">
                   <div className="col-6">
-                      {!liked ? <i onClick={() => handleLikeClick(liked)} className="far fa-thumbs-up"/> :
-                          <i onClick={() => setLiked(!liked)} style={{color: "rgb(29, 161, 242)"}}
-                             className="far fa-thumbs-up"/>
-                      }
 
-                      {!liked ? <span className="ts-liked"> Like</span> :
-                          <span> Unlike</span>}
+                      {!liked ? <button onClick={() => handleLikeClick(liked)} className="col-12 btn btn-primary ts-liked">
+                              <i className="far fa-thumbs-up"/> Like</button> :
+                          <button onClick={() => handleLikeClick(liked)} className="col-12 btn btn-primary"> <i className="far fa-thumbs-up"/> Unlike</button>}
                   </div>
                   <div className="col-6">
                     <span>
-                    <i onClick={() => setClickedComment(!clickedComment)} className="far fa-comment"/>
-                        {!clickedComment ? <span> Hide all comments</span> : <span> Show all comments</span>}
+                        {!clickedComment ? <button className="col-12 btn btn-primary" onClick={() => setClickedComment(!clickedComment)}>
+                            <i className="far fa-comment"/> Hide all comments</button> : <button className="col-12 btn btn-primary" onClick={() => setClickedComment(!clickedComment)}>
+                            <i className="far fa-comment"/> Show all comments</button>}
                     </span></div>
 
                   {!clickedComment ?
