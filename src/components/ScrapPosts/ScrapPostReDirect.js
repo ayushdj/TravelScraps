@@ -77,7 +77,7 @@ const ScrapPostsReDirect = () => {
                 <div>
                     <h1>Posts</h1>
                     {
-                        found === 0 ? <h2>No Posts!</h2> :
+                        found === 0 ? <h2>This user hasn't made any posts yet!</h2> :
                             posts.filter(p => p.person === profile._id).map(post =>
                                 <div className="row wd-scrapPosts mb-3">
                                     <div className="col-1">
@@ -87,10 +87,9 @@ const ScrapPostsReDirect = () => {
                                     <div className="col-9">
                                 <span style={{
                                     color: "rgb(125, 125, 125)",
-                                    marginLeft: "-20px"
                                 }}>@{profile.userName}</span>
                                         <br/>
-                                        <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
+                                        <span style={{color: "rgb(125, 125, 125)"}}><i
                                             className="fas fa-street-view"/> {profile.location}</span>
                                     </div>
 

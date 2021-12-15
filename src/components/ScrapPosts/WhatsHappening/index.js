@@ -57,31 +57,11 @@ const WhatsHappening = ({loggedIn, user}) => {
         }
     }
 
-    // const imageUploader = () => {
-    //     let imagesPreview = function(input, placeToInsertImagePreview) {
-    //         if (input.files) {
-    //             let filesAmount = input.files.length;
-    //             for (let i = 0; i < filesAmount; i++) {
-    //                 let reader = new FileReader();
-    //                 reader.onload = function(event) {
-    //                     $($.parseHTML("<img>"))
-    //                         .attr("src", event.target.result)
-    //                         .appendTo(placeToInsertImagePreview);
-    //                 };
-    //                 reader.readAsDataURL(input.files[i]);
-    //             }
-    //         }
-    //     };
-    //     $("#input-files").on("change", function() {
-    //         imagesPreview(this, "div.preview-images");
-    //     });
-    // }
-
     return (
         <>
 
             <div className="row wd-border">
-                <div className="col-xxl-1 col-xl-1 col-lg-1">
+                <div className="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1">
                     <img src={user.profilePicture}
                          className="rounded-circle float-start wd-avatar" alt={"image"}/>
                 </div>
@@ -122,46 +102,18 @@ const WhatsHappening = ({loggedIn, user}) => {
                 <div className="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
 
                 </div>
-                <div className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                <div className="col-xxl-9 col-xl-9 col-lg-8 col-md-8 col-sm-8 col-xs-4">
 
                     <i className="far fa-image wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
                     <i className="fas fa-chart-line wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
                     <i className="far fa-smile wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
                     <i className="far fa-calendar" style={{color: "rgb(29, 161, 242)"}}/>
 
-                    {/* IMAGE SHIT */}
-                    {/*<div className="container">*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-8 mt-3">*/}
-                    {/*            <form className="mt-4"*/}
-                    {/*                  action="/upload"*/}
-                    {/*                  method="POST"*/}
-                    {/*                  encType="multipart/form-data"*/}
-                    {/*            >*/}
-                    {/*                <div className="form-group">*/}
-                    {/*                    <input*/}
-                    {/*                        type="file"*/}
-                    {/*                        name="file"*/}
-                    {/*                        id="input-files"*/}
-                    {/*                        className="form-control-file border"*/}
-                    {/*                    />*/}
-                    {/*                </div>*/}
-                    {/*                <button type="submit" className="btn btn-primary">Submit</button>*/}
-                    {/*            </form>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*    <hr/>*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-12">*/}
-                    {/*            <div className="preview-images"></div>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
 
                 </div>
 
                 <button onClick={createNewPost} type="submit"
-                        className="wd-tweet-button2 btn btn-primary float-end rounded-pill col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">
+                        className="wd-tweet-button2 btn btn-primary float-end rounded-pill col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     Post
                 </button>
             </div>

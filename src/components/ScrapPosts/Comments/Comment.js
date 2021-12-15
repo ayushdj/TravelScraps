@@ -25,7 +25,7 @@ const Comment = ({post, user}) => {
                                     <img src={user.profilePicture} className="rounded-circle float-start wd-avatar"/>
                                 </div>
                                 <div className="col-11">
-                                    <span style={{marginLeft: "-30px", fontSize: "15px", color: "white"}}>
+                                    <span style={{fontSize: "15px", color: "white"}} className="wd-comment">
                                          {comment}
                                     </span>
 

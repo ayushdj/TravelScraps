@@ -132,9 +132,9 @@ const PostItem = ({loggedIn, postData, user}) => {
                       <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar"/>
                   </div>
                   <div className="col-9">
-                      <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}>@{currentPoster.userName}</span>
+                      <span style={{color: "rgb(125, 125, 125)"}}>@{currentPoster.userName}</span>
                       <br/>
-                      <span style={{color: "rgb(125, 125, 125)", marginLeft: "-20px"}}><i
+                      <span style={{color: "rgb(125, 125, 125)"}}><i
                           className="fas fa-street-view"/> {postData.location}</span>
                   </div>
                   <div className="col-1">
@@ -163,13 +163,7 @@ const PostItem = ({loggedIn, postData, user}) => {
                   </ul>
               </div>
               <div className="row mb-3 mt-2">
-                  <div className="col-6">
-
-                      {!liked ? <button onClick={() => handleLikeClick(liked)} className="col-12 btn btn-primary ts-liked">
-                              <i className="far fa-thumbs-up"/> Like</button> :
-                          <button onClick={() => handleLikeClick(liked)} className="col-12 btn btn-primary"> <i className="far fa-thumbs-up"/> Unlike</button>}
-                  </div>
-                  <div className="col-6">
+                  <div className="col-12">
                     <span>
                         {!clickedComment ? <button className="col-12 btn btn-primary" onClick={() => setClickedComment(!clickedComment)}>
                             <i className="far fa-comment"/> Hide all comments</button> : <button className="col-12 btn btn-primary" onClick={() => setClickedComment(!clickedComment)}>
@@ -190,7 +184,6 @@ const PostItem = ({loggedIn, postData, user}) => {
                                               </div>
                                               <div className="col-10">
                                                 <span style={{
-                                                    marginLeft: "-30px",
                                                     fontSize: "15px",
                                                     color: "white"
                                                 }}>{comment.text}</span>

@@ -18,7 +18,7 @@ const ScrapPosts = ({user}) => {
     return (
         <>
             {loggedIn && user.type !== ADMIN
-                ? <div>
+                ? <div className={"col-12"}>
                     <WhatsHappening loggedIn={loggedIn} user={user}/>
                 </div> : <></>
             }

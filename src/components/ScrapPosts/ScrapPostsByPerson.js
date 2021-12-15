@@ -52,7 +52,7 @@ const ScrapPostByPerson = () => {
         <div>
             <h1>My Posts</h1>
             {
-                found === 0 ? <h2>No Posts!</h2> :
+                found === 0 ? <h2>You do not have any posts yet!</h2> :
                     posts.filter(p => p.person === user._id).map(post =>
                         <div className="row wd-scrapPosts mb-3" >
                             <div className="col-1" style={{marginTop:"10px", marginLeft:"10px"}}>
@@ -61,14 +61,13 @@ const ScrapPostByPerson = () => {
                             </div>
                             <div className="col-9" style={{marginTop:"10px"}}>
                                 <span style={{
-                                    color: "rgb(125, 125, 125)",
-                                    marginLeft: "-50px"
+                                    color: "rgb(125, 125, 125)"
                                 }}>@{user.userName}</span>
                                 <br/>
-                                <span style={{color: "rgb(125, 125, 125)", marginLeft: "-50px"}}><i
+                                <span style={{color: "rgb(125, 125, 125)"}}><i
                                     className="fas fa-street-view"/> {user.location}</span>
                             </div>
-                            <div className="col-1" style={{marginTop:"10px", marginLeft:"90px"}}>
+                            <div className="col-1" style={{marginTop:"10px"}}>
                                 {
                                     user._id === post.person || user.type === ADMIN ?
                                         <i className="fas fa-trash" onClick={post => handleDeletePost(post)}/> : <></>

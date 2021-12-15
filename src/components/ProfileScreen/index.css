@@ -88,7 +88,7 @@
 @media (min-width: 0px) and (max-width: 575px) {
     .pos-profile {
         position: absolute;
-        top: 50px;
+        top: 140px;
         left: 30px;
     }
 
@@ -103,7 +103,7 @@
 @media (min-width: 576px) and (max-width: 767px) {
     .pos-profile {
         position: absolute;
-        top: 90px;
+        top: 130px;
         left: 40px;
     }
 
@@ -118,7 +118,7 @@
 @media (min-width: 768px) and (max-width: 991px) {
     .pos-profile {
         position: absolute;
-        top: 120px;
+        top: 180px;
         left: 50px;
     }
 
@@ -133,7 +133,7 @@
 @media (min-width: 992px) and (max-width: 1199px) {
     .pos-profile {
         position: absolute;
-        top: 140px;
+        top: 250px;
         left: 40px;
     }
 
@@ -149,7 +149,7 @@
 
     .pos-profile {
         position: absolute;
-        top: 300px;
+        top: 270px;
         left: 45px;
     }
 
