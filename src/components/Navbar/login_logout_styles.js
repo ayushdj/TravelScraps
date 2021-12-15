@@ -57,9 +57,6 @@ export default makeStyles((theme) => ({
         color: 'rgba(0,183,255, 1)'
     },
     logoutButton: {
-        position: "relative",
-        right: 0,
-        display: "flex",
-        flexDirection: "row"
+
     },
 }));
