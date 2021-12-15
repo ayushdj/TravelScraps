@@ -104,7 +104,7 @@ const updateTravelerCalendar = (id, newCalendar) => {
     }).then(response => response.json())
 }
 
-export const deleteEvent = (dispatch, eventId, newCalendar, calendarId) => {
+const deleteEvent = (dispatch, eventId, newCalendar, calendarId) => {
     fetch(`${EVENT_URL}/${eventId}`, {
         method: 'DELETE'
     }).then(response => {return response.json()})

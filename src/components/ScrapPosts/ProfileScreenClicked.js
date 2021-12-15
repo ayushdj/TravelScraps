@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from "react";
-import ProfilePage from "../ProfileScreen/ProfilePage";
 import {useHistory} from "react-router-dom";
 import ScrapPostReDirect from "./ScrapPostReDirect";
 
-const selectProfile = (state) => state.profile;
 
 const ProfileScreenClicked = () => {
     const [user, setUser] = useState({});

@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import './countdown.css';
 import service from "./service";
 import {useDispatch} from "react-redux";
-import _ from "lodash";
 
 let counter;
 let newDate;
@@ -20,11 +19,11 @@ const CountDown = ({user}) => {
         if(counter.time !== null) {
             setCount(counter.time[0]);
         }
-        startTimer();
+        await startTimer();
         return () => {
             clearInterval(interval.current);
         }
-    }, [counter]);
+    }, [counter, dispatch, user._id]);
 
     const startTimer = () => {
         let countdown;

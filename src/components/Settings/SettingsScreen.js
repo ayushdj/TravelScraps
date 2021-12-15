@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import service from "../ProfileScreen/service";
 import {Link, useHistory} from "react-router-dom";
 import {emptyUser} from "../../constants/userConst";
@@ -64,7 +64,7 @@ const SettingsScreen = () => {
         setValues({...values, password: event.target.value});
     }
 
-    const userNameSaveChanges = (event) => {
+    const userNameSaveChanges = () => {
         if (values._id === "") {
             alert("User is not logged in!")
         } else {

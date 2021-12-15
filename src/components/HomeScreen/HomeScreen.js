@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from "react";
 import HomeComponent from "./HomeComponent";
-import WhoToFollowList from "../WhoToFollow/WhoToFollowList";
-import who from "../../reducers/data/who.json"
 import CountDown from "../CountDownComponent/CountDown";
 import {useHistory} from "react-router-dom";
 import WeatherComponent from "../Weather/WeatherComponent";
-import _ from "lodash";
 import service from "../CalendarComponent/service";
 import {useDispatch, useSelector} from "react-redux";
 import {TRAVELLER} from "../../constants/userConst";
@@ -25,7 +22,6 @@ const HomeScreen = () => {
             .then(user => {
                 setUser(user);
             })
-            // }).catch(() => history.push('/login'));
     }
     const loggedIn = JSON.stringify(user) !== "{}"
     useEffect(getProfile, [history]);
@@ -39,7 +35,7 @@ const HomeScreen = () => {
             await service.getEventById(dispatch, id);
         }
     }
-    useEffect(() => getAllEvents(), [calendarObject])
+    useEffect(() => getAllEvents(), [calendarObject, dispatch])
 
     return (
         <div className={"row mt-2"}>
@@ -48,12 +44,7 @@ const HomeScreen = () => {
                 <HomeComponent user={user}/>
             </div>
             <div className={"d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4"}>
-                {/*<div className="row mb-4">*/}
-                {/*    <WhoToFollowList who={who}/>*/}
-                {/*</div>*/}
-
                 {loggedIn && user.type === TRAVELLER ?  <CountDown user={user}/> : <></>}
-
                 <div className="row mt-4">
                     <WeatherComponent/>
                 </div>

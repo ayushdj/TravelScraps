@@ -18,21 +18,6 @@ const CarouselComponent = () => {
             .then(carousels => setCarousels(carousels))
     },[]);
 
-    // reference for creating/deleting data
-    const deleteCarousel = (carousel) =>
-        service.deleteCarousel(carousel._id)
-            .then(() => setCarousels(
-                carousels.filter(c => c !== carousel)));
-
-    const createCarousel = () =>
-        service.createCarousel({location: "", image: "http://www.portofinoselecta.com/images/joomlart/demo/default.jpg"})
-            .then(actualCarousel =>
-                setCarousels([
-                    actualCarousel, ...carousels
-                ]));
-
-
-
     const rightArrow = () => {
         setSlide((slide + 1) % length);
     }

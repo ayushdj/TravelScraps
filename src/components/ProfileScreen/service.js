@@ -13,7 +13,7 @@ const findProfileById = (dispatch, id) =>
 
         .catch(err => console.error(err));
 
-export const updateProfile = (profile, dispatch) => {
+const updateProfile = (profile, dispatch) => {
     fetch(`${URL}/${profile._id}`, {
         method: 'PUT',
         body: JSON.stringify(profile),
@@ -28,7 +28,7 @@ export const updateProfile = (profile, dispatch) => {
 }
 
 
-export const updateUser = (user, dispatch) => {
+const updateUser = (user, dispatch) => {
     fetch(`${USER_URL}`, {
         method: 'PUT',
         body: JSON.stringify(user),
@@ -41,13 +41,13 @@ export const updateUser = (user, dispatch) => {
     })).then(window.location.reload);
 }
 
-export const deleteProfile = (profileID) => {
+const deleteProfile = (profileID) => {
     fetch(`${URL}/${profileID}`, {
         method: 'DELETE'
     })
 }
 
-export const deleteUser = (userID) => {
+const deleteUser = (userID) => {
     fetch(`${USER_URL}/${userID}`, {
         method: 'DELETE'
     })

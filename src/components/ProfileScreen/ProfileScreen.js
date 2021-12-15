@@ -1,11 +1,7 @@
 import React, {useState, useEffect} from "react";
 import ProfilePage from "./ProfilePage";
-import {useSelector, useDispatch} from "react-redux";
-import service from './service';
 import {useHistory} from "react-router-dom";
 import ScrapPostByPerson from "../ScrapPosts/ScrapPostsByPerson";
-
-const selectProfile = (state) => state.profile;
 
 const ProfileScreen = () => {
     const [user, setUser] = useState({});

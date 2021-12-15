@@ -1,14 +1,9 @@
 import {Link, useHistory} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Avatar, Button, Container, Grid, Paper, Typography} from "@material-ui/core";
-import {useDispatch} from "react-redux";
 import useStyles from "../Auth/styles";
-import signUpService from "../Auth/signUpService";
-import loginService from "../Auth/loginService";
-import calendarService from "../CalendarComponent/service";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Style"
-import countDownService from "../CountDownComponent/service";
 import {ADMIN, TRAVELGUIDE, TRAVELLER} from "../../constants/userConst"
 
 const initialState = {
@@ -115,9 +110,6 @@ const Login = () => {
                 }
 
             })
-        // alert(`this is promise ${promise}`)
-        // history.push('/home');
-        // window.location.reload();
 
     }
 
@@ -194,7 +186,7 @@ const Login = () => {
             }).catch((error) => console.log("testing if get profile privacy fails", error));
     }
 
-    useEffect(getProfile, [history]);
+    useEffect(getProfile, [history, user._id]);
 
     const [profile, setProfile] = useState(initialState);
 
@@ -230,7 +222,6 @@ const Login = () => {
             console.log("Sign up true", isSignup);
             processRegister()
             history.push("/privacy");
-            //window.location.reload();
         } else {
             login()
         }

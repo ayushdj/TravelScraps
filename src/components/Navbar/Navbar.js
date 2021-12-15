@@ -6,18 +6,14 @@ import {
     NavLink,
     Bars,
     NavMenu,
-    NavBtn,
-    NavBtnLink
 } from './navLinkStyles';
-import {AppBar, Typography, Toolbar, Avatar, Button} from '@material-ui/core';
-import {Link, useHistory, useLocation} from 'react-router-dom';
-import {ADMIN, emptyUser, TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
+import {Button} from '@material-ui/core';
+import {useHistory} from 'react-router-dom';
+import {ADMIN, TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
 
 import useStyles from "./login_logout_styles";
 
-const _ = require("lodash");
 const Navbar = () => {
-    const location = useLocation();
     const classes = useStyles();
     const [userType, setUserType] = useState(TRAVELLER);
     const [user, setUser] = useState({});

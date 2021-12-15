@@ -7,7 +7,7 @@ import service from "./service";
 import {useHistory} from "react-router-dom";
 import './calendar.css'
 import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
-import Input from "../Auth/Input";
+import Input from "../SignInComponent/Style";
 
 const calendarState = (state) => state.calendar;
 const eventsState = (state) => state.events;
@@ -19,7 +19,7 @@ const CalendarScreen = () => {
     const [user, setUser] = useState({});
     const [guideTitle, setGuideTitle] = useState("")
     const history = useHistory();
-    const getProfile = async () => {
+    const getProfile = () => {
         fetch(`http://localhost:4000/api/profile`, {
             method: 'POST',
             credentials: 'include'
@@ -38,7 +38,7 @@ const CalendarScreen = () => {
     const dispatch = useDispatch();
     let eventNum = calendarObject.events.length;
 
-    useEffect(() =>  service.findCountCalendarByPersonId(dispatch, user._id), [user]);
+    useEffect(() =>  service.findCountCalendarByPersonId(dispatch, user._id), [user, dispatch]);
 
 
     const populateData = async () => {
@@ -48,7 +48,7 @@ const CalendarScreen = () => {
         }
     }
 
-    useEffect(() => populateData(), [eventNum]);
+    useEffect(() => populateData(), [eventNum, dispatch]);
 
 
     const handleTravelerDateClick = (dateClickInfo) => {

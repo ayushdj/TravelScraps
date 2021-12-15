@@ -1,7 +1,6 @@
 import React from 'react';
 import "./privacy.css"
 
-const _ = require("lodash");
 const Privacy = () => {
     
     const currentDate = () => {

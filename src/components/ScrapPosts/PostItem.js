@@ -5,7 +5,7 @@ import profileService from '../ProfileScreen/service'
 import Comment from "./Comments/Comment";
 import {useHistory} from "react-router-dom";
 import _ from 'lodash';
-import {ADMIN, TRAVELLER} from "../../constants/userConst";
+import {ADMIN} from "../../constants/userConst";
 import './index.css';
 
 const selectProfile = (state) => state.profile;
@@ -96,7 +96,7 @@ const PostItem = ({loggedIn, postData, user}) => {
 
 
     let numComments = postData.comments.length;
-    const [comments, setComments] = useState(selectorComments);
+    //const [comments, setComments] = useState(selectorComments);
 
 
     const populateComments = async () => {
@@ -129,7 +129,7 @@ const PostItem = ({loggedIn, postData, user}) => {
           <li className="list-group-item wd-scrapPosts-main">
               <div className="row">
                   <div className="col-1" onClick={() => handleAvatarClicker(currentPoster._id)}>
-                      <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar"/>
+                      <img src={currentPoster.profilePicture} className="rounded-circle float-start wd-avatar" alt="profile picture"/>
                   </div>
                   <div className="col-9">
                       <span style={{color: "rgb(125, 125, 125)"}}>@{currentPoster.userName}</span>

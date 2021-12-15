@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import service from '../service';
 import {Link, useHistory} from "react-router-dom";
 import {Form} from "react-bootstrap";
@@ -9,7 +9,6 @@ import Location from "./components/Location/Location";
 import Website from "./components/Website/Website";
 import Bio from "./components/Bio/Bio";
 import Birthday from "./components/Birthday/Birthday";
-const selectProfile = (state) => state.profile;
 
 const EditProfile = () => {
 
@@ -27,23 +26,10 @@ const EditProfile = () => {
     }
     useEffect(getProfile, [history]);
 
-    //const history = useHistory();
     let dispatch = useDispatch();
 
-
-    // Creating state variables
-    // let [values, setValues] = useState({
-    //     firstName:user.firstName,
-    //     lastName:user.lastName,
-    //     bio:user.bio,
-    //     location:user.location,
-    //     website:user.website,
-    //     dateOfBirth:user.dateOfBirth,
-    //     email:user.email,
-    //     userName:user.userName
-    // })
     let [values, setValues] = useState({});
-    //setValues(user);
+
 
     // violations
     const [violations, setViolations] = useState({
@@ -94,7 +80,7 @@ const EditProfile = () => {
         setValues({...values, dateOfBirth:event.target.value});
     }
 
-    const handleSaveChanges = (event) => {
+    const handleSaveChanges = () => {
         //if (values.firstName.length !== 0 && values.lastName.length !== 0 && violations.bioViolation === false) {
         const json = {
             _id: user._id,
@@ -112,7 +98,6 @@ const EditProfile = () => {
         }
         service.updateProfile(json, dispatch);
         service.updateUser(json, dispatch);
-        //window.location.reload();
         logout();
         login();
     }
@@ -135,7 +120,6 @@ const EditProfile = () => {
             credentials: 'include'
         }).then(() => {
             history.push('/profile');
-            //window.location.reload();
         });
 
 
@@ -144,7 +128,6 @@ const EditProfile = () => {
     return (
         <div className="row mt-2">
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                {/*<ChangeProfile user={user}/>*/}
                 <>
                     <Form onSubmit={handleSaveChanges}>
                         <div className="row">

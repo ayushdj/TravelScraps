@@ -1,28 +1,8 @@
 import React from "react";
-import {useDispatch} from "react-redux";
-import "../index.css"
-import EditProfile from "../EditProfile";
+import "../index.css";
 import {Link} from "react-router-dom";
 
 const ProfilePage = ({profileData}) => {
-    const dispatch = useDispatch();
-
-    const formatDate = (dateString) => {
-        switch (dateString.split("/").length) {
-            case 2:
-                const dateSplit = dateString.split("/")
-                const newDateString = dateSplit[0] + "/1/" + dateSplit[1]
-                return new Date(newDateString).toLocaleDateString('en-us', {month: "long", year: "numeric"})
-            default:
-                return new Date(dateString).toLocaleDateString('en-us', {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric"
-                })
-
-        }
-    }
-
 
     return (
         <div>
@@ -77,18 +57,7 @@ const ProfilePage = ({profileData}) => {
                     </div>
                 </div>
                 <br/>
-
             </div>
-
-
-            {/*<h2>Screen size</h2>*/}
-            {/*<div className="d-block d-sm-none fa-2x">XS</div>*/}
-            {/*<div className="d-none d-sm-block d-md-none fa-2x">S</div>*/}
-            {/*<div className="d-none d-md-block d-lg-none fa-2x">M</div>*/}
-            {/*<div className="d-none d-lg-block d-xl-none fa-2x">L</div>*/}
-            {/*<div className="d-none d-xl-block d-xxl-none fa-2x">XL</div>*/}
-            {/*<div className="d-none d-xxl-block fa-2x">XXL</div>*/}
-
         </div>
     );
 }

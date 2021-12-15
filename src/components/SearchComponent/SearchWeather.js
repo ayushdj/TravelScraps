@@ -1,14 +1,8 @@
-import {Link, useHistory, useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import service from "../CalendarComponent/service";
-import profileService from "../ProfileScreen/service";
-
-import {TRAVELGUIDE, TRAVELLER} from "../../constants/userConst";
-import {getMultipleWeather, getWeather} from "../Weather/weatherService";
+import {getMultipleWeather} from "../Weather/weatherService";
 import {useDispatch, useSelector} from "react-redux";
-import {AUTH} from "../../constants/actionTypes";
-
-const TYPE_URL = 'http://localhost:4000/db/type';
 const calendarState = (state) => state.calendar;
 const eventsState = (state) => state.events;
 
@@ -58,13 +52,6 @@ const SearchWeather = () => {
     useEffect(() => populateData(), [calendarObject]);
 
 
-    console.log("weather list ", weatherList)
-    console.log("events", eventArray)
-
-    const onDetailClick = (event) => {
-        console.log("detail click", event)
-    }
-
     const displaySearchBar = () => {
         return <>
             <input type ="text"
@@ -108,9 +95,6 @@ const SearchWeather = () => {
                         </p>
                         <small className="text-primary">{weather.description}</small>
                     </div>
-
-
-
                     <div className={"col-4"}>
                         {weather.userEvent.length > 0 ? displayUserEventCards(weather.userEvent) : <></>}
                     </div>
@@ -119,9 +103,6 @@ const SearchWeather = () => {
             </>
             )
     }
-
-
-
     return (
         <>
             {displaySearchBar()}

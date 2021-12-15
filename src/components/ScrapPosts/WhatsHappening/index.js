@@ -1,44 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import './index.css';
-import {useDispatch, useSelector} from "react-redux";
-import profileService from "../../ProfileScreen/service";
 import service from '../service';
 import {useHistory} from "react-router-dom";
 
-const selectProfile = (state) => state.profile;
-
-
 const WhatsHappening = ({loggedIn, user}) => {
-    const history = useHistory()
-    /*
-    const selectorProfile = useSelector(selectProfile);
-    useEffect(() => profileService.findProfileById(dispatch, postData.person), []);
-     */
-    const dispatch = useDispatch();
+    const history = useHistory();
 
     const [whatsHappening, setWhatsHappening] = useState("");
     const [location, setLocation] = useState("");
     const [title, setTitle] = useState("");
 
-    const handleWhatsHappening = (event) => {
-        setWhatsHappening(event.target.value);
-    }
-
     const createNewPost = () => {
-
-        /*
-        {
-    title: String,
-    location: String,
-    tags: Array,
-    text: String,
-    travelPlan: String,
-    images: Array,
-    comments: Array,
-    person: String,
-}
-         */
-
         if (!loggedIn) {
             history.push('/login')
         } else {
@@ -108,35 +80,6 @@ const WhatsHappening = ({loggedIn, user}) => {
                     <i className="fas fa-chart-line wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
                     <i className="far fa-smile wd-imageIcon" style={{color: "rgb(29, 161, 242)"}}/>
                     <i className="far fa-calendar" style={{color: "rgb(29, 161, 242)"}}/>
-
-                    {/* IMAGE SHIT */}
-                    {/*<div className="container">*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-8 mt-3">*/}
-                    {/*            <form className="mt-4"*/}
-                    {/*                  action="/upload"*/}
-                    {/*                  method="POST"*/}
-                    {/*                  encType="multipart/form-data"*/}
-                    {/*            >*/}
-                    {/*                <div className="form-group">*/}
-                    {/*                    <input*/}
-                    {/*                        type="file"*/}
-                    {/*                        name="file"*/}
-                    {/*                        id="input-files"*/}
-                    {/*                        className="form-control-file border"*/}
-                    {/*                    />*/}
-                    {/*                </div>*/}
-                    {/*                <button type="submit" className="btn btn-primary">Submit</button>*/}
-                    {/*            </form>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*    <hr/>*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-12">*/}
-                    {/*            <div className="preview-images"></div>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
 
                 </div>
 

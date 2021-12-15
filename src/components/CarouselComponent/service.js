@@ -1,15 +1,15 @@
 const URL = 'http://localhost:4000/db/carousel/service';
 
-export const findAllCarousels = () =>
+const findAllCarousels = () =>
     fetch(URL)
         .then(response => response.json());
 
-export const deleteCarousel = (id) =>
+const deleteCarousel = (id) =>
     fetch(`${URL}/${id}`, {
         method: 'DELETE',
     });
 
-export const createCarousel = (carousel) =>
+const createCarousel = (carousel) =>
     fetch(URL, {
         method: 'POST',
         body: JSON.stringify(carousel),
@@ -18,12 +18,12 @@ export const createCarousel = (carousel) =>
         }
     }).then(response => response.json());
 
-export const findCarouselById = (id) =>
+const findCarouselById = (id) =>
     fetch(`${URL}/${id}`)
         .then(response => response.json())
         .catch(err => console.error(err));
 
-export const updateCarousel = (carousel) =>
+const updateCarousel = (carousel) =>
     fetch(`${URL}/${carousel._id}`, {
         method: 'PUT',
         body: JSON.stringify(carousel),
